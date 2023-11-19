@@ -1,4 +1,4 @@
-CREATE TABLE User4 (
+CREATE TABLE IF NOT EXISTS User4 (
     pid INTEGER PRIMARY KEY,
     birthdate DATE,
     birthplace VARCHAR(50),
@@ -7,17 +7,17 @@ CREATE TABLE User4 (
     profile_pic LONGBLOB
 );
 
-CREATE TABLE User3 (
+CREATE TABLE IF NOT EXISTS User3 (
     username VARCHAR(50),
     birthdate DATE,
     age INTEGER,
     PRIMARY KEY (username, birthdate),
-    FOREIGN KEY (username) REFERENCES USER4(username)
+    FOREIGN KEY (username) REFERENCES User4(username)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );
 
-CREATE TABLE User2 (
+CREATE TABLE IF NOT EXISTS User2 (
     username VARCHAR(50) PRIMARY KEY,
     name VARCHAR(300) NOT NULL,
     FOREIGN KEY (username) REFERENCES User4(username)
@@ -25,7 +25,7 @@ CREATE TABLE User2 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE User1 (
+CREATE TABLE IF NOT EXISTS User1 (
     username VARCHAR(50) PRIMARY KEY,
     email VARCHAR(300) NOT NULL,
     FOREIGN KEY (username) REFERENCES User4(username)
@@ -33,7 +33,7 @@ CREATE TABLE User1 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Follows (
+CREATE TABLE IF NOT EXISTS Follows (
     followerid INTEGER,
     followeeid INTEGER,
     follow_date DATE NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Follows (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Artist2 (
+CREATE TABLE IF NOT EXISTS Artist2 (
     pid INTEGER PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     birthdate DATE,
@@ -59,7 +59,7 @@ CREATE TABLE Artist2 (
     UNIQUE (name, birthdate, is_dead)
 );
 
-CREATE TABLE Artist1 (
+CREATE TABLE IF NOT EXISTS Artist1 (
     name VARCHAR(50),
     birthdate DATE,
     is_dead BOOLEAN,
@@ -70,7 +70,7 @@ CREATE TABLE Artist1 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Review2 (
+CREATE TABLE IF NOT EXISTS Review2 (
     rid INTEGER,
     pid INTEGER,
     review_date DATETIME,
@@ -84,7 +84,7 @@ CREATE TABLE Review2 (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Review1 (
+CREATE TABLE IF NOT EXISTS Review1 (
     review_date DATETIME,
     likes INTEGER,
     dislikes INTEGER,
@@ -95,7 +95,7 @@ CREATE TABLE Review1 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Comment2 (
+CREATE TABLE IF NOT EXISTS Comment2 (
     comment_date DATETIME,
     review_text VARCHAR(5000) NOT NULL,
     likes INTEGER NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE Comment2 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Comment1 (
+CREATE TABLE IF NOT EXISTS Comment1 (
     comment_date DATETIME,
     likes INTEGER,
     dislikes INTEGER,
@@ -123,20 +123,20 @@ CREATE TABLE Comment1 (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Album (
+CREATE TABLE IF NOT EXISTS Album (
     album_name VARCHAR(100),
     release_date DATE,
     isSingle BOOLEAN NOT NULL,
     genre VARCHAR(50) NOT NULL,
     duration INTEGER NOT NULL,
-    cover LONGBLOB NOT NULL,
+    cover LONGBLOB NULL,
     number_of_songs INTEGER NOT NULL,
     PRIMARY KEY (album_name, release_date),
     UNIQUE (album_name, duration),
     UNIQUE (album_name, number_of_songs)
 );
 
-CREATE TABLE Song (
+CREATE TABLE IF NOT EXISTS Song (
     song_name VARCHAR(100),
     release_date DATE,
     duration INTEGER NOT NULL,
@@ -145,7 +145,9 @@ CREATE TABLE Song (
     UNIQUE (song_name, duration)
 );
 
-CREATE TABLE AlbumSong (
+ALTER TABLE Song ADD FULLTEXT INDEX index_table_on_song_name (song_name);
+
+CREATE TABLE IF NOT EXISTS AlbumSong (
     album_name VARCHAR(100),
     album_release_date DATE,
     song_name VARCHAR(100),
@@ -159,7 +161,7 @@ CREATE TABLE AlbumSong (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE ArtistAlbum (
+CREATE TABLE IF NOT EXISTS ArtistAlbum (
     pid INTEGER,
     album_name VARCHAR(100),
     release_date DATE,
@@ -172,7 +174,7 @@ CREATE TABLE ArtistAlbum (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE ArtistSong (
+CREATE TABLE IF NOT EXISTS ArtistSong (
     pid INTEGER,
     song_name VARCHAR(100),
     release_date DATE,
@@ -185,7 +187,7 @@ CREATE TABLE ArtistSong (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE AlbumReview (
+CREATE TABLE IF NOT EXISTS AlbumReview (
     pid INTEGER,
     rid INTEGER,
     album_name VARCHAR(100),
@@ -200,7 +202,7 @@ CREATE TABLE AlbumReview (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE SongReview (
+CREATE TABLE IF NOT EXISTS SongReview (
     pid INTEGER,
     rid INTEGER,
     song_name VARCHAR(100),
@@ -215,15 +217,15 @@ CREATE TABLE SongReview (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE Playlist (
+CREATE TABLE IF NOT EXISTS Playlist (
     playlist_name VARCHAR(50),
     creation_date DATE,
-    image LONGBLOB NOT NULL,
+    image LONGBLOB NULL,
     description VARCHAR(5000),
     PRIMARY KEY (playlist_name, creation_date)
 );
 
-CREATE TABLE PlaylistSong (
+CREATE TABLE IF NOT EXISTS PlaylistSong (
     playlist_name VARCHAR(50),
     creation_date DATE,
     song_name VARCHAR(100),
@@ -237,7 +239,7 @@ CREATE TABLE PlaylistSong (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE UserChart (
+CREATE TABLE IF NOT EXISTS UserChart (
     ucid INTEGER,
     userchart_name VARCHAR(50) NOT NULL,
     image LONGBLOB,
@@ -248,7 +250,7 @@ CREATE TABLE UserChart (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE UserChartAlbum (
+CREATE TABLE IF NOT EXISTS UserChartAlbum (
     ucid INTEGER,
     pid INTEGER,
     album_name VARCHAR(100),
@@ -263,7 +265,7 @@ CREATE TABLE UserChartAlbum (
       ON UPDATE CASCADE
 );
 
-CREATE TABLE UserChartReview (
+CREATE TABLE IF NOT EXISTS UserChartReview (
     ucid INTEGER,
     uc_pid INTEGER,
     rv_pid INTEGER,
