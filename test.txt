@@ -1,0 +1,2672 @@
+    1  brew  tap  mactex-no-gui
+    2  brew --cask install mactex-no-gui
+    3  brew install mactex-no-gui
+    4  brew --cask install mactex-no-gui
+    5  brew install mactex-no-gui --cask
+    6  brew install --cask mactex-no-gui
+    7  bash
+    8  brew install --cask mactex-no-gui
+    9  ls
+   10  zathura test.pdf
+   11  exit
+   12  zathura test.pdf
+   13  ls
+   14  xit
+   15  exit
+   16  defaults write -g com.apple.mouse.scaling -float 5.0
+   17  z 221
+   18  ls
+   19  z 212
+   20  ls
+   21  c
+   22  python3 test.py
+   23  it status
+   24  git status
+   25  git clone https://github.com/WhiteBlackGoose/nvim-latex-preconfig.git
+   26  ls
+   27  netsh wlan show profiles
+   28  ls
+   29  clear
+   30  ls
+   31  vim .bash_profile
+   32  captionStart
+   33  captionServer
+   34  clear
+   35  ls
+   36  z nvim
+   37  ls
+   38  cd ..
+   39  ls
+   40  rm -rf nvim
+   41  z Projects
+   42  ls
+   43  z nvim
+   44  ls
+   45  cd ..
+   46  l
+   47  ls
+   48  rm -rf nvim
+   49  ls
+   50  pwd
+   51  ls
+   52  z Pr
+   53  z Projects
+   54  ls
+   55  cp nvim /Users/ardi/.config
+   56  cp -rf nvim /Users/ardi/.config
+   57  z config
+   58  ls
+   59  cd nvim
+   60  ls
+   61  nvim
+   62  z 212
+   63  ls
+   64  nvim
+   65  /Applications/QOwnNotes.app/Contents/MacOS/QOwnNotes ; exit;
+   66  clera
+   67  clear
+   68  s
+   69  clear
+   70  ls
+   71  cd
+   72  ls
+   73  clear
+   74  ls
+   75  cd tools
+   76  ls
+   77  cd os161
+   78  ls
+   79  clear
+   80  ls
+   81  mkdir src
+   82  ls
+   83  mkdir root
+   84  ls
+   85  clear
+   86  ls
+   87  cd src
+   88  ./configure --ostree=$HOME/os161/root
+   89  cd
+   90  ls
+   91  clear
+   92  ls
+   93  rm -rf tools
+   94  ls
+   95  clear
+   96  ls
+   97  bash
+   98  ls
+   99  clear
+  100  ls
+  101  clear
+  102  ls
+  103  rm -rf os161
+  104  rm -rf sys161
+  105  ls
+  106  clear
+  107  ls
+  108  mkdir tools
+  109  ls
+  110  bash ./cs161-ubuntu-darwin.sh
+  111  ls
+  112  cd ~/os161/src
+  113  clear
+  114  ls
+  115  clear
+  116  ls
+  117  echo "# os161" >> README.md
+  118  mkdir os161
+  119  ls
+  120  mkdir os161/src
+  121  ls
+  122  wget http://ece.ubc.ca/\~os161/download/os161-CPEN331-base-2016.tar.gz
+  123  cd os161/src
+  124  tar -xvzf ../../os161-CPEN331-base-2016.tar.gz
+  125  ls
+  126  git init
+  127  git remote add origin https://github.com/username/os161.git
+  128  git add *
+  129  git commit -m 'Initial commit of os161 for CPEN331'
+  130  git push -u origin master
+  131  ls
+  132  git status
+  133  git add --all
+  134  git status
+  135  ls
+  136  ps
+  137  git status
+  138  git remote add origin https://github.com/aftahiArdi/os161.git
+  139  ls
+  140  cd ..
+  141  ls
+  142  cd ..
+  143  ls
+  144  rm -rf os161
+  145  ls
+  146  clear
+  147  neofetch
+  148  clear
+  149  ls
+  150  mkdir os161
+  151  ls
+  152  cd os161/sr
+  153  cd os161/src
+  154  ls
+  155  cd os161
+  156  ls
+  157  cd ..
+  158  ls
+  159  cd os161/src
+  160  ls
+  161  mkdir os161/src
+  162  ls
+  163  clera
+  164  clear
+  165  ls
+  166  cd os161
+  167  ls
+  168  wget http://ece.ubc.ca/\~os161/download/os161-CPEN331-base-2016.tar.gz
+  169  cd os161/src
+  170  ls
+  171  cd src
+  172  ls
+  173  tar -xvzf ../../os161-CPEN331-base-2016.tar.gz
+  174  ls
+  175  git init
+  176  git remote add origin https://github.com/aftahi/os161.git
+  177  git remote add origin https://github.com/aftahiArdi/os161.git
+  178  cd ..
+  179  ls
+  180  cd ..
+  181  ls
+  182  rm -rf os161
+  183  ls
+  184  mkdir os161/src
+  185  mkdir os161
+  186  mkdir os161/src
+  187  ls
+  188  clear
+  189  ls
+  190  clear
+  191  ls
+  192  cd os161
+  193  clear
+  194  ;ls
+  195  wget http://ece.ubc.ca/\~os161/download/os161-CPEN331-base-2016.tar.gz
+  196  cd os161/src
+  197  ls
+  198  rm os161-CPEN331-base-2016.tar.gz
+  199  ls
+  200  cd 
+  201  wget http://ece.ubc.ca/\~os161/download/os161-CPEN331-base-2016.tar.gz
+  202  cd os161/src
+  203  tar -xvzf ../../os161-CPEN331-base-2016.tar.gz
+  204  ls
+  205  cd ..
+  206  ls
+  207  cd src
+  208  ls
+  209  git init
+  210  git remote add origin https://github.com/aftahiArdi/os161.git
+  211  git add *
+  212  git commit -m 'Initial commit of os161 for CPEN331'
+  213  git push -u origin master
+  214  l
+  215  ls
+  216  neofetch
+  217  clear
+  218  git config --global user.name "Aftahi Ardi"
+  219  lls
+  220  clear
+  221  ls
+  222  ./configure --ostree=$HOME/os161/root
+  223  ls
+  224  bmake
+  225  cd ..
+  226  ls
+  227  bmak
+  228  bmake
+  229  cd src
+  230  ls
+  231  bmake install
+  232  ls
+  233  cd root
+  234  ls
+  235  cd build
+  236  ls
+  237  cd ..
+  238  ls
+  239  rm -rf build
+  240  ls
+  241  rm -rf defs.mk
+  242  ls
+  243  mkdir root
+  244  ./configure --ostree=$HOME/os161/root
+  245  ls
+  246  cd root
+  247  ls
+  248  cd ..
+  249  ls
+  250  bmake
+  251  bmake install
+  252  ls
+  253  ./config DUMBVM
+  254  ls
+  255  cd build
+  256  ls
+  257  cd ind
+  258  cd install
+  259  ls
+  260  cd ..
+  261  ls
+  262  cd ..
+  263  ls
+  264  cd ..
+  265  ls
+  266  cd root
+  267  ls
+  268  cd ..
+  269  ls
+  270  cd src
+  271  ls
+  272  cd root
+  273  ls
+  274  rm -rf root
+  275  ls
+  276  clear
+  277  ls
+  278  cd ..
+  279  ls
+  280  cd ..
+  281  ls
+  282  cd root
+  283  ls
+  284  cd include
+  285  ls
+  286  cd ..
+  287  ls
+  288  cd hostinclude
+  289  ls
+  290  clear
+  291  ls
+  292  cd ..
+  293  ls
+  294  cd ..
+  295  ls
+  296  cd root
+  297  ls
+  298  cler
+  299  clear
+  300  ls
+  301  cd ..
+  302  ls
+  303  cd src
+  304  cd kern
+  305  ls
+  306  cd compile
+  307  ls
+  308  ./config DUMBVM
+  309  clear
+  310  cd ..
+  311  ls
+  312  cd ..
+  313  ls
+  314  clear
+  315  ls
+  316  cd root
+  317  ls
+  318  cd ..
+  319  ls
+  320  cd ..
+  321  ls
+  322  cd src
+  323  ls
+  324  bmake install
+  325  claer
+  326  ls
+  327  cd ..
+  328  ls
+  329  cd rm -rf root
+  330  ls
+  331  clear
+  332  rm -rf src
+  333  ls
+  334  cd ..
+  335  ls
+  336  cd os161
+  337  ls
+  338  mkdir src
+  339  ls
+  340  cd
+  341  ls
+  342  wget http://ece.ubc.ca/\~os161/download/os161-CPEN331-base-2016.tar.gz
+  343  cd os161/src
+  344  tar -xvzf ../../os161-CPEN331-base-2016.tar.gz
+  345  ls
+  346  cd ..
+  347  ls
+  348  cd src
+  349  ls
+  350  ./configure --ostree=$HOME/os161/root
+  351  ls
+  352  bmake
+  353  ls
+  354  bmake install
+  355  cd ..
+  356  ls
+  357  cd src
+  358  ls
+  359  cd build
+  360  ls
+  361  cd install
+  362  ls
+  363  cd ..
+  364  ls
+  365  cd config
+  366  cd configure
+  367  ls
+  368  cd man
+  369  ls
+  370  cd ..
+  371  ls
+  372  clear
+  373  ls
+  374  cd build
+  375  ls
+  376  cd ..
+  377  ls
+  378  cd ..
+  379  ls
+  380  cd root
+  381  ls
+  382  cd include
+  383  ls
+  384  cd ..
+  385  ;s
+  386  ls
+  387  cd hostinclude
+  388  ls
+  389  cd ..
+  390  ls
+  391  cd ..
+  392  tree
+  393  ls
+  394  cd src
+  395  ls
+  396  cd kern
+  397  ls
+  398  cd compile
+  399  ls
+  400  cd ..
+  401  ls
+  402  cd conf
+  403  ls
+  404  ./config DUMBVM
+  405  ls
+  406  cd
+  407  ls
+  408  bmake
+  409  depend
+  410  bmake depend
+  411  bmake
+  412  clean
+  413  ls
+  414  ostree
+  415  clear
+  416  ls
+  417  tree
+  418  cd ..
+  419  ls
+  420  cd ..
+  421  ls
+  422  tree
+  423  cd ..
+  424  ls
+  425  tree
+  426  ls
+  427  tree > test.txt
+  428  ls
+  429  nvim test.txt
+  430  ls
+  431  cd ./config DUMBVM
+  432  ls
+  433  cd kern
+  434  ls
+  435  cd compile
+  436  ls
+  437  cd DUMBVM
+  438  s
+  439  ls
+  440  cd ..
+  441  ls
+  442  cd ..
+  443  ls
+  444  cd conf
+  445  ls
+  446  ./config DUMBVM
+  447  cd ..
+  448  ls
+  449  cd ..
+  450  ls
+  451  z 221
+  452  z src
+  453  z os161
+  454  clear
+  455  ls
+  456  cd ..
+  457  l;s
+  458  ls
+  459  cd os161
+  460  ls
+  461  cd 
+  462  ls
+  463  cd os16
+  464  cd os161
+  465  clear
+  466  ls
+  467  cd src
+  468  ls
+  469  cd kern
+  470  ls
+  471  cd compile
+  472  cd DUMBVM
+  473  ls
+  474  bmake depend
+  475  bmake
+  476  bmake install
+  477  cd root
+  478  z root
+  479  ls
+  480  z root
+  481  cd ..
+  482  l
+  483  ls
+  484  cd ..
+  485  ls
+  486  cd ..
+  487  ls
+  488  cd ..
+  489  ls
+  490  cd root
+  491  ls
+  492  cd ..
+  493  ls
+  494  cd src
+  495  ls
+  496  cd ..
+  497  ;s
+  498  ls
+  499  tree
+  500  nvim
+  501  ls
+  502  cd os161
+  503  ls
+  504  cd src
+  505  ls
+  506  bmake
+  507  s
+  508  ls
+  509  cd ..
+  510  ls
+  511  cd ..
+  512  ls
+  513  cd tols
+  514  cd tools
+  515  ls
+  516  cd os161
+  517  ls
+  518  cd mips-harvard-os161
+  519  ls
+  520  cd ..
+  521  ls
+  522  cd ..
+  523  ls
+  524  cd sys161
+  525  ls
+  526  cd ..
+  527  ls
+  528  cd os161
+  529  ls
+  530  cd bin
+  531  ls
+  532  cd ..
+  533  ls
+  534  clear
+  535  ls
+  536  cd share
+  537  ls
+  538  cd ..
+  539  ls
+  540  cd ..
+  541  ls
+  542  cd ..
+  543  ls
+  544  cd os161
+  545  ls
+  546  cd src
+  547  ls
+  548  make
+  549  clear
+  550  ls
+  551  cd
+  552  ls
+  553  nvim cs161-ubuntu-darwin.sh
+  554  z gcc-
+  555  z gcc-4
+  556  cd
+  557  ls
+  558  cd ..
+  559  ls
+  560  cd ..
+  561  ls
+  562  cd usr
+  563  ls
+  564  cd bin
+  565  ls
+  566  cd gcc
+  567  ls
+  568  which gcc
+  569  cd /usr/bin/gcc
+  570  ls
+  571  rm -rf tools
+  572  ls
+  573  touch \ncs161-ubuntu-darwin.sh 
+  574  nvim cs161-ubuntu-darwin.sh
+  575  bash ./cs161-ubuntu-darwin.sh
+  576  mkdir tools
+  577  bash ./cs161-ubuntu-darwin.sh
+  578  ls
+  579  cd tools
+  580  ls
+  581  cd ..
+  582  ls
+  583  bash
+  584  onkeytype
+  585  monkeytype
+  586  z UAS
+  587  claer
+  588  clear
+  589  ls
+  590  nvim
+  591  z nvim
+  592  z lua
+  593  nvim
+  594  z UAS
+  595  nvim
+  596  z thread
+  597  z src
+  598  nvim
+  599  z UAS
+  600  ls
+  601  cd src
+  602  ls
+  603  nvim
+  604  clear
+  605  z kitty
+  606  clear
+  607  ls
+  608  nvim kitty.conf
+  609  clear
+  610  ls
+  611  brew install helix
+  612  clear
+  613  ls
+  614  hx
+  615  z root
+  616  clear
+  617  ls
+  618  z src
+  619  clear
+  620  ls
+  621  cd kern
+  622  ls
+  623  cd thread
+  624  ls
+  625  clear
+  626  ls
+  627  hx synch.c
+  628  clear
+  629  nvim
+  630  z nvim
+  631  nvim
+  632  ls
+  633  z config
+  634  clear
+  635  ls
+  636  nvim
+  637  z root
+  638  clear
+  639  ls
+  640  clear
+  641  z root
+  642  sys161 kernel
+  643  sys161 -w kernel
+  644  mips-harvard-os161-gdb 
+  645  cd
+  646  nvim .gdbinit
+  647  clear
+  648  ls
+  649  z root
+  650  nvim .gdbinit
+  651  chsh -s /bin/zsh
+  652  clear
+  653  nvim .zshrc
+  654  ls
+  655  ls -a
+  656  nvim .zprofile
+  657  clear
+  658  ls
+  659  z root
+  660  clear
+  661  ls
+  662  nvim .gdbinit
+  663  clear
+  664  z root
+  665  sys161 -w kernel
+  666  cd 
+  667  nvim .bash_profile
+  668  nvim .zshrc
+  669  z root
+  670  sys161 -w kernel
+  671  clear
+  672  ls
+  673  z root
+  674  mips-harvard-os161-gdb 
+  675  sys161 -w kernel
+  676  mips-harvard-os161-gdb kernel
+  677  clear
+  678  ls
+  679  cd ..
+  680  ls
+  681  clear
+  682  ls
+  683  cd src
+  684  ls
+  685  clear
+  686  ls
+  687  neofetch
+  688  z root
+  689  clear
+  690  ks
+  691  clear
+  692  ls
+  693  sys161  kernel
+  694  clear
+  695  ls
+  696  clear
+  697  ls
+  698  z src
+  699  nvim
+  700  clear
+  701  ls
+  702  z nvim
+  703  z config
+  704  cd nvim
+  705  ls
+  706  nvim
+  707  clear
+  708  ls
+  709  nvim
+  710  _zlua src
+  711  nvim
+  712  git status
+  713  clear
+  714  ls
+  715  z kitty
+  716  nvim
+  717  clear
+  718  ls
+  719  clear
+  720  z sr
+  721  clear
+  722  ls
+  723  nvim
+  724  clear
+  725  ls
+  726  nvim
+  727  git status
+  728  nvim
+  729  nvim 
+  730  clear
+  731  git status
+  732  git pull
+  733  clear
+  734  nvim
+  735  z UAS
+  736  ls
+  737  nvim
+  738  clear
+  739  ls
+  740  cd
+  741  clera
+  742  clear
+  743  z ssh
+  744  ls
+  745  z src
+  746  clera
+  747  clear
+  748  ls
+  749  nvim
+  750  clear
+  751  z src
+  752  nvim
+  753  clear
+  754  ls
+  755  z src
+  756  clera
+  757  clear
+  758  git status
+  759  git add kern/include/fd_entry.h\n\tkern/include/fd_table.h\n\tkern/proc/fd_entry.c\n\tkern/proc/fd_table.c
+  760  sudo git add kern/include/fd_entry.h\n\tkern/include/fd_table.h\n\tkern/proc/fd_entry.c\n\tkern/proc/fd_table.c
+  761  \n\tkern/proc/fd_table.c
+  762  ls
+  763  git add /kern/include/fd_entry.h\n\t/kern/include/fd_table.h\n\t/kern/proc/fd_entry.c\n\t/kern/proc/fd_table.c
+  764  git add /kern/include/fd_entry.h
+  765  clera\n
+  766  git add /kern/include/fd_entry.h
+  767  git add kern/include/fd_entry.h
+  768  git add kern/include/fd_table.h
+  769  clear
+  770  z src
+  771  clear
+  772  ls
+  773  git status
+  774  git stage
+  775  clear
+  776  git status
+  777  git add kern/proc/fd_entry.c
+  778  git add kern/proc/fd_table.c
+  779  git commit -m "progress on file table header files and file table code"
+  780  git push 
+  781  clear
+  782  ls
+  783  _zlua src
+  784  clear
+  785  ls
+  786  cd kern
+  787  ls
+  788  cd conf
+  789  ls
+  790  ./config DUMBVM
+  791  cd ..
+  792  _zlua DUMB
+  793  clear
+  794  ls
+  795  bmake depend
+  796  bmake
+  797  z DUM
+  798  clear
+  799  bmake
+  800  bmake depend
+  801  bmake
+  802  z confg
+  803  z conf
+  804  z kern
+  805  ls
+  806  cd con
+  807  cd conf
+  808  ls
+  809  ./config DUMBVM
+  810  z DUM
+  811  clear
+  812  ls
+  813  bmak
+  814  bmake depend
+  815  bmake 
+  816  _zlua DUMB
+  817  clear
+  818  _zlua src
+  819  clear
+  820  ls
+  821  git add kern/arch/mips/syscall/syscall.c
+  822  git status
+  823  git commit -m "more progress on implementing syscalls"
+  824  git push
+  825  _zlua DUMB
+  826  clear
+  827  ls
+  828  clear
+  829  bmake
+  830  ls
+  831  clear
+  832  ls
+  833  cd ..
+  834  ls
+  835  _zlua conf
+  836  clear
+  837  ls
+  838  _zlua src
+  839  ls
+  840  cd kern
+  841  cd conf
+  842  ls
+  843  nvim config
+  844  clear
+  845  ls
+  846  nvim conf.kern
+  847  ./config DUMBVM
+  848  ls
+  849  ./config DUMBVM
+  850  nvim conf.kern
+  851  ./config DUMBVM
+  852  _zlua DUMB
+  853  clear
+  854  bmake depend
+  855  bmake
+  856  bmake install
+  857  bmake
+  858  _zlua src
+  859  clear
+  860  ls
+  861  git status
+  862  git commit -m "code compiles, implementation for sys_open, sys_read, sys_close, changed conf.kern to add new files"
+  863  git push
+  864  clear
+  865  _zlua sr
+  866  clear
+  867  git status
+  868  clear
+  869  git commit -m "changes"
+  870  git push
+  871  cd ..
+  872  ls
+  873  _zlua src
+  874  cd kern/
+  875  ls
+  876  cd compile
+  877  ls
+  878  cd ..
+  879  ls
+  880  cd conf
+  881  ls
+  882  nvim conf.kern
+  883  ls
+  884  cd src
+  885  z DUM
+  886  bmake depend
+  887  bmake
+  888  clear
+  889  ls
+  890  clear
+  891  ls
+  892  bmake
+  893  bmake install
+  894  z root
+  895  sys161  kernel
+  896  _zlua root
+  897  clear
+  898  sys161 kernel
+  899  cd ..
+  900  ls
+  901  cd src
+  902  ls
+  903  _zlua DUMB
+  904  clear
+  905  ls
+  906  bmake
+  907  clear
+  908  ls
+  909  bmake install
+  910  ls
+  911  clear
+  912  ls
+  913  clear
+  914  ls
+  915  cd ..
+  916  ls
+  917  clear
+  918  ls
+  919  cd ..
+  920  ls
+  921  _zlua DUMB
+  922  clear
+  923  ls
+  924  bmake
+  925  bmake install
+  926  _zlua root
+  927  mips-harvard-os161-gdb kernel
+  928  sys161 - wkernel
+  929  sys161 -w kernel
+  930  _zlua DUMB
+  931  bmake
+  932  bmake install
+  933  sys161 -w kernel
+  934  mips-harvard-os161-gdb kernel
+  935  sys161  kernel
+  936  z DUM
+  937  bmake depend
+  938  bmake
+  939  bmake install
+  940  sys161 -w kernel
+  941  mips-harvard-os161-gdb kernel
+  942  sys161 -w kernel
+  943  mips-harvard-os161-gdb kernel
+  944  sys161 -w kernel
+  945  mips-harvard-os161-gdb kernel
+  946  clear
+  947  bmake depend
+  948  bmake
+  949  bmake install
+  950  sys161 kernel
+  951  sys161 -w kernel
+  952  mips-harvard-os161-gdb kernel
+  953  bmake depend
+  954  bmake
+  955  bmake install
+  956  mips-harvard-os161-gdb kernel
+  957  sys161 -w kernel
+  958  mips-harvard-os161-gdb kernel
+  959  sys161 -w kernel
+  960  mips-harvard-os161-gdb kernel
+  961  bmake depend
+  962  bmake
+  963  bmake install
+  964  sys161  kernel
+  965  sys161 -w kernel
+  966  mips-harvard-os161-gdb kernel
+  967  sys161 -w kernel
+  968  clear
+  969  bmake depend
+  970  bmake
+  971  bmake depend
+  972  bmake
+  973  bmake depend
+  974  bmake
+  975  bmake install
+  976  sys161  kernel
+  977  sys161  -w kernel
+  978  mips-harvard-os161-gdb kernel
+  979  sys161  kernel
+  980  sys161  -w kernel
+  981  mips-harvard-os161-gdb kernel
+  982  _zlua src
+  983  nvim
+  984  mips-harvard-os161-gdb kernel
+  985  sys161  kernel
+  986  _zlua root
+  987  sys161 -w kernel
+  988  mips-harvard-os161-gdb kernel
+  989  z userland
+  990  cd ..
+  991  ls
+  992  cd src
+  993  cd kern
+  994  ls
+  995  cd ..
+  996  ls
+  997  cd userland
+  998  ls
+  999  cd testbin
+ 1000  ls
+ 1001  cd fsyscalltest/
+ 1002  ls
+ 1003  pwd
+ 1004  sys161 -w kernel
+ 1005  mips-harvard-os161-gdb kernel
+ 1006  sys161 -w kernel
+ 1007  mips-harvard-os161-gdb kernel
+ 1008  sys161 -w kernel
+ 1009  mips-harvard-os161-gdb kernel
+ 1010  z DUM
+ 1011  bmake
+ 1012  bmake depend
+ 1013  bmake
+ 1014  bmake install
+ 1015  sys161 kernel
+ 1016  clear
+ 1017  z DUM
+ 1018  bmake depend
+ 1019  z DUM
+ 1020  bmake depend
+ 1021  bmake
+ 1022  bmake install
+ 1023  sys161  kernel
+ 1024  bmake depend
+ 1025  bmake
+ 1026  bmake install
+ 1027  sys161  kernel
+ 1028  bmake depend
+ 1029  bmake
+ 1030  bmake install
+ 1031  sys161  kernel
+ 1032  sys161 -w kernel
+ 1033  mips-harvard-os161-gdb kernel
+ 1034  sys161 -w kernel
+ 1035  mips-harvard-os161-gdb kernel
+ 1036  bmake depend
+ 1037  clear
+ 1038  bmake
+ 1039  clear
+ 1040  bmake install
+ 1041  _zlua DUM
+ 1042  bmake 
+ 1043  bmake
+ 1044  bmake install
+ 1045  sys161 -w kernel
+ 1046  mips-harvard-os161-gdb kernel
+ 1047  claer
+ 1048  clear
+ 1049  z root
+ 1050  clar
+ 1051  clear
+ 1052  z root
+ 1053  clear
+ 1054  sys161 -w kernel
+ 1055  mips-harvard-os161-gdb kernel
+ 1056  clear
+ 1057  z DUM
+ 1058  bmake
+ 1059  bmake install
+ 1060  sys161 -w kernel
+ 1061  mips-harvard-os161-gdb kernel
+ 1062  sys161 -w kernel
+ 1063  mips-harvard-os161-gdb kernel
+ 1064  z DUK
+ 1065  z DUM
+ 1066  clear
+ 1067  bmake depend
+ 1068  bmake
+ 1069  bmake install
+ 1070  clear
+ 1071  sys161 -w kernel
+ 1072  mips-harvard-os161-gdb kernel
+ 1073  bm
+ 1074  bmake depend
+ 1075  bmake
+ 1076  bmake install
+ 1077  bmake depend
+ 1078  bmake
+ 1079  bmake install
+ 1080  bmake depend
+ 1081  bmake
+ 1082  bmake install
+ 1083  bmake depend
+ 1084  bmake
+ 1085  bmake install
+ 1086  bmake depend
+ 1087  bmake
+ 1088  bmake install
+ 1089  clear
+ 1090  sys161 kernel
+ 1091  bmake depend
+ 1092  bmake
+ 1093  bmake install
+ 1094  sys161 kernel
+ 1095  sys161 -w kernel
+ 1096  clear
+ 1097  mips-harvard-os161-gdb kernel
+ 1098  bmake depend
+ 1099  bmake
+ 1100  bmake install
+ 1101  sys161 kernel
+ 1102  c
+ 1103  z root
+ 1104  sys161 kernel
+ 1105  bmake depend
+ 1106  bmake
+ 1107  bmake install
+ 1108  sys161 kernel
+ 1109  z root
+ 1110  clear
+ 1111  kls
+ 1112  clear
+ 1113  ls
+ 1114  bmake depend
+ 1115  bmake
+ 1116  bmake install
+ 1117  sys161 -w kernel
+ 1118  clear
+ 1119  mips-harvard-os161-gdb kernel
+ 1120  clear
+ 1121  sys161 -w kernel
+ 1122  mips-harvard-os161-gdb kernel
+ 1123  clear
+ 1124  clear
+ 1125  sys161 -w kernel
+ 1126  mips-harvard-os161-gdb kernel
+ 1127  clear
+ 1128  sys161 -w kernel
+ 1129  mips-harvard-os161-gdb kernel
+ 1130  clear
+ 1131  z DUM
+ 1132  bmake depend
+ 1133  bmake
+ 1134  bmake install
+ 1135  sys161 kernel
+ 1136  clear
+ 1137  sys161 -w kernel
+ 1138  mips-harvard-os161-gdb kernel
+ 1139  sys161 -w kernel
+ 1140  mips-harvard-os161-gdb kernel
+ 1141  clear
+ 1142  sys161 -w kernel
+ 1143  mips-harvard-os161-gdb kernel
+ 1144  sys161 -w kernel
+ 1145  mips-harvard-os161-gdb kernel
+ 1146  clear
+ 1147  bmake depend
+ 1148  bmake
+ 1149  bmake install
+ 1150  bmake depend
+ 1151  bmake
+ 1152  bmake install
+ 1153  bmake depend
+ 1154  bmake
+ 1155  bmake install
+ 1156  z root
+ 1157  sys161 -w kernel
+ 1158  mips-harvard-os161-gdb kernel
+ 1159  clear
+ 1160  bmake depend
+ 1161  bmake
+ 1162  bmake install
+ 1163  sys161 kernel
+ 1164  sys161 - w kernel
+ 1165  sys161 -w kernel
+ 1166  mips-harvard-os161-gdb kernel
+ 1167  clear
+ 1168  bmake depend
+ 1169  bmake
+ 1170  bmake install
+ 1171  clear
+ 1172  sys161 kernel
+ 1173  sys161 -w kernel
+ 1174  clear
+ 1175  sys161 -w kernel
+ 1176  mips-harvard-os161-gdb kernel
+ 1177  _zlua src
+ 1178  clear
+ 1179  nvim
+ 1180  c;ear
+ 1181  clear
+ 1182  c
+ 1183  sys161 -w kernel
+ 1184  mips-harvard-os161-gdb kernel
+ 1185  sys161 -w kernel
+ 1186  mips-harvard-os161-gdb kernel
+ 1187  sys161 -w kernel
+ 1188  clear
+ 1189  mips-harvard-os161-gdb kernel
+ 1190  c
+ 1191  sys161 -w kernel
+ 1192  mips-harvard-os161-gdb kernel
+ 1193  clear
+ 1194  bmake depend
+ 1195  bmake
+ 1196  bmake install
+ 1197  sys161 kernel
+ 1198  sys161 -w kernel
+ 1199  mips-harvard-os161-gdb kernel
+ 1200  clear
+ 1201  sys161 -w kernel
+ 1202  mips-harvard-os161-gdb kernel
+ 1203  sys161 -w kernel
+ 1204  mips-harvard-os161-gdb kernel
+ 1205  clear
+ 1206  mips-harvard-os161-gdb kernel
+ 1207  sys161 -w kernel
+ 1208  mips-harvard-os161-gdb kernel
+ 1209  clear
+ 1210  _zlua DUMB
+ 1211  clear
+ 1212  z DUM
+ 1213  bmake depend
+ 1214  bmake
+ 1215  bmake install
+ 1216  sys161 -w kernel
+ 1217  mips-harvard-os161-gdb kernel
+ 1218  bmake depend
+ 1219  bmake
+ 1220  bmake install
+ 1221  clear
+ 1222  sys161 -w kernel
+ 1223  mips-harvard-os161-gdb kernel
+ 1224  clear
+ 1225  bmake depend
+ 1226  bmake
+ 1227  bmake install
+ 1228  sys161 -w kernel
+ 1229  sys161 kernel
+ 1230  c
+ 1231  bmake depend
+ 1232  bmake
+ 1233  bmake install
+ 1234  bmake depend
+ 1235  bmake
+ 1236  bmake install
+ 1237  sys161 kernel
+ 1238  bm
+ 1239  bmake depend
+ 1240  bmake
+ 1241  bmake install
+ 1242  sys161 kernel
+ 1243  bmake depend
+ 1244  bmake
+ 1245  bmake install
+ 1246  sys161 kernel
+ 1247  bmake depend
+ 1248  bmake
+ 1249  bmake install
+ 1250  sys161 kernel
+ 1251  sys161 -w kernel
+ 1252  mips-harvard-os161-gdb kernel
+ 1253  clear
+ 1254  sys161 -w kernel
+ 1255  mips-harvard-os161-gdb kernel
+ 1256  bmake depend
+ 1257  bmake
+ 1258  bmake install
+ 1259  sys161 kernel
+ 1260  bm
+ 1261  bmake depend
+ 1262  bmake
+ 1263  bmake install
+ 1264  sys161 kernel
+ 1265  z src
+ 1266  clar
+ 1267  clear
+ 1268  git status
+ 1269  git commit -m "fixed some sh**"
+ 1270  git push
+ 1271  z root
+ 1272  clear
+ 1273  sys161 kernel
+ 1274  bmake depend
+ 1275  bmake
+ 1276  bmake install
+ 1277  bmake depend
+ 1278  bmake
+ 1279  bmake install
+ 1280  bmake depend
+ 1281  bmake
+ 1282  bmake install
+ 1283  bmake depend
+ 1284  bmake
+ 1285  bmake install
+ 1286  bmake depend
+ 1287  bmake
+ 1288  bmake install
+ 1289  sys161 kernel
+ 1290  sys161 -w kernel
+ 1291  c
+ 1292  mips-harvard-os161-gdb kernel
+ 1293  sys161 -w kernel
+ 1294  c
+ 1295  clar
+ 1296  clear
+ 1297  mips-harvard-os161-gdb kernel
+ 1298  clear
+ 1299  clar
+ 1300  clear
+ 1301  bmake depend
+ 1302  bmake
+ 1303  bmake install
+ 1304  sys161 kernel
+ 1305  sys161 -w kernel
+ 1306  mips-harvard-os161-gdb kernel
+ 1307  bmake depend
+ 1308  bmake
+ 1309  bmake install
+ 1310  sys161 -w kernel
+ 1311  mips-harvard-os161-gdb kernel
+ 1312  sys161 -w kernel
+ 1313  clear
+ 1314  sys161 -w kernel
+ 1315  mips-harvard-os161-gdb kernel
+ 1316  bmake depend
+ 1317  bmake
+ 1318  bmake install
+ 1319  sys161 -w kernel
+ 1320  mips-harvard-os161-gdb kernel
+ 1321  bmake depend
+ 1322  bmake
+ 1323  bmake install
+ 1324  clera
+ 1325  clear
+ 1326  sys161 kernel
+ 1327  sys161 -w kernel
+ 1328  clear
+ 1329  mips-harvard-os161-gdb kernel
+ 1330  sys161 -w kernel
+ 1331  mips-harvard-os161-gdb kernel
+ 1332  bmake depend
+ 1333  bmake
+ 1334  bmake install
+ 1335  clear
+ 1336  mips-harvard-os161-gdb kernel
+ 1337  clear
+ 1338  sys161 -w kernel
+ 1339  bm
+ 1340  bmake depend
+ 1341  bmake
+ 1342  bmake install
+ 1343  sys161 -w kernel
+ 1344  mips-harvard-os161-gdb kernel
+ 1345  sys161 -w kernel
+ 1346  mips-harvard-os161-gdb kernel
+ 1347  bm
+ 1348  bmake depend
+ 1349  bmake
+ 1350  bmake install
+ 1351  sys161 kernel
+ 1352  sys161 -w kernel
+ 1353  mips-harvard-os161-gdb kernel
+ 1354  sys161 -w kernel
+ 1355  mips-harvard-os161-gdb kernel
+ 1356  sys161 -w kernel
+ 1357  gd
+ 1358  mips-harvard-os161-gdb kernel
+ 1359  bmake depend
+ 1360  bmake
+ 1361  bmake install
+ 1362  bmake depend
+ 1363  bmake
+ 1364  bmake install
+ 1365  sys161 kernel
+ 1366  bmake depend
+ 1367  bmake
+ 1368  bmake install
+ 1369  bmake depend
+ 1370  bmake
+ 1371  bmake install
+ 1372  sys161 kernel
+ 1373  bmake depend
+ 1374  bmake
+ 1375  bmake install
+ 1376  bmake depend
+ 1377  bmake
+ 1378  bmake install
+ 1379  sys161 kernel
+ 1380  bmake depend
+ 1381  bmake
+ 1382  bmake install
+ 1383  sys161 kernel
+ 1384  bmake depend
+ 1385  bmake
+ 1386  bmake install
+ 1387  sys161 -w kernel
+ 1388  mips-harvard-os161-gdb kernel
+ 1389  bmake depend
+ 1390  bmake
+ 1391  bmake install
+ 1392  bmake depend
+ 1393  bmake
+ 1394  bmake install
+ 1395  bmake depend
+ 1396  bmake
+ 1397  bmake install
+ 1398  bmake depend
+ 1399  bmake
+ 1400  bmake install
+ 1401  bmake depend
+ 1402  bmake
+ 1403  bmake install
+ 1404  sys161 kernel
+ 1405  bmake depend
+ 1406  bmake
+ 1407  bmake install
+ 1408  bmake depend
+ 1409  bmake
+ 1410  bmake install
+ 1411  sys161 kernel
+ 1412  bmake depend
+ 1413  bmake
+ 1414  bmake install
+ 1415  sys161 kernel
+ 1416  bmake depend
+ 1417  bmake
+ 1418  bmake install
+ 1419  bmake depend
+ 1420  bmake
+ 1421  bmake install
+ 1422  bmake depend
+ 1423  bmake
+ 1424  bmake install
+ 1425  bmake depend
+ 1426  bmake
+ 1427  bmake install
+ 1428  sys161 kernel
+ 1429  bmake depend
+ 1430  bmake
+ 1431  bmake install
+ 1432  sys161 kernel
+ 1433  bmake depend
+ 1434  bmake
+ 1435  bmake install
+ 1436  bmake depend
+ 1437  bmake
+ 1438  bmake install
+ 1439  bmake depend
+ 1440  bmake
+ 1441  bmake install
+ 1442  bmake depend
+ 1443  bmake
+ 1444  bmake install
+ 1445  bmake depend
+ 1446  bmake
+ 1447  bmake install
+ 1448  bmake depend
+ 1449  bmake
+ 1450  bmake install
+ 1451  bmake depend
+ 1452  bmake
+ 1453  bmake install
+ 1454  sys161 kernel
+ 1455  clear
+ 1456  sys161 kernel
+ 1457  bmake depend
+ 1458  bmake
+ 1459  bmake install
+ 1460  bmake depend
+ 1461  bmake
+ 1462  bmake install
+ 1463  sys161 kernel
+ 1464  bmake depend
+ 1465  bmake
+ 1466  bmake install
+ 1467  sys161 kernel
+ 1468  bmake depend
+ 1469  bmake
+ 1470  bmake install
+ 1471  sys161 kernel
+ 1472  bmake depend
+ 1473  bmake
+ 1474  bmake install
+ 1475  sys161 kernel
+ 1476  z src
+ 1477  clear
+ 1478  git status
+ 1479  git commit -m "fixed up more bugs and added implementation for dup2, need to add more error checking and fixed lseek"
+ 1480  git push
+ 1481  z root
+ 1482  z DUM
+ 1483  clear
+ 1484  sys161  -w kernel
+ 1485  bmake depend
+ 1486  bmake
+ 1487  bmake install
+ 1488  bmake depend
+ 1489  bmake
+ 1490  bmake install
+ 1491  mips-harvard-os161-gdb kernel
+ 1492  clear
+ 1493  sys161  -w kernel
+ 1494  mips-harvard-os161-gdb kernel
+ 1495  bmake depend
+ 1496  bmake
+ 1497  bmake install
+ 1498  bmake depend
+ 1499  bmake
+ 1500  bmake install
+ 1501  lear
+ 1502  clear
+ 1503  sys161  kernel
+ 1504  sys161  -w kernel
+ 1505  mips-harvard-os161-gdb kernel
+ 1506  quit
+ 1507  clear
+ 1508  sys161  kernel
+ 1509  z src
+ 1510  clear
+ 1511  nvim
+ 1512  quit
+ 1513  clear
+ 1514  sys161 -w kernel
+ 1515  mips-harvard-os161-gdb kernel
+ 1516  z DUM
+ 1517  clear
+ 1518  bmake depend
+ 1519  bmake
+ 1520  bmake install
+ 1521  bmake depend
+ 1522  bmake
+ 1523  bmake install
+ 1524  bmake depend
+ 1525  bmake
+ 1526  bmake install
+ 1527  bmake depend
+ 1528  bmake
+ 1529  bmake install
+ 1530  sys161  kernel
+ 1531  bmake depend
+ 1532  bmake
+ 1533  bmake install
+ 1534  sys161  kernel
+ 1535  bmake depend
+ 1536  bmake
+ 1537  bmake install
+ 1538  sys161  kernel
+ 1539  bmake depend
+ 1540  bmake
+ 1541  bmake install
+ 1542  bmake depend
+ 1543  bmake
+ 1544  bmake install
+ 1545  sys161  kernel
+ 1546  bmake depend
+ 1547  bmake
+ 1548  bmake install
+ 1549  sys161  kernel
+ 1550  bmake depend
+ 1551  bmake
+ 1552  bmake install
+ 1553  sys161  kernel
+ 1554  bmake depend
+ 1555  bmake
+ 1556  bmake install
+ 1557  sys161  kernel
+ 1558  bmake depend
+ 1559  bmake
+ 1560  bmake install
+ 1561  sys161  kernel
+ 1562  bmake depend
+ 1563  bmake
+ 1564  bmake install
+ 1565  sys161  kernel
+ 1566  bmake depend
+ 1567  bmake
+ 1568  bmake install
+ 1569  bmake 
+ 1570  bmake depend
+ 1571  bmake
+ 1572  bmake install
+ 1573  sys161  -w kernel
+ 1574  mips-harvard-os161-gdb kernel
+ 1575  clear
+ 1576  sys161  -w kernel
+ 1577  mips-harvard-os161-gdb kernel
+ 1578  clear
+ 1579  sys161  -w kernel
+ 1580  mips-harvard-os161-gdb kernel
+ 1581  bm
+ 1582  bmake depend
+ 1583  bmake
+ 1584  bmake install
+ 1585  sys161 kernel
+ 1586  bmake depend
+ 1587  bmake
+ 1588  bmake install
+ 1589  sys161 kernel
+ 1590  bmake depend
+ 1591  bmake
+ 1592  bmake install
+ 1593  sys161 kernel
+ 1594  clear
+ 1595  nvim
+ 1596  clear
+ 1597  clear
+ 1598  sys161 kernel
+ 1599  z DUM
+ 1600  sys161  -w kernel
+ 1601  mips-harvard-os161-gdb kernel
+ 1602  claer
+ 1603  clear
+ 1604  clear
+ 1605  sys161  -w kernel
+ 1606  mips-harvard-os161-gdb kernel
+ 1607  bmake depend
+ 1608  bmake
+ 1609  bmake install
+ 1610  sys161 kernel
+ 1611  bmake depend
+ 1612  bmake
+ 1613  bmake install
+ 1614  sys161 kernel
+ 1615  bmake depend
+ 1616  bmake
+ 1617  bmake install
+ 1618  sys161 kernel
+ 1619  bmake depend
+ 1620  bmake
+ 1621  bmake install
+ 1622  sys161 kernel
+ 1623  bmake depend
+ 1624  bmake
+ 1625  bmake install
+ 1626  sys161 kernel
+ 1627  z root
+ 1628  clear
+ 1629  bmake depend
+ 1630  bmake
+ 1631  bmake install
+ 1632  sys161 kernel
+ 1633  bmake depend
+ 1634  bmake
+ 1635  bmake install
+ 1636  sys161 kernel
+ 1637  bmake depend
+ 1638  bmake
+ 1639  bmake install
+ 1640  bmake depend
+ 1641  bmake
+ 1642  bmake install
+ 1643  sys161  -w kernel
+ 1644  mips-harvard-os161-gdb kernel
+ 1645  bmake depend
+ 1646  bmake
+ 1647  bmake install
+ 1648  sys161  kernel
+ 1649  clear
+ 1650  ls
+ 1651  sys161  kernel
+ 1652  sys161  -w kernel
+ 1653  mips-harvard-os161-gdb kernel
+ 1654  sys161  kernel
+ 1655  mips-harvard-os161-gdb kernel
+ 1656  z root
+ 1657  clear
+ 1658  ls
+ 1659  mips-harvard-os161-gdb kernel
+ 1660  clear
+ 1661  sys161  -w kernel
+ 1662  sys161  -w kernel
+ 1663  mips-harvard-os161-gdb kernel
+ 1664  clear
+ 1665  sys161  -w kernel
+ 1666  mips-harvard-os161-gdb kernel
+ 1667  sys161  -w kernel
+ 1668  gdb
+ 1669  mips-harvard-os161-gdb kernel
+ 1670  sys161 kernel
+ 1671  bmake depend
+ 1672  bmake
+ 1673  bmake install
+ 1674  bmake depend
+ 1675  bmake
+ 1676  bmake install
+ 1677  sys161 kernel
+ 1678  bmake depend
+ 1679  bmake
+ 1680  bmake install
+ 1681  sys161 kernel
+ 1682  bmake depend
+ 1683  bmake
+ 1684  bmake install
+ 1685  sys161 kernel
+ 1686  bmake depend
+ 1687  bmake
+ 1688  bmake install
+ 1689  sys161 kernel
+ 1690  bmake depend
+ 1691  bmake
+ 1692  bmake install
+ 1693  bmake depend
+ 1694  bmake
+ 1695  bmake install
+ 1696  sys161 kernel
+ 1697  bmake depend
+ 1698  bmake
+ 1699  bmake install
+ 1700  sys161 kernel
+ 1701  bmake depend
+ 1702  bmake
+ 1703  bmake install
+ 1704  clear
+ 1705  sys161 kernel
+ 1706  clera
+ 1707  clear
+ 1708  sys161 kernel
+ 1709  z src
+ 1710  git status
+ 1711  git commit -m "added better error checking code, menu for badcall boots up but something wrong with write function ://"
+ 1712  git push
+ 1713  z DUM
+ 1714  bmake depend
+ 1715  bmake
+ 1716  bmake install
+ 1717  sys161 kernel
+ 1718  clear
+ 1719  sys161 -w kernel
+ 1720  mips-harvard-os161-gdb kernel
+ 1721  bmake depend
+ 1722  bmake
+ 1723  bmake install
+ 1724  clera
+ 1725  clrea
+ 1726  clear
+ 1727  sys161  kernel
+ 1728  sys161  -w kernel
+ 1729  clear
+ 1730  mips-harvard-os161-gdb kernel
+ 1731  clear
+ 1732  c
+ 1733  sys161  -w kernel
+ 1734  mips-harvard-os161-gdb kernel
+ 1735  z root
+ 1736  clear
+ 1737  sys161  -w kernel
+ 1738  mips-harvard-os161-gdb kernel
+ 1739  sys161  -w kernel
+ 1740  mips-harvard-os161-gdb kernel
+ 1741  sys161  -w kernel
+ 1742  mips-harvard-os161-gdb kernel
+ 1743  sys161 kernel
+ 1744  clear
+ 1745  sys161 kernel
+ 1746  mips-harvard-os161-gdb kernel
+ 1747  clear
+ 1748  sys161 - wkernel
+ 1749  sys161 -w kernel
+ 1750  mips-harvard-os161-gdb kernel
+ 1751  clear
+ 1752  claer
+ 1753  clear
+ 1754  sys161 -w kernel
+ 1755  mips-harvard-os161-gdb kernel
+ 1756  clear
+ 1757  sys161 -w kernel
+ 1758  mips-harvard-os161-gdb kernel
+ 1759  sys161 kernel
+ 1760  ssys161 kernel
+ 1761  sys161 kernel
+ 1762  clear
+ 1763  sys161 kernel
+ 1764  f
+ 1765  sys161 kernel
+ 1766  clear
+ 1767  ls
+ 1768  neofetch
+ 1769  cd 
+ 1770  ls
+ 1771  cd Downloads
+ 1772  ls
+ 1773  mkdir FUCKAFTAHIARDI
+ 1774  cddd fdsf
+ 1775  echo "ardi sucks"
+ 1776  touch ardiNOOB.txt
+ 1777  o
+ 1778  echo "greg hates black people"
+ 1779  echo "no he doesntag'tgajn"dgkjdkbngs
+ 1780  fuck
+ 1781  echo "no he doesntag"tgajn"dgkjdkbngs
+ 1782  ls
+ 1783  cdd fuck
+ 1784  cdd task2
+ 1785  fuck
+ 1786  cd task2
+ 1787  clear
+ 1788  cd
+ 1789  ls
+ 1790  clear
+ 1791  sys161 kernel
+ 1792  c
+ 1793  clera
+ 1794  sys161 kernel
+ 1795  s
+ 1796  z DUM
+ 1797  clear
+ 1798  sys161  -w kernel
+ 1799  mips-harvard-os161-gdb kernel
+ 1800  clear
+ 1801  bmake depend
+ 1802  bmake
+ 1803  bmake install
+ 1804  sys161 kernel
+ 1805  bmake depend
+ 1806  bmake
+ 1807  bmake install
+ 1808  bmake depend
+ 1809  bmake
+ 1810  bmake install
+ 1811  bmake depend
+ 1812  bmake
+ 1813  bmake install
+ 1814  c
+ 1815  sys161 kernel
+ 1816  clear
+ 1817  sys161 kernel
+ 1818  bmake depend
+ 1819  bmake
+ 1820  bmake install
+ 1821  sys161 kernel
+ 1822  bmake depend
+ 1823  bmake
+ 1824  bmake install
+ 1825  sys161 kernel
+ 1826  bmake depend
+ 1827  bmake
+ 1828  bmake install
+ 1829  sys161 kernel
+ 1830  bmake depend
+ 1831  bmake
+ 1832  bmake install
+ 1833  bmake depend
+ 1834  bmake
+ 1835  bmake install
+ 1836  bmake depend
+ 1837  bmake
+ 1838  bmake install
+ 1839  bmake depend
+ 1840  bmake
+ 1841  bmake install
+ 1842  bmake depend
+ 1843  bmake
+ 1844  bmake install
+ 1845  bmake depend
+ 1846  bmake
+ 1847  bmake install
+ 1848  bmake depend
+ 1849  bmake
+ 1850  bmake install
+ 1851  sys161 kernel
+ 1852  bmake depend
+ 1853  bmake
+ 1854  bmake install
+ 1855  c
+ 1856  sys161 kernel
+ 1857  bmake depend
+ 1858  bmake
+ 1859  bmake install
+ 1860  sys161 kernel
+ 1861  bmake depend
+ 1862  bmake
+ 1863  bmake install
+ 1864  bmake depend
+ 1865  bmake
+ 1866  bmake install
+ 1867  sys161 kernel
+ 1868  bmake depend
+ 1869  bmake
+ 1870  bmake install
+ 1871  bmake depend
+ 1872  bmake
+ 1873  bmake install
+ 1874  bmake depend
+ 1875  bmake
+ 1876  bmake install
+ 1877  sys161 kernel
+ 1878  bmake depend
+ 1879  bmake
+ 1880  bmake install
+ 1881  bmake depend
+ 1882  bmake
+ 1883  bmake install
+ 1884  clera
+ 1885  clear
+ 1886  sys161 kernel
+ 1887  clear
+ 1888  z src
+ 1889  claer
+ 1890  cleaer
+ 1891  clear
+ 1892  ls
+ 1893  cd kern
+ 1894  ls
+ 1895  cd conf
+ 1896  ls
+ 1897  nvim conf.kern
+ 1898  z src
+ 1899  clear
+ 1900  nvim
+ 1901  clear
+ 1902  ls
+ 1903  bmake depend
+ 1904  bmake
+ 1905  bmake install
+ 1906  cd ..
+ 1907  ls
+ 1908  cd ..
+ 1909  ls
+ 1910  cd compile
+ 1911  ls
+ 1912  cd ..
+ 1913  ls
+ 1914  cd conf
+ 1915  ./config DUMBVM
+ 1916  z DUM
+ 1917  ls
+ 1918  bmake depend
+ 1919  bmake
+ 1920  bmake install
+ 1921  z root
+ 1922  clear
+ 1923  sys161 kernel
+ 1924  clear
+ 1925  sys161 kernel
+ 1926  bmake depend
+ 1927  bmake
+ 1928  bmake install
+ 1929  clear
+ 1930  ls
+ 1931  sys161  -w kernel
+ 1932  mips-harvard-os161-gdb kernel
+ 1933  clear
+ 1934  sys161  -w kernel
+ 1935  mips-harvard-os161-gdb kernel
+ 1936  sys161  -w kernel
+ 1937  mips-harvard-os161-gdb kernel
+ 1938  clear
+ 1939  z src
+ 1940  clear
+ 1941  bmake
+ 1942  z DUM
+ 1943  ls
+ 1944  bmake depend
+ 1945  bmake
+ 1946  bmake install
+ 1947  z root
+ 1948  sys161  kernel
+ 1949  z src
+ 1950  ls
+ 1951  bmake
+ 1952  clear
+ 1953  ls
+ 1954  git commit -m "updated code some more bug fixes"
+ 1955  git push
+ 1956  ls
+ 1957  s
+ 1958  clear
+ 1959  ls
+ 1960  cd kern
+ 1961  ls
+ 1962  cd conf
+ 1963  ls
+ 1964  nvim DUMBVM-OPT
+ 1965  z src
+ 1966  clear
+ 1967  ls
+ 1968  clear
+ 1969  ls
+ 1970  bmake depend
+ 1971  bmake
+ 1972  bmake install
+ 1973  cleear
+ 1974  clear
+ 1975  ls
+ 1976  bmake depend
+ 1977  bmake
+ 1978  bmake install
+ 1979  sys161  kernel
+ 1980  bmake depend
+ 1981  bmake
+ 1982  bmake install
+ 1983  sys161  kernel
+ 1984  clear
+ 1985  z root
+ 1986  sys161  kernel
+ 1987  clera
+ 1988  clear
+ 1989  sys161  kernel
+ 1990  sys161  -2 kernel
+ 1991  sys161  -w kernel
+ 1992  mips-harvard-os161-gdb kernel
+ 1993  clear
+ 1994  bmake depend
+ 1995  bmake
+ 1996  bmake install
+ 1997  sys161 kernel
+ 1998  z src
+ 1999  git commit -m "working code need to comment and maybe fix the refcount system"
+ 2000  git push
+ 2001  bmake depend
+ 2002  bmake
+ 2003  bmake install
+ 2004  z root
+ 2005  sys161 kernel
+ 2006  z DUM
+ 2007  bmake depend
+ 2008  bmake
+ 2009  bmake install
+ 2010  z root
+ 2011  sys161 kernel
+ 2012  z DUM
+ 2013  bmake depend
+ 2014  bmake
+ 2015  bmake install
+ 2016  z root
+ 2017  sys161 kernel
+ 2018  z DUM
+ 2019  bmake depend
+ 2020  bmake 
+ 2021  bmake install
+ 2022  z root
+ 2023  sys161 kernel
+ 2024  z DUM
+ 2025  bmake depend
+ 2026  bmake
+ 2027  bmake install
+ 2028  z root
+ 2029  sys161 kernel
+ 2030  nvim
+ 2031  clear
+ 2032  z root
+ 2033  clear
+ 2034  sys161 kernel
+ 2035  clear
+ 2036  ls
+ 2037  _zlua src
+ 2038  clear
+ 2039  ls
+ 2040  clear
+ 2041  ls
+ 2042  git commit -m "working code i think"
+ 2043  git push
+ 2044  _zlua DUM
+ 2045  clear
+ 2046  ls
+ 2047  bmake
+ 2048  bmake depend
+ 2049  bmake
+ 2050  bmake depend
+ 2051  bmake
+ 2052  bmake install
+ 2053  clear
+ 2054  _zlua root
+ 2055  clear
+ 2056  ls
+ 2057  sys161 kernel
+ 2058  clear
+ 2059  ls
+ 2060  clear
+ 2061  sys161 kernel
+ 2062  clear
+ 2063  sys161 kernel
+ 2064  clear
+ 2065  sys161 kernel
+ 2066  clear
+ 2067  sys161 kernel
+ 2068  _zlua src
+ 2069  clear
+ 2070  ls
+ 2071  omz_history
+ 2072  clear
+ 2073  git commit -m "updated code with comments and added clean up code"
+ 2074  git push
+ 2075  sys161 -w kernel
+ 2076  z root
+ 2077  mips-harvard-os161-gdb kernel
+ 2078  cd
+ 2079  nvim .gdbinit
+ 2080  z DUm
+ 2081  clear
+ 2082  bmake
+ 2083  bmake depend
+ 2084  bmake 
+ 2085  bmake install
+ 2086  z root
+ 2087  sys161 kernel
+ 2088  clear
+ 2089  ls
+ 2090  z src
+ 2091  ls
+ 2092  cd submit
+ 2093  ls
+ 2094  nvim name.text
+ 2095  nvim
+ 2096  nvim 
+ 2097  ls
+ 2098  nvim 
+ 2099  mkdir asst4
+ 2100  lw
+ 2101  ls
+ 2102  cd asst2
+ 2103  ls
+ 2104  cd ..
+ 2105  ls
+ 2106  cd asst4
+ 2107  ls
+ 2108  nvim
+ 2109  cd ..
+ 2110  ls
+ 2111  nvim
+ 2112  clear
+ 2113  ls
+ 2114  z DUM
+ 2115  bmake depend
+ 2116  bmake
+ 2117  bmake install
+ 2118  z root
+ 2119  sys161 kernel
+ 2120  z DUM
+ 2121  clear
+ 2122  ls
+ 2123  bmake depend
+ 2124  bmake
+ 2125  bmake install
+ 2126  z root
+ 2127  clear
+ 2128  ls
+ 2129  sys161 kernel
+ 2130  clear
+ 2131  ls
+ 2132  clear
+ 2133  ls
+ 2134  clear
+ 2135  ls
+ 2136  sys161 kernel
+ 2137  z src
+ 2138  ls
+ 2139  cd kern
+ 2140  ls
+ 2141  cd conf
+ 2142  ls
+ 2143  nvim conf.kern
+ 2144  clear
+ 2145  z src
+ 2146  ls
+ 2147  clear
+ 2148  ls
+ 2149  git commit -m "update"
+ 2150  git push
+ 2151  z root
+ 2152  sys161 kernel
+ 2153  z src
+ 2154  clear
+ 2155  ls
+ 2156  git commit -m "added the questions"
+ 2157  clear
+ 2158  ls
+ 2159  git pushj
+ 2160  git pusjh
+ 2161  git push
+ 2162  git add *
+ 2163  git commit -m "added eveyything"
+ 2164  git push
+ 2165  ls
+ 2166  cd kern
+ 2167  ls
+ 2168  cd conf
+ 2169  ls
+ 2170  nvim conf.kern
+ 2171  ls
+ 2172  nvim DUMBVM
+ 2173  clear
+ 2174  z root
+ 2175  ls
+ 2176  clear
+ 2177  ls
+ 2178  sys161 kernel
+ 2179  z DUM
+ 2180  bmake
+ 2181  bmake install
+ 2182  z root
+ 2183  ls
+ 2184  sys161 kernel
+ 2185  cler
+ 2186  clear
+ 2187  ls
+ 2188  z DUM
+ 2189  clear
+ 2190  ls
+ 2191  bmake
+ 2192  bmake install
+ 2193  z root
+ 2194  sys161 kernel
+ 2195  z src
+ 2196  git commit -m "changed something in dup2"
+ 2197  git push
+ 2198  sys161 kernel
+ 2199  z root
+ 2200  sys161 kernel
+ 2201  z DUM
+ 2202  clear
+ 2203  ls
+ 2204  bmake depend
+ 2205  bmake 
+ 2206  bmake depend
+ 2207  bmake
+ 2208  bmake install
+ 2209  z root
+ 2210  sys161 kernel
+ 2211  z DUM
+ 2212  clear
+ 2213  ls
+ 2214  bmake depend
+ 2215  bmake
+ 2216  bmake install
+ 2217  z root
+ 2218  clear
+ 2219  ls
+ 2220  sys161 kernel
+ 2221  ls
+ 2222  ncim sys161.conf
+ 2223  nvim sys161.conf
+ 2224  clear
+ 2225  ls
+ 2226  z src
+ 2227  clear
+ 2228  ls
+ 2229  git pll
+ 2230  git pull
+ 2231  git stsh
+ 2232  git stash
+ 2233  git pull
+ 2234  z DUM
+ 2235  z DUm
+ 2236  bmake depend
+ 2237  bmake
+ 2238  bmake install
+ 2239  z root
+ 2240  clear
+ 2241  ls
+ 2242  sys161 kernel
+ 2243  clear
+ 2244  z DUM
+ 2245  ls
+ 2246  bmake depend
+ 2247  bmake
+ 2248  bmake install
+ 2249  z root
+ 2250  sys161 kernel
+ 2251  git stash
+ 2252  z src
+ 2253  git stash
+ 2254  git pull
+ 2255  z DUM
+ 2256  bmake depend
+ 2257  z DUM
+ 2258  bmake depend
+ 2259  bmake
+ 2260  bmake install
+ 2261  clear
+ 2262  ls
+ 2263  clear
+ 2264  z root
+ 2265  sys161 -w kernel
+ 2266  mips-harvard-os161-gdb kernel
+ 2267  clear
+ 2268  ls
+ 2269  z Documents
+ 2270  ls
+ 2271  clear
+ 2272  ls
+ 2273  cd THIRDYEAR
+ 2274  ls
+ 2275  cd CPSC\ 304
+ 2276  ls
+ 2277  mkdir Project
+ 2278  ls
+ 2279  cd Project
+ 2280  ls
+ 2281  clear
+ 2282  ls
+ 2283  echo "# project_c2p3p_m8s4f_v4s7y" >> README.md\ngit init\ngit add README.md\ngit commit -m "first commit"\ngit branch -M main\ngit remote add origin https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_c2p3p_m8s4f_v4s7y.git\ngit push -u origin main
+ 2284  clear
+ 2285  ls
+ 2286  npm create vite@latest
+ 2287  npm create vite@latest my-vue-app --template vue
+ 2288  ls
+ 2289  cd rate_my_music
+ 2290  ls
+ 2291  nvim
+ 2292  clear
+ 2293  ls
+ 2294  cd ..
+ 2295  ls
+ 2296  rm -rf rate_my_music
+ 2297  ls
+ 2298  cd ..
+ 2299  ls
+ 2300  rm -rf Project
+ 2301  npm create vite@latest my-vue-app -- --template vue
+ 2302  ls
+ 2303  rm -rm my-vue-app
+ 2304  rm -rf my-vue-app
+ 2305  clear
+ 2306  npm create vite@latest
+ 2307  ls
+ 2308  cd rate_my_music
+ 2309  ls
+ 2310  git init
+ 2311  git remote add origin git@github.students.cs.ubc.ca:CPSC304-2023W-T1/project_c2p3p_m8s4f_v4s7y.git
+ 2312  git push -u origin master
+ 2313  git remote add origin git@github.students.cs.ubc.ca:CPSC304-2023W-T1/project_c2p3p_m8s4f_v4s7y.git
+ 2314  git push -u origin main
+ 2315  ls
+ 2316  git status
+ 2317  git add* 
+ 2318  git add *
+ 2319  ls
+ 2320  git commit -m " "
+ 2321  git commit -m "x"
+ 2322  git push
+ 2323  git push --set-upstream origin master
+ 2324  cd ..
+ 2325  ;s
+ 2326  ls
+ 2327  rm -rf rate_my_music
+ 2328  ls
+ 2329  git clone https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_c2p3p_m8s4f_v4s7y.git
+ 2330  ls
+ 2331  rm -rf project_c2p3p_m8s4f_v4s7y
+ 2332  git clone https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_c2p3p_m8s4f_v4s7y.git rate_my_music
+ 2333  ls
+ 2334  cd rate_my_music
+ 2335  ls
+ 2336  cd ..
+ 2337  ls
+ 2338  npm create vite@latest rate_my_music --template vue
+ 2339  ls
+ 2340  cd rate_my_music
+ 2341  ls
+ 2342  git status
+ 2343  clear
+ 2344  ls
+ 2345  git add *
+ 2346  git commit -m "first commit"
+ 2347  git push
+ 2348  ls
+ 2349  nvim
+ 2350  npm install
+ 2351  npm run dev
+ 2352  clear
+ 2353  z root
+ 2354  clear
+ 2355  ls
+ 2356  sys161 kernel
+ 2357  clear
+ 2358  ls
+ 2359  clear
+ 2360  ls
+ 2361  z rate
+ 2362  z 304
+ 2363  ls
+ 2364  z Documents
+ 2365  ls
+ 2366  cd THIRDYEAR
+ 2367  ls
+ 2368  clear
+ 2369  ls
+ 2370  git CPSC CPSC\ 304
+ 2371  ls
+ 2372  git CPSC CPSC\ 304
+ 2373  cd CPSC CPSC\ 304
+ 2374  cd CPSC\ 304
+ 2375  clear
+ 2376  ls
+ 2377  git config user.name "aftahi12"
+ 2378  ls
+ 2379  cd rate_my_music
+ 2380  git config user.name "aftahi12"
+ 2381  git config user.email "aftahi12@students.cs.ubc.ca"
+ 2382  nvim
+ 2383  clear
+ 2384  ls
+ 2385  clear
+ 2386  ls
+ 2387  clear
+ 2388  x
+ 2389  c
+ 2390  yabai --stop-service
+ 2391  z src
+ 2392  ls
+ 2393  nvim
+ 2394  cd MissionPlanner-Scripts
+ 2395  ls
+ 2396  clear
+ 2397  git pull
+ 2398  clear
+ 2399  ls
+ 2400  clera
+ 2401  clear
+ 2402  z mission
+ 2403  ls
+ 2404  clear
+ 2405  ls
+ 2406  clear
+ 2407  ls
+ 2408  cd src
+ 2409  ls
+ 2410  python3 test_client.py
+ 2411  clear
+ 2412  ls
+ 2413  poetry install --no-root
+ 2414  brew install poetry
+ 2415  poetry install --no-root
+ 2416  ls
+ 2417  poetry run python main.py
+ 2418  clear
+ 2419  ls
+ 2420  git status
+ 2421  git pull
+ 2422  clear
+ 2423  git branch
+ 2424  clear
+ 2425  ls
+ 2426  z sr
+ 2427  ls
+ 2428  git pull
+ 2429  clear
+ 2430  ls
+ 2431  neofetch
+ 2432  nvim 
+ 2433  clear
+ 2434  brew install midnight-commander
+ 2435  mc
+ 2436  select-editor
+ 2437  2
+ 2438  select-editor
+ 2439  quit
+ 2440  10
+ 2441  :q
+ 2442  z src
+ 2443  nvim .zshrc
+ 2444  cat .zsh
+ 2445  cat .zshr
+ 2446  cat .zshrc
+ 2447  cd .config
+ 2448  ls
+ 2449  cp jovial.zsh-theme ~
+ 2450  cd
+ 2451  ls
+ 2452  cd .zsh
+ 2453  ls
+ 2454  cp zsh-autosuggestions ~
+ 2455  cp -r zsh-autosuggestions ~
+ 2456  cd
+ 2457  ls
+ 2458  cd .zsh
+ 2459  ls
+ 2460  cd zsh-autosuggestions
+ 2461  ls
+ 2462  cd
+ 2463  nvim .zshrc
+ 2464  clear
+ 2465  ls
+ 2466  git pull
+ 2467  git stash
+ 2468  git pull
+ 2469  clear
+ 2470  npm install
+ 2471  npm run rev
+ 2472  npm run dev
+ 2473  clear
+ 2474  ls
+ 2475  z src
+ 2476  claer
+ 2477  clear
+ 2478  git pull
+ 2479  clear
+ 2480  nvim
+ 2481  neofetch
+ 2482  clear
+ 2483  ls
+ 2484  _zlua os161
+ 2485  _zlua src
+ 2486  clear
+ 2487  nvim
+ 2488  z src
+ 2489  nvim 
+ 2490  clear
+ 2491  ls
+ 2492  z Downl
+ 2493  ls
+ 2494  cd graftahi-asst5-submit/
+ 2495  ls
+ 2496  z src
+ 2497  ls
+ 2498  clear
+ 2499  ls
+ 2500  git pull
+ 2501  clear
+ 2502  ls
+ 2503  z root
+ 2504  ls
+ 2505  z root
+ 2506  ls
+ 2507  nvim bm.sh
+ 2508  z DUM
+ 2509  pwd
+ 2510  z root
+ 2511  nvim bm.sh
+ 2512  cd /home/aftahiardi/os161/root
+ 2513  source bm.sh
+ 2514  sys161 kernel 
+ 2515  z root
+ 2516  nvim bm.sh
+ 2517  z root
+ 2518  source bm.sh
+ 2519  sys161 kernel 
+ 2520  nvim
+ 2521  sys161 kernel 
+ 2522  clear
+ 2523  ls
+ 2524  sys161 kernel 
+ 2525  z src
+ 2526  nvim 
+ 2527  git status
+ 2528  _zlua src
+ 2529  nvim
+ 2530  clear
+ 2531  ls
+ 2532  z 304
+ 2533  z rate
+ 2534  z Doc
+ 2535  ls
+ 2536  cd THIRDYEAR
+ 2537  ls
+ 2538  cd CPSC\ 304
+ 2539  clear
+ 2540  ls
+ 2541  cd rate_my_music
+ 2542  ls
+ 2543  git staus
+ 2544  git status
+ 2545  git pull
+ 2546  git stash
+ 2547  git pull
+ 2548  ls
+ 2549  npm run dev
+ 2550  brew install mysql
+ 2551  mysql
+ 2552  which mysql
+ 2553  brew services start mysql
+ 2554  brew services list
+ 2555  mysql -u root
+ 2556  z ratte
+ 2557  z rate
+ 2558  ls
+ 2559  z 304
+ 2560  ls
+ 2561  z Doc
+ 2562  ls
+ 2563  cd TH
+ 2564  ls
+ 2565  z TH
+ 2566  ls
+ 2567  z THIRDYEAR
+ 2568  l
+ 2569  cd CPSC\ 304
+ 2570  ls
+ 2571  cd rate_my_music
+ 2572  ls
+ 2573  cd sql
+ 2574  ls
+ 2575  sudo mysql < create_tables.sql
+ 2576  sudo mysql rymdb < create_tables.sql
+ 2577  sudo mysql rymdb < insert_data.sql
+ 2578  clear
+ 2579  ls
+ 2580  nvim memo.py
+ 2581  ls
+ 2582  cd ..
+ 2583  ls
+ 2584  cd ratemusicbackend
+ 2585  ls
+ 2586  npm install
+ 2587  npm start:dev
+ 2588  npm run start:dev
+ 2589  npm run dev
+ 2590  sudo mysql_secure_installation
+ 2591  brew services list
+ 2592  mysql -u root
+ 2593  ls
+ 2594  npm run start:dev
+ 2595  z rate_my_music
+ 2596  z reate
+ 2597  z rate
+ 2598  git pull
+ 2599  nvim memo.py
+ 2600  python3 memo.py
+ 2601  ??????????????????????????????????????????
+ 2602  clear
+ 2603  python3 memo.py
+ 2604  ??????
+ 2605  exit
+ 2606  npm run dev
+ 2607  ls
+ 2608  cd ratemusicbackend
+ 2609  ls
+ 2610  npm run start:dev
+ 2611  z rate
+ 2612  z CPSC
+ 2613  z THIRDYEAR
+ 2614  z Doc
+ 2615  ls
+ 2616  cd ratemusicbackend
+ 2617  z ratemusicbackend
+ 2618  ls
+ 2619  cd THIRDYEAR
+ 2620  ls
+ 2621  cd CPSC\ 304
+ 2622  ls
+ 2623  cd rate_my_music
+ 2624  ls
+ 2625  clear
+ 2626  z ratemusicbackend
+ 2627  z THIRDYEAR
+ 2628  ls
+ 2629  z Doc
+ 2630  ls
+ 2631  cd THIRDYEAR
+ 2632  ls
+ 2633  cd CPSC\ 304
+ 2634  ls
+ 2635  cd rate_my_music
+ 2636  clear
+ 2637  ls
+ 2638* clear
+ 2639* ls
+ 2640* npm run dev
+ 2641* npm run start:dev
+ 2642  pwd
+ 2643  ls
+ 2644  cd src
+ 2645  ls
+ 2646  cd assets
+ 2647  ls
+ 2648  cd albums
+ 2649  ls
+ 2650  pwd
+ 2651  cd ..
+ 2652  ls
+ 2653  cd playlists
+ 2654  ls
+ 2655  cd
+ 2656  cat /Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists/Jazz.jpg
+ 2657  clear
+ 2658  cd /Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists/
+ 2659  clear
+ 2660  cd
+ 2661  cd /Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists
+ 2662  cd "/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists"
+ 2663  ls
+ 2664  cd
+ 2665  ls
+ 2666  cd "/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums"
+ 2667  ls
+ 2668  cd ..
+ 2669  ls
+ 2670  cd ..
+ 2671  brew services list
+ 2672  history

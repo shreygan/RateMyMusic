@@ -10,10 +10,15 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.6.1",
+    "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "bootstrap-vue-next": "^0.14.10",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.5"
+    "vue-multi-select": "^4.6.0",
+    "vue-multiselect": "^2.1.8",
+    "vue-router": "^4.2.5",
+    "vue-search-select": "^3.2.0",
+    "vue-simple-search-dropdown": "^1.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

@@ -114,11 +114,11 @@ VALUES ('2023-10-19 10:00:00', 45, 2, 1),
 
 INSERT
 INTO Album(album_name, release_date, isSingle, genre, duration, cover, number_of_songs)
-VALUES ('Scenery', '1976-02-01', false, 'Jazz', 644, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/albums/Scenery.jpg'), 6),
-       ('Good Intentions', '2020-05-08', false, 'Rap', 179, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/albums/Good Intentions.jpg'), 12),
-       ('If You''re Reading This It''s Too Late', '2015-02-13', false, 'Rap', 299, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/albums/IYRTITL.jpg'), 17),
-       ('The College Dropout', '2003-09-30', false, 'Hip hop/UK R&B', 226, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/albums/College Dropout.jpg'), 15),
-       ('To Pimp a Butterfly', '2015-03-15', false, 'Hip hop/Rap', 275, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/albums/To Pimp a Butterfly.jpg'), 16);
+VALUES ('Scenery', '1976-02-01', false, 'Jazz', 644, LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums/Scenery.jpg'), 6),
+       ('Good Intentions', '2020-05-08', false, 'Rap', 179, LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums/Good Intentions.jpg'), 12),
+       ('If You''re Reading This It''s Too Late', '2015-02-13', false, 'Rap', 299, LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums/IYRTITL.jpg'), 17),
+       ('The College Dropout', '2003-09-30', false, 'Hip hop/UK R&B', 226, LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums/College Dropout.jpg'), 15),
+       ('To Pimp a Butterfly', '2015-03-15', false, 'Hip hop/Rap', 275, LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/albums/To Pimp a Butterfly.jpg'), 16);
 
 INSERT
 INTO Song(song_name, release_date, duration, genre)
@@ -170,12 +170,12 @@ VALUES (67867867, 83726415, 'Early Summer', '1976-06-07', 5),
 
 INSERT
 INTO Playlist(playlist_name, creation_date, image, description)
-VALUES ('Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
-       ('Rap Essentials', '2023-09-21', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/playlists/Rap.jpg'), 'The hottest rap tracks right now.'),
-       ('Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/playlists/Hip Hop Classics.jpeg'),
+VALUES ('Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
+       ('Rap Essentials', '2023-09-21', LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists//Rap.jpg'), 'The hottest rap tracks right now.'),
+       ('Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists//Hip Hop Classics.jpeg'),
         'Take a trip down memory lane with these hip hop classics.'),
-       ('R&B Soul', '2023-09-23', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/playlists/R&B.jpg'), 'Soothing R&B for the soul.'),
-       ('Top Hits', '2023-09-24', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/project_c2p3p_m8s4f_v4s7y/src/assets/playlists/Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
+       ('R&B Soul', '2023-09-23', LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists//R&B.jpg'), 'Soothing R&B for the soul.'),
+       ('Top Hits', '2023-09-24', LOAD_FILE('/Users/ardi/Documents/THIRDYEAR/CPSC 304/rate_my_music/src/assets/playlists//Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
 
 INSERT
 INTO PlaylistSong(playlist_name, creation_date, song_name, release_date)
