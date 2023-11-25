@@ -1,135 +1,109 @@
-
-
 <script setup lang="ts">
+import axios from 'axios'
 
-import axios from 'axios';
+async function loadSongs() {
+  let url = 'http://localhost:3000/songs/findsongs'
 
-async function loadResults() {
-    let url = 'http://localhost:3000/songs/findsongs'
+  if (searchTerm.value) {
+    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
+  }
 
-    if (searchTerm.value) {
-        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
-    }
-    
-
-    const response = await fetch(url)
-    return await response.json()
+  const response = await fetch(url)
+  return await response.json()
 }
 
-const review = ref({
-  rating: 1, // default rating
-  reviewText: '',
-  albumName: '',
-  releaseDate: '', // Ensure this is formatted as expected by your backend
-  pid: '' // The PID value, ensure this is correctly set
-});
+async function loadAlbums() {
+  let url = 'http://localhost:3000/songs/findalbums'
+
+  if (searchTerm.value) {
+    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
+  }
+
+  const response = await fetch(url)
+  return await response.json()
+}
 
 
+
+const reviewText = ref('')
 const searchTerm = ref('')
 const isLoading = ref(false)
-const results = computedAsync(loadResults, [], isLoading)
-const showPreview = ref(false);
+const reviewData = ref({
+  rating: 0,
+  reviewText: "",
+  songName: "",
+  releaseDate: "",
+  pid: 0,
+})
+const results = computedAsync(loadSongs, [], isLoading)
 
+const getReleaseYear = (dateString) => {
+  const date = new Date(dateString);
+  return date.getFullYear();
+};
 
+async function submitReview(songName: any, songReleaseDate: any) {
+  reviewData.value.songName = songName;
+  reviewData.value.releaseDate = songReleaseDate.slice(0, 10);
+  reviewData.value.pid = 41902873;
 
+  try {
+    const response = await axios.post(`http://localhost:3000/songs/createsongreviews`, reviewData);
 
-function selectAlbum(album: any) {
-  review.value.songAlbumName = album.album_name;
-  searchTerm.value = ''; // Clear search term
+    if (response.status === 200) {
+      console.log('Review submitted successfully!');
+    } else {
+      console.error('Failed to submit review. Unexpected status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error submitting review:', error.message);
+  }
 }
 
-
-const getReleaseYear = (dateString: string|number|Date) => {
-    const date = new Date(dateString);
-    return date.getFullYear();
-};
-
-
-const submitReview = async () => {
-  try {
-    const response = await axios.post('http://localhost:3000/songs/createalbumreviews', review.value);
-    console.log('Review submitted:', response.data);
-    // Additional success handling
-  } catch (error) {
-    console.error('Error submitting review:', error);
-    // Additional error handling
-  }
-};
-
-
 </script>
-
-<script lang="ts">
-import Navbar from '../components/Navbar.vue';
-
-export default {
-    components: {
-        Navbar,
-    },
-
-};
-
-
-</script>
-
-
 
 <template>
-    <Navbar />
-    
-    <BContainer class="my-4">
-      <BForm @submit.prevent="submitReview">
-        <BFormGroup label="Album Name:">
-          <BFormInput v-model="review.albumName" placeholder="Enter Album Name" />
-        </BFormGroup>
-  
-        <BFormGroup label="Your Review:">
-          <BFormTextarea v-model="review.reviewText" placeholder="Enter your review" rows="4" />
-        </BFormGroup>
-  
-        <BFormGroup label="Rating (1-5):">
-          <BFormInput type="number" v-model.number="review.rating" min="1" max="5" placeholder="Rating" />
-        </BFormGroup>
-  
-        <BFormGroup label="Release Date:">
-          <BFormInput type="date" v-model="review.releaseDate" placeholder="Release Date" />
-        </BFormGroup>
-  
-        <BFormGroup label="PID:">
-          <BFormInput v-model="review.pid" placeholder="Enter PID" />
-        </BFormGroup>
-  
-        <BButton type="submit" variant="primary">Submit Review</BButton>
-      </BForm>
-    </BContainer>
-  </template>
- 
-   
-  
+  <BContainer class="my-4">
+    <BCol class="mb-4">
+      <BFormInput v-model="searchTerm" />
+      <router-link :to="{ path: '/MainPage' }">
+        <b-button variant="primary" class="btn-top-right">Click Me</b-button>
+      </router-link>
+    </BCol>
 
+    <BRow class="scrollable-area mb-3">
+      <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+        <BCard>
+          <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle>
 
-  <style scoped>
-  /* Custom styling for the button in the top right corner */
-  .btn-top-right {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-  }
-  
-  .review-preview {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000; /* Ensure it's above other content */
-    width: 250px; /* Adjust width as needed */
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    cursor: pointer;
-    /* additional styles */
-  }
-  </style>
+          <router-link to="/AlbumPage">
+            <BCardText>{{ result.album_name }}</BCardText>
+          </router-link>
+        </BCard>
+      </BCol>
+    </Brow>
+
+    <BCol class="mb-3">
+      <BFormInput v-model="reviewData.rating" type="range" min="0" max="5"/>
+      <BFormInput v-model="reviewData.reviewText" />
+    </BCol>
+
+    <BCol class="mb-3">
+      <BButton variant="primary" :disabled="!searchTerm || results.length === 0" @click="submitReview(results[0].song_name, results[0].song_release_date)">Submit</BButton>
+    </BCol>
+  </BContainer>
+</template>
+
+<style scoped>
+.btn-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.scrollable-area {
+  max-height: 300px;
+  max-width: 500px;
+  overflow-y: auto;
+}
+</style>

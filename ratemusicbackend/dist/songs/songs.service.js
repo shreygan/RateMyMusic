@@ -21,8 +21,35 @@ let SongsService = class SongsService {
         this.connection = connection;
         this.query = (0, util_1.promisify)(this.connection.query).bind(this.connection);
     }
-    async createAlbumReview(createReviewDto) {
-        const { rating, reviewText, albumName, releaseDate, pid } = createReviewDto;
+    async createSongReview(createSongReviewDto) {
+        const { rating, reviewText, songName, releaseDate, pid } = createSongReviewDto._value;
+        const reviewDate = new Date().toISOString().slice(0, 10);
+        const rid = Math.floor(Math.random() * 900) + 10000;
+        const likes = 0;
+        const dislikes = 0;
+        const helpfulness = 0;
+        console.log('pid: ' + pid);
+        console.log('rating: ' + rating);
+        console.log('reviewText: ' + reviewText);
+        console.log('songName: ' + songName);
+        console.log('releaseDate: ' + releaseDate);
+        console.log(createSongReviewDto);
+        await this.query(`
+    INSERT INTO Review2 (rid, pid, review_date, review_text, likes, dislikes)
+    VALUES (?, ?, ?, ?, ?, ?);
+    `, [rid, pid, reviewDate, reviewText, likes, dislikes]);
+        await this.query(`
+    INSERT INTO Review1 (review_date, likes, dislikes, helpfulness)
+    VALUES (?, ?, ?, ?);
+    `, [reviewDate, likes, dislikes, helpfulness]);
+        await this.query(`
+    INSERT INTO SongReview (pid, rid, song_name, release_date, rating)
+    VALUES (?, ?, ?, ?, ?);
+    `, [pid, rid, songName, releaseDate, rating]);
+        return createSongReviewDto;
+    }
+    async createAlbumReview(createAlbumReviewDto) {
+        const { rating, reviewText, albumName, releaseDate, pid } = createAlbumReviewDto;
         const reviewDate = new Date().toISOString().slice(0, 10);
         const rid = Math.floor(Math.random() * 90000) + 10000;
         const likes = 0;
@@ -52,7 +79,7 @@ let SongsService = class SongsService {
             releaseDate,
             rating,
         ]);
-        return createReviewDto;
+        return createAlbumReviewDto;
     }
     async getAllAlbumReviews() {
         return await this.query(`
@@ -107,7 +134,7 @@ let SongsService = class SongsService {
   ORDER BY r1.helpfulness DESC;
     `);
     }
-    async findAll(searchTerm) {
+    async findAllSongs(searchTerm) {
         if (searchTerm) {
             return await this.query(`
       SELECT 
@@ -120,7 +147,7 @@ let SongsService = class SongsService {
       FROM Song s
       LEFT JOIN AlbumSong als ON s.song_name = als.song_name AND s.release_date = als.song_release_date
       LEFT JOIN Album a ON als.album_name = a.album_name AND als.album_release_date = a.release_date
-      WHERE MATCH(s.song_name) AGAINST(?)`, [searchTerm]);
+      WHERE s.song_name LIKE CONCAT('%', ?, '%');`, [searchTerm]);
         }
         return await this.query(`
     SELECT 
@@ -133,6 +160,46 @@ let SongsService = class SongsService {
     FROM Song s
     LEFT JOIN AlbumSong als ON s.song_name = als.song_name AND s.release_date = als.song_release_date
     LEFT JOIN Album a ON als.album_name = a.album_name AND als.album_release_date = a.release_date
+    `);
+    }
+    async findAllAlbums(searchTerm) {
+        if (searchTerm) {
+            return await this.query(`
+      SELECT
+        a.album_name,
+        a.release_date,
+        a.isSingle,
+        a.genre,
+        a.duration,
+        a.cover,
+        a.number_of_songs,
+        aa.pid,
+        at2.name,
+        at2.birthdate,
+        at2.birthplace
+        FROM Album a, Artist1 at1, Artist2 at2, ArtistAlbum aa
+        WHERE a.album_name = aa.album_name AND a.release_date = aa.release_date
+              AND aa.pid = at2.pid AND at1.name = at2.name AND at1.birthdate = at2.birthdate
+              AND at1.is_dead = at2.is_dead AND a.album_name LIKE CONCAT('%', ?, '%');
+      `, [searchTerm]);
+        }
+        return await this.query(`
+    SELECT
+    a.album_name,
+    a.release_date,
+    a.isSingle,
+    a.genre,
+    a.duration,
+    a.cover,
+    a.number_of_songs,
+    aa.pid,
+    at2.name,
+    at2.birthdate,
+    at2.birthplace
+    FROM Album a, Artist1 at1, Artist2 at2, ArtistAlbum aa
+    WHERE a.album_name = aa.album_name AND a.release_date = aa.release_date
+          AND aa.pid = at2.pid AND at1.name = at2.name AND at1.birthdate = at2.birthdate
+          AND at1.is_dead = at2.is_dead;
     `);
     }
 };

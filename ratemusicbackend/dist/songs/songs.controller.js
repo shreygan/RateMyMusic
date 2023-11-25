@@ -12,18 +12,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SongsController = exports.CreateReviewDto = void 0;
+exports.SongsController = void 0;
 const common_1 = require("@nestjs/common");
 const songs_service_1 = require("./songs.service");
-class CreateReviewDto {
-}
-exports.CreateReviewDto = CreateReviewDto;
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
     }
-    async findAll(searchTerm) {
-        return await this.songsService.findAll(searchTerm);
+    async findAllSongs(searchTerm) {
+        return await this.songsService.findAllSongs(searchTerm);
+    }
+    async findAllAlbums(searchTerm) {
+        return await this.songsService.findAllAlbums(searchTerm);
     }
     async getAllSongReviews() {
         return await this.songsService.getAllSongReviews();
@@ -31,8 +31,11 @@ let SongsController = class SongsController {
     async getAllAlbumReviews() {
         return await this.songsService.getAllAlbumReviews();
     }
-    async createAlbumReview(createReviewDto) {
-        return await this.songsService.createAlbumReview(createReviewDto);
+    async createAlbumReview(createAlbumReviewDto) {
+        return await this.songsService.createAlbumReview(createAlbumReviewDto);
+    }
+    async createSongReview(createSongReviewDto) {
+        return await this.songsService.createSongReview(createSongReviewDto);
     }
 };
 exports.SongsController = SongsController;
@@ -42,7 +45,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], SongsController.prototype, "findAll", null);
+], SongsController.prototype, "findAllSongs", null);
+__decorate([
+    (0, common_1.Get)('findalbums'),
+    __param(0, (0, common_1.Query)('q')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "findAllAlbums", null);
 __decorate([
     (0, common_1.Get)('songreviews'),
     __metadata("design:type", Function),
@@ -59,9 +69,16 @@ __decorate([
     (0, common_1.Post)('createalbumreviews'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateReviewDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "createAlbumReview", null);
+__decorate([
+    (0, common_1.Post)('createsongreviews'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "createSongReview", null);
 exports.SongsController = SongsController = __decorate([
     (0, common_1.Controller)('songs'),
     __metadata("design:paramtypes", [songs_service_1.SongsService])
