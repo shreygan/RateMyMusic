@@ -95,6 +95,37 @@ CREATE TABLE IF NOT EXISTS Review1 (
       ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS UserReviewLikes (
+    user_pid INTEGER,
+    review_pid INTEGER,
+    rid INTEGER,
+    liked BOOLEAN,
+    disliked BOOLEAN,
+    PRIMARY KEY (user_pid, review_pid, rid),
+    FOREIGN KEY (user_pid) REFERENCES User4(pid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
+    FOREIGN KEY (review_pid, rid) REFERENCES Review2(rid, pid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS UserCommentLikes (
+    user_pid INTEGER,
+    comment_pid INTEGER,
+    comment_date DATETIME,
+    rid INTEGER,
+    liked BOOLEAN,
+    disliked BOOLEAN,
+    PRIMARY KEY (user_pid, comment_date, comment_pid, rid),
+    FOREIGN KEY (user_pid) REFERENCES User4(pid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE,
+    FOREIGN KEY (comment_date, comment_pid, rid) REFERENCES Comment2(comment_date, pid, rid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS Comment2 (
     comment_date DATETIME,
     review_text VARCHAR(5000) NOT NULL,

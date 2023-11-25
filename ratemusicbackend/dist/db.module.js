@@ -11,16 +11,17 @@ const common_1 = require("@nestjs/common");
 const mysql2_1 = require("mysql2");
 const connectionPool = (0, mysql2_1.createPool)({
     host: '127.0.0.1',
-    user: 'super-user',
-    password: 'password',
-    database: 'rymdb',
+    user: 'root',
+    password: '1234',
+    database: 'RateMyMusic',
     waitForConnections: true,
     connectionLimit: 10,
     maxIdle: 10,
     idleTimeout: 60000,
     queueLimit: 0,
     enableKeepAlive: true,
-    keepAliveInitialDelay: 0
+    keepAliveInitialDelay: 0,
+    multipleStatements: true
 });
 exports.Database = 'DATABASE_CONNECTION';
 let DatabaseModule = class DatabaseModule {

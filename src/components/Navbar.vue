@@ -35,7 +35,7 @@ export default {
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                 <b-nav-item to="/AlbumPage"><span class="p">Albums</span></b-nav-item>
-                <b-nav-item href="#"><span class="p">Songs</span></b-nav-item>
+                <b-nav-item to="/SongPage"><span class="p">Songs</span></b-nav-item>
                 <b-nav-item href="#"><span class="p">User Charts</span></b-nav-item>
                 <b-nav-item href="#"><span class="p">Playlists</span></b-nav-item>
             </b-navbar-nav>

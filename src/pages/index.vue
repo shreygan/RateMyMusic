@@ -22,14 +22,21 @@ const getReleaseYear = (dateString) => {
   return date.getFullYear();
 };
 
-
+const selectedFilter = ref('song_name');
 </script>
 
 
 <template>
   <BContainer class="my-4">
+    <BCol>
+
     <BFormInput v-model="searchTerm" />
-    <!-- <b-button variant="primary" class="btn-top-right" @click="handleButtonClick">Click Me</b-button> -->
+    <BFormSelect v-model="selectedFilter" class="mr-2">
+      <option value="song_name">Song Name</option>
+      <option value="album_name">Album Name</option>
+    </BFormSelect>
+
+    </BCol>
     <router-link :to="{ path: '/MainPage' }">
         <b-button variant="primary" class="btn-top-right">Click Me</b-button>
     </router-link>
@@ -38,7 +45,6 @@ const getReleaseYear = (dateString) => {
       <BCard>
         <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle>
 
-        <!-- Album name as a clickable link to the AlbumPage -->
         <router-link to="/AlbumPage">
           <BCardText>{{ result.album_name }}</BCardText>
         </router-link>
@@ -48,7 +54,6 @@ const getReleaseYear = (dateString) => {
 </template>
 
 <style scoped>
-/* Custom styling for the button in the top right corner */
 .btn-top-right {
   position: fixed;
   top: 20px;

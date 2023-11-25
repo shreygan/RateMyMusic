@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import axios from 'axios'
 
-async function loadSongs() {
-  let url = 'http://localhost:3000/songs/findsongs'
+const selectedFilters = ref(['songs']); // Default filter
+const filterOptions = ['songs', 'albums', 'other'];
 
-  if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
-  }
+// async function loadResults() {
+//   let url = 'http://localhost:3000/songs/find' + (selectedFilters.value as string[]).join('');
 
-  const response = await fetch(url)
-  return await response.json()
-}
+//   if (searchTerm.value) {
+//     url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+//   }
+
+//   const response = await fetch(url);
+//   return await response.json();
+// }
 
 async function loadAlbums() {
   let url = 'http://localhost:3000/songs/findalbums'
@@ -23,8 +26,6 @@ async function loadAlbums() {
   return await response.json()
 }
 
-
-
 const reviewText = ref('')
 const searchTerm = ref('')
 const isLoading = ref(false)
@@ -35,7 +36,16 @@ const reviewData = ref({
   releaseDate: "",
   pid: 0,
 })
-const results = computedAsync(loadSongs, [], isLoading)
+
+const results = computedAsync(loadAlbums, [], isLoading)
+// const results = computedAsync(() => {
+//   if (selectedFilter.value === 'songs') {
+//     return loadSongs();
+//   } else if (selectedFilter.value === 'albums') {
+//     return loadAlbums();
+//   }
+//   return Promise.resolve([]);
+// }, [], isLoading);
 
 const getReleaseYear = (dateString) => {
   const date = new Date(dateString);
@@ -60,12 +70,17 @@ async function submitReview(songName: any, songReleaseDate: any) {
   }
 }
 
+// const selectedFilter = ref('songs')
+
 </script>
 
 <template>
   <BContainer class="my-4">
     <BCol class="mb-4">
       <BFormInput v-model="searchTerm" />
+      <BFormSelect v-model="selectedFilters" class="mr-2">
+        <option v-for="filter in filterOptions" :key="filter" :value="filter">{{ filter }}</option>
+    </BFormSelect>
       <router-link :to="{ path: '/MainPage' }">
         <b-button variant="primary" class="btn-top-right">Click Me</b-button>
       </router-link>

@@ -21,6 +21,98 @@ let SongsService = class SongsService {
         this.connection = connection;
         this.query = (0, util_1.promisify)(this.connection.query).bind(this.connection);
     }
+    async getAllGenres() {
+        return await this.query(`
+    SELECT Genre FROM Song
+    UNION
+    SELECT Genre FROM Album
+    UNION
+    SELECT Genre FROM Artist2;
+`);
+    }
+    async filterSongs(filterSongsDto) {
+        const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration } = filterSongsDto._value;
+        console.log(filterSongsDto._value);
+        console.log(startDate);
+        console.log(endDate);
+        console.log(Number(minDuration) * 60);
+        console.log(Number(maxDuration) * 60);
+        return await this.query(`
+        SELECT
+            s.song_name,
+            s.release_date AS song_release_date,
+            s.duration,
+            s.genre,
+            a.album_name,
+            a.cover,
+            at2.name
+        FROM
+            Song s, AlbumSong als, Album a, ArtistAlbum aa, Artist2 at2
+        WHERE 
+            s.song_name = als.song_name AND s.release_date = als.song_release_date
+            AND als.album_name = a.album_name AND als.album_release_date = a.release_date
+            AND a.album_name = aa.album_name AND a.release_date = aa.release_date
+            AND aa.pid = at2.pid
+
+            AND s.song_name LIKE CONCAT('%', ?, '%')
+            AND s.release_date BETWEEN ? AND ?
+            AND s.genre = COALESCE(?, s.genre)
+            AND a.isSingle = ?
+            AND s.duration BETWEEN ? AND ?;
+        `, [searchTerm ? searchTerm : '',
+            startDate ? startDate : '1500-01-01',
+            endDate ? endDate : new Date().toISOString().slice(0, 10),
+            selectedGenre != 'All' ? selectedGenre : null,
+            isSingle,
+            Number(minDuration) * 60,
+            Number(maxDuration) * 60]);
+    }
+    async advancedFilterSongs(advancedFilterSongsDto) {
+        const { topValue, comparator, ratingValue } = advancedFilterSongsDto._value;
+        return await this.query(`
+    CREATE OR REPLACE VIEW AverageRatings AS SELECT
+        sr.song_name,
+        sr.release_date,
+        s.genre,
+        AVG(rating) AS average_rating
+    FROM
+        SongReview sr, Song s, AlbumSong als, Album a
+    WHERE
+        s.song_name = sr.song_name AND s.release_date = sr.release_date
+        AND als.song_name = s.song_name AND als.song_release_date = s.release_date
+    GROUP BY
+        song_name, release_date
+    HAVING
+        average_rating >= ?;
+
+    SELECT
+        r.song_name,
+        r.release_date,
+        r.genre,
+        r.average_rating,
+        s.duration,
+        a.album_name,
+        a.cover,
+        at2.name
+    FROM (
+        SELECT
+            ar.genre,
+            ar.song_name,
+            ar.release_date,
+            ar.average_rating,
+            ROW_NUMBER() OVER (PARTITION BY ar.genre ORDER BY ar.average_rating DESC) AS genre_rank
+        FROM
+            AverageRatings ar
+    ) r, Song s, AlbumSong als, Album a, ArtistAlbum aa, Artist2 at2
+    WHERE
+        s.song_name = r.song_name AND s.release_date = r.release_date
+        AND s.song_name = als.song_name AND s.release_date = als.song_release_date
+        AND als.album_name = a.album_name AND als.album_release_date = a.release_date
+        AND a.album_name = aa.album_name AND a.release_date = aa.release_date
+        AND aa.pid = at2.pid
+        AND genre_rank <= ?;
+        `, [ratingValue, topValue]);
+    }
     async createSongReview(createSongReviewDto) {
         const { rating, reviewText, songName, releaseDate, pid } = createSongReviewDto._value;
         const reviewDate = new Date().toISOString().slice(0, 10);
@@ -97,12 +189,13 @@ let SongsService = class SongsService {
     a.genre,
     a.duration,
     a.cover,
-    a.number_of_songs
-  FROM Review1 r1, Review2 r2, AlbumReview ar, Album a
+    a.number_of_songs,
+    u.username
+  FROM Review1 r1, Review2 r2, AlbumReview ar, Album a, User4 u
   WHERE r1.review_date = r2.review_date AND r1.likes = r2.likes
         AND r1.dislikes = r2.dislikes AND r2.rid = ar.rid
         AND r2.pid = ar.pid AND ar.album_name = a.album_name
-        AND ar.release_date = a.release_date
+        AND ar.release_date = a.release_date AND r2.pid = u.pid
   ORDER BY r1.helpfulness DESC;
     `);
     }
@@ -123,14 +216,15 @@ let SongsService = class SongsService {
     s.genre,
     als.album_name,
     als.album_release_date,
-    a.cover
-  FROM Review1 r1, Review2 r2, SongReview sr, Song s, AlbumSong als, Album a
+    a.cover,
+    u.username
+  FROM Review1 r1, Review2 r2, SongReview sr, Song s, AlbumSong als, Album a, User4 u
   WHERE r1.review_date = r2.review_date AND r1.likes = r2.likes
         AND r1.dislikes = r2.dislikes AND r2.rid = sr.rid
         AND r2.pid = sr.pid AND sr.song_name = s.song_name
         AND sr.release_date = s.release_date AND s.song_name = als.song_name
         AND s.release_date = als.song_release_date AND als.album_name = a.album_name
-        AND als.album_release_date = a.release_date
+        AND als.album_release_date = a.release_date AND r2.pid = u.pid
   ORDER BY r1.helpfulness DESC;
     `);
     }
@@ -143,6 +237,7 @@ let SongsService = class SongsService {
         s.duration,
         s.genre,
         a.album_name,
+        a.cover,
         a.release_date AS album_release_date
       FROM Song s
       LEFT JOIN AlbumSong als ON s.song_name = als.song_name AND s.release_date = als.song_release_date
@@ -156,6 +251,7 @@ let SongsService = class SongsService {
       s.duration,
       s.genre,
       a.album_name,
+      a.cover,
       a.release_date AS album_release_date
     FROM Song s
     LEFT JOIN AlbumSong als ON s.song_name = als.song_name AND s.release_date = als.song_release_date

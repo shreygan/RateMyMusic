@@ -12,15 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SongsController = void 0;
+exports.SongsController = exports.AdvancedFilterSongsDto = exports.FilterSongsDto = void 0;
 const common_1 = require("@nestjs/common");
 const songs_service_1 = require("./songs.service");
+class FilterSongsDto {
+}
+exports.FilterSongsDto = FilterSongsDto;
+class AdvancedFilterSongsDto {
+}
+exports.AdvancedFilterSongsDto = AdvancedFilterSongsDto;
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
     }
+    async getAllGenres() {
+        return await this.songsService.getAllGenres();
+    }
     async findAllSongs(searchTerm) {
         return await this.songsService.findAllSongs(searchTerm);
+    }
+    async filterSongs(filterSongsDto) {
+        return await this.songsService.filterSongs(filterSongsDto);
+    }
+    async advancedFilterSongs(advancedFilterSongsDto) {
+        return await this.songsService.advancedFilterSongs(advancedFilterSongsDto);
     }
     async findAllAlbums(searchTerm) {
         return await this.songsService.findAllAlbums(searchTerm);
@@ -40,12 +55,32 @@ let SongsController = class SongsController {
 };
 exports.SongsController = SongsController;
 __decorate([
+    (0, common_1.Get)('getallgenres'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "getAllGenres", null);
+__decorate([
     (0, common_1.Get)('findsongs'),
     __param(0, (0, common_1.Query)('q')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "findAllSongs", null);
+__decorate([
+    (0, common_1.Post)('filtersongs'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [FilterSongsDto]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "filterSongs", null);
+__decorate([
+    (0, common_1.Post)('advancedfiltersongs'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [AdvancedFilterSongsDto]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "advancedFilterSongs", null);
 __decorate([
     (0, common_1.Get)('findalbums'),
     __param(0, (0, common_1.Query)('q')),
