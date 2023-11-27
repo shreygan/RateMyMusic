@@ -23,7 +23,6 @@ const currentUser = reactive({
 
 onMounted(() => {
     getCurrentUser();
-    avgRatingPerUser('AVG')// Call the function when component is mounted
 });
 
 
@@ -121,15 +120,16 @@ export default {
         return {
             selectedAggregation: 'SUM',
         };
-    }, 
+    },
     methods: {
-        bufferToDataURI(bufferArray: number[]) {
-            // Convert the array to a base64-encoded data URI
-            const uint8Array = new Uint8Array(bufferArray);
-            const base64String = btoa(
-                String.fromCharCode.apply(null, Array.from(uint8Array))
-            );
-            return "data:image/jpeg;base64," + base64String;
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
         },
         selectAggregation(aggregation: any) {
             this.selectedAggregation = aggregation;
@@ -191,7 +191,7 @@ export default {
 
 
 <template>
-    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="position: fixed; right: 0;">
+    <!-- <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="position: fixed; right: 0;">
         <BCard style="width: 70%; margin-left: 20%; margin-top: 15%; max-height: 80vh; overflow-y: auto;">
             <b-dropdown class="mb-3">
                 <template #button-content>
@@ -216,23 +216,20 @@ export default {
 
             </div>
         </BCard>
-    </BCol>
+    </BCol> -->
 
 
     <BCol class="mb-3">
-        <BCard style="width: 100%; margin-top: 15%;">
-            <!-- Large text for album name at the top of the card -->
+        <BCard style="width: 75vw; margin-top: 15%;">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>{{ currentUser.name }}, {{ currentUser.age }}</h2>
                 <span>@{{ currentUser.username }}</span>
             </div>
 
 
-            <!-- Album cover image -->
-            <b-card-img v-if="currentUser.profile_pic" :src="bufferToDataURI(currentUser.profile_pic.data)"
+            <b-card-img v-if="currentUser.profile_pic" :src="arrayBufferToBase64(currentUser.profile_pic.data)"
                 alt="Album Cover"></b-card-img>
 
-            <!-- Other card content -->
             <div class="p-3">
                 <BCardText class="d-flex mb-3">
                     <b> Email:</b>&nbsp;&nbsp;{{ currentUser.email }}
@@ -245,8 +242,14 @@ export default {
                 <BCardText class="d-flex mb-3">
                     <b> Birthdate:</b>&nbsp;&nbsp;{{ new Date(currentUser.birthdate).toLocaleDateString() }}
                 </BCardText>
+                <!-- {{ console.log(userpid) }} -->
+                <RouterLink
+                    :to="{ name: '/users/[userstats]', params: { userstats: userpid} }">
+                    <BButton style="margin-top: 3%; margin-bottom: -3%;" variant="primary" class="btn-bottom-left">View User
+                        Stats
+                    </BButton>
+                </RouterLink>
 
-                <!-- <BCardFooter>Rating: {{ review.rating }}</BCardFooter> -->
             </div>
         </BCard>
     </BCol>
@@ -264,14 +267,14 @@ export default {
         <BCol v-if="selectedFilter == 'albums'" lg="6" class="mb-3 column">
             <BContainer fluid>
                 <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
-                    <BCard style="width: 200%">
+                    <BCard style="width: 70vw">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h2>{{ review.album_name }}</h2>
                             <span>@{{ currentUser.username }}</span>
                         </div>
 
                         <!-- Album cover image -->
-                        <b-card-img style="width: 40vw;" :src="bufferToDataURI(review.cover.data)"
+                        <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
                             alt="Album Cover"></b-card-img>
 
                         <div class="p-3">
@@ -301,7 +304,7 @@ export default {
                         </div>
 
                         <!-- Album cover image -->
-                        <b-card-img style="width: 40vw;" :src="bufferToDataURI(review.cover.data)"
+                        <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
                             alt="Album Cover"></b-card-img>
 
                         <div class="p-3">

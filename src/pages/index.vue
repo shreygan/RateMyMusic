@@ -20,14 +20,15 @@ const songReviews = computedAsync(loadSongReviews, [], isLoading);
 
 export default {
     methods: {
-        bufferToDataURI(bufferArray: number[]) {
-            // Convert the array to a base64-encoded data URI
-            const uint8Array = new Uint8Array(bufferArray);
-            const base64String = btoa(
-                String.fromCharCode.apply(null, Array.from(uint8Array))
-            );
-            return "data:image/jpeg;base64," + base64String;
-        },
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
+        }
     },
     toggleLike(review: any) {
         // Toggle the isLiked property when the checkbox is changed
@@ -119,17 +120,17 @@ export default {
                 <BCol lg="6" class="mb-3 column">
                     <BContainer fluid>
                         <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
-                            <BCard style="width: 100%">
-                                <!-- Large text for album name at the top of the card -->
+                            <BCard style="width: 85vw">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h2>{{ review.album_name }}</h2>
                                     <span>@{{ review.username }}</span>
                                 </div>
 
-                                <!-- Album cover image -->
-                                <b-card-img style="width: 20vw;" :src="bufferToDataURI(review.cover.data)" alt="Album Cover"></b-card-img>
+                                <!-- <b-card-img style="width: 20vw;" :src="bufferToDataURI(review.cover.data)" alt="Album Cover"></b-card-img> -->
+                                <b-card-img style="width: 50vw;" :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
 
-                                <!-- Other card content -->
+                                <!-- {{ console.log(review.cover.data) }} -->
+
                                 <div class="p-3">
                                     <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
                                         review.review_text }}</BCardText>
@@ -185,6 +186,7 @@ export default {
                 <BCol lg="6" class="mb-3 column">
                 <BContainer fluid>
                     <BCol v-for="(review, index) in songReviews" :key="index" class="mb-3">
+
                         <BCard style="width: 100%">
                             <!-- Large text for album name at the top of the card -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -193,7 +195,11 @@ export default {
                             </div>
 
                             <!-- Album cover image -->
-                            <b-card-img style="width: 20vw;" :src="bufferToDataURI(review.cover.data)" alt="Album Cover"></b-card-img>
+                            <!-- <b-card-img style="width: 20vw;" :src="bufferToDataURI(review.cover.data)" alt="Album Cover"></b-card-img> -->
+                            <b-card-img style="width: 50vw;" :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
+
+                            {{ console.log(review.cover.data) }}
+                            <!-- {{ console.log(_arrayBufferToBase64(review.cover.data)) }} -->
 
                             <!-- Other card content -->
                             <div class="p-3">

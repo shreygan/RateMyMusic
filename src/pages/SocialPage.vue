@@ -43,14 +43,15 @@ const filterOptions = ["songs", "albums"];
 
 export default {
     methods: {
-        bufferToDataURI(bufferArray: number[]) {
-            // Convert the array to a base64-encoded data URI
-            const uint8Array = new Uint8Array(bufferArray);
-            const base64String = btoa(
-                String.fromCharCode.apply(null, Array.from(uint8Array))
-            );
-            return "data:image/jpeg;base64," + base64String;
-        },
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
+        }
     },
 };
 </script>
@@ -102,7 +103,7 @@ export default {
                 </RouterLink> 
             </div>
 
-            <b-card-img v-if="users.profile_pic" :src="bufferToDataURI(users.profile_pic.data)"
+            <b-card-img v-if="users.profile_pic" :src="arrayBufferToBase64(users.profile_pic.data)"
                 alt="Album Cover"></b-card-img>
 
             <div class="p-3">

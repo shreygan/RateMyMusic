@@ -49,6 +49,7 @@ declare module 'vue-router/auto/routes' {
     '/users/[createreview]': RouteRecordInfo<'/users/[createreview]', '/users/:createreview', { createreview: ParamValue<true> }, { createreview: ParamValue<false> }>,
     '/users/[updateuser]': RouteRecordInfo<'/users/[updateuser]', '/users/:updateuser', { updateuser: ParamValue<true> }, { updateuser: ParamValue<false> }>,
     '/users/[user]': RouteRecordInfo<'/users/[user]', '/users/:user', { user: ParamValue<true> }, { user: ParamValue<false> }>,
+    '/users/[userstats]': RouteRecordInfo<'/users/[userstats]', '/users/:userstats', { userstats: ParamValue<true> }, { userstats: ParamValue<false> }>,
     '/users/create': RouteRecordInfo<'/users/create', '/users/create', Record<never, never>, Record<never, never>>,
     '/users/login': RouteRecordInfo<'/users/login', '/users/login', Record<never, never>, Record<never, never>>,
   }

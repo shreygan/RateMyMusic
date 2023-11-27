@@ -97,6 +97,22 @@ function getImagePath(name: string) {
 }
 </script>
 
+<script lang="ts">
+export default {
+    methods: {
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
+        }
+    },
+}
+</script>
+
 <template>
   <BContainer class="my-4 mb-4 content">
     <BCard border-variant="success">
@@ -180,7 +196,7 @@ function getImagePath(name: string) {
     />
 
     <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-      <BCard style="width: 100%" :img-src="getImagePath(result.album_name)">
+      <BCard style="width: 100%" :img-src="arrayBufferToBase64(result.cover.data)">
         <!-- <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle> -->
         <RouterLink :to="{name: '/songs/[songName]/[year]', params: { songName: result.song_name, year: result.song_release_date } }">
           <h2>
