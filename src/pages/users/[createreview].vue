@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import axios from "axios";
-import { useUserStore } from "../composables/userStore";
+import { useUserStore } from "../../composables/userStore";
 import { c } from "unplugin-vue-router/dist/options-8dbadba3.js";
 
+import { useRoute } from "vue-router";
+
 const { allUsers, currentUser } = useUserStore();
+
+const route = useRoute();
+
+const userpid = computed(() => route.params.createreview as string);
+
 
 const selectedFilter = ref("songs"); // Default filter
 const filterOptions = ["songs", "albums"];
@@ -29,6 +36,7 @@ const reviewData = ref({
   songName: "",
   releaseDate: "",
   pid: 0,
+  albumName: "",
 });
 
 const results = computedAsync(loadAlbums, [], isLoading);
@@ -52,7 +60,7 @@ async function submitSongReview(songName: any, songReleaseDate: any) {
   reviewData.value.songName = songName;
   reviewData.value.releaseDate = songReleaseDate.slice(0, 10);
   if (currentUser.value) {
-    reviewData.value.pid = currentUser.value;
+    reviewData.value.pid = currentUser.value.pid;
   }
 
   console.log(currentUser.value)
@@ -79,9 +87,9 @@ async function submitSongReview(songName: any, songReleaseDate: any) {
 }
 
 async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
-  reviewData.value.songName = albumName;
+  reviewData.value.albumName = albumName;
   reviewData.value.releaseDate = albumReleaseDate.slice(0, 10);
-  reviewData.value.pid = 41902873;
+  reviewData.value.pid = currentUser.value.pid;
 
   try {
     const response = await axios.post(

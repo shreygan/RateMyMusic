@@ -67,27 +67,35 @@ let SongsService = class SongsService {
             Number(minDuration) * 60,
             Number(maxDuration) * 60]);
     }
-    async advancedFilterSongs(advancedFilterSongsDto) {
-        const { topValue, comparator, ratingValue } = advancedFilterSongsDto._value;
-        return await this.query(`
-    CREATE OR REPLACE VIEW AverageRatings AS SELECT
-        sr.song_name,
-        sr.release_date,
-        s.genre,
-        AVG(rating) AS average_rating
-    FROM
-        SongReview sr, Song s, AlbumSong als, Album a
-    WHERE
-        s.song_name = sr.song_name AND s.release_date = sr.release_date
-        AND als.song_name = s.song_name AND als.song_release_date = s.release_date
-    GROUP BY
-        song_name, release_date
-    HAVING
-        average_rating >= ?;
-
-    SELECT
+    async advancedFilterSongs(data) {
+        const { topSongsNumber, ratingComparison, ratingValue } = data;
+        console.log(ratingComparison);
+        console.log(ratingValue);
+        const combinedString = `${ratingComparison} ${ratingValue}`;
+        console.log(combinedString);
+        console.log(data);
+        await this.query(`CREATE OR REPLACE VIEW AverageRatings AS SELECT
+         sr.song_name,
+         sr.release_date,
+         s.genre,
+         AVG(rating) AS average_rating
+     FROM
+         SongReview sr, Song s, AlbumSong als, Album a
+     WHERE
+         s.song_name = sr.song_name AND s.release_date = sr.release_date
+         AND als.song_name = s.song_name AND als.song_release_date = s.release_date
+     GROUP BY
+         song_name, release_date
+     HAVING
+        CASE
+            WHEN ? = '>' THEN  average_rating > ?
+            WHEN ? = '>=' THEN average_rating >= ?
+            WHEN ? = '<' THEN  average_rating < ?
+            WHEN ? = '<=' THEN average_rating <= ?
+        END;`, [ratingComparison, ratingValue, ratingComparison, ratingValue, ratingComparison, ratingValue, ratingComparison, ratingValue]);
+        return await this.query(`SELECT
         r.song_name,
-        r.release_date,
+        r.release_date AS song_release_date,
         r.genre,
         r.average_rating,
         s.duration,
@@ -110,8 +118,7 @@ let SongsService = class SongsService {
         AND als.album_name = a.album_name AND als.album_release_date = a.release_date
         AND a.album_name = aa.album_name AND a.release_date = aa.release_date
         AND aa.pid = at2.pid
-        AND genre_rank <= ?;
-        `, [ratingValue, topValue]);
+        AND genre_rank <= ?;`, [topSongsNumber]);
     }
     async createSongReview(createSongReviewDto) {
         const { rating, reviewText, songName, releaseDate, pid } = createSongReviewDto._value;

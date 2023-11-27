@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import axios from "axios";
 
+import { useUserStore } from "../composables/userStore";
+const { allUsers, currentUser } = useUserStore();
+
+
 async function loadAllSongs() {
   let url = "http://localhost:3000/songs/findsongs";
 
   if(useAdvancedFilters.value) {
-     return axios.post(
-      `http://localhost:3000/songs/advancedfiltersongs`,
-      {
-        ...advancedFilters,
-        ...filters,
-      }
-    ).then(response => response.data)
+    let url = "http://localhost:3000/songs/advancedfiltersongs";
+    const response = await axios.post(url, { 
+      topSongsNumber: topSongsNumber.value,
+      ratingComparison: ratingComparison.value,
+      ratingValue: ratingValue.value,
+    });
+    console.log(response.data);
+    return response.data;
+
+    
+     
   } else if(useFilters.value) {
     return axios.post(
       `http://localhost:3000/songs/filtersongs`,
@@ -48,9 +56,9 @@ const filters = reactive({
 const useAdvancedFilters = ref(false);
 
 const advancedFilters = reactive({
-  topSongsNumber: 0,
-  ratingComparison: "",
-  ratingValue: 0,
+  topSongsNumber: '0',
+  ratingComparison: ">",
+  ratingValue: '0',
 });
 // const genreOptions = ['Rap', 'Rock', 'Hip-Hop', 'R&B', 'Electronic', 'Country', 'Other'];
 

@@ -34,8 +34,8 @@ let SongsController = class SongsController {
     async filterSongs(filterSongsDto) {
         return await this.songsService.filterSongs(filterSongsDto);
     }
-    async advancedFilterSongs(advancedFilterSongsDto) {
-        return await this.songsService.advancedFilterSongs(advancedFilterSongsDto);
+    async advancedFilterSongs(data) {
+        return await this.songsService.advancedFilterSongs(data);
     }
     async findAllAlbums(searchTerm) {
         return await this.songsService.findAllAlbums(searchTerm);
@@ -81,7 +81,7 @@ __decorate([
     (0, common_1.Post)('advancedfiltersongs'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [AdvancedFilterSongsDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "advancedFilterSongs", null);
 __decorate([

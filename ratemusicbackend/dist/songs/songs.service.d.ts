@@ -6,7 +6,7 @@ export declare class SongsService {
     private readonly query;
     getAllGenres(): Promise<any>;
     filterSongs(filterSongsDto: FilterSongsDto): Promise<any>;
-    advancedFilterSongs(advancedFilterSongsDto: any): Promise<any>;
+    advancedFilterSongs(data: any): Promise<any>;
     createSongReview(createSongReviewDto: any): Promise<any>;
     createAlbumReview(createAlbumReviewDto: any): Promise<any>;
     getAllAlbumReviews(): Promise<any>;

@@ -54,8 +54,8 @@ export class SongsController {
   }
 
   @Post('advancedfiltersongs')
-  async advancedFilterSongs(@Body() advancedFilterSongsDto: AdvancedFilterSongsDto) {
-    return await this.songsService.advancedFilterSongs(advancedFilterSongsDto);
+  async advancedFilterSongs(@Body() data) {
+    return await this.songsService.advancedFilterSongs(data);
   }
 
 

@@ -41,11 +41,14 @@ declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/AlbumPage': RouteRecordInfo<'/AlbumPage', '/AlbumPage', Record<never, never>, Record<never, never>>,
-    '/CreateReviewPage': RouteRecordInfo<'/CreateReviewPage', '/CreateReviewPage', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
     '/SearchTest': RouteRecordInfo<'/SearchTest', '/SearchTest', Record<never, never>, Record<never, never>>,
+    '/SocialPage': RouteRecordInfo<'/SocialPage', '/SocialPage', Record<never, never>, Record<never, never>>,
     '/SongPage': RouteRecordInfo<'/SongPage', '/SongPage', Record<never, never>, Record<never, never>>,
     '/songs/[songName]/[year]': RouteRecordInfo<'/songs/[songName]/[year]', '/songs/:songName/:year', { songName: ParamValue<true>, year: ParamValue<true> }, { songName: ParamValue<false>, year: ParamValue<false> }>,
+    '/users/[createreview]': RouteRecordInfo<'/users/[createreview]', '/users/:createreview', { createreview: ParamValue<true> }, { createreview: ParamValue<false> }>,
+    '/users/[updateuser]': RouteRecordInfo<'/users/[updateuser]', '/users/:updateuser', { updateuser: ParamValue<true> }, { updateuser: ParamValue<false> }>,
+    '/users/[user]': RouteRecordInfo<'/users/[user]', '/users/:user', { user: ParamValue<true> }, { user: ParamValue<false> }>,
     '/users/create': RouteRecordInfo<'/users/create', '/users/create', Record<never, never>, Record<never, never>>,
     '/users/login': RouteRecordInfo<'/users/login', '/users/login', Record<never, never>, Record<never, never>>,
   }

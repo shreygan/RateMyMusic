@@ -33,7 +33,7 @@ export declare class SongsController {
     getAllGenres(): Promise<any>;
     findAllSongs(searchTerm?: string): Promise<any>;
     filterSongs(filterSongsDto: FilterSongsDto): Promise<any>;
-    advancedFilterSongs(advancedFilterSongsDto: AdvancedFilterSongsDto): Promise<any>;
+    advancedFilterSongs(data: any): Promise<any>;
     findAllAlbums(searchTerm?: string): Promise<any>;
     getAllSongReviews(): Promise<any>;
     getSongReviews(songName?: string, releaseDate?: string): Promise<any>;

@@ -11,9 +11,9 @@ const common_1 = require("@nestjs/common");
 const mysql2_1 = require("mysql2");
 const connectionPool = (0, mysql2_1.createPool)({
     host: '127.0.0.1',
-    user: 'super-user',
-    password: 'password',
-    database: 'rymdb',
+    user: 'root',
+    password: '1234',
+    database: 'RateMyMusic',
     waitForConnections: true,
     connectionLimit: 10,
     maxIdle: 10,
