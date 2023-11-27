@@ -43,6 +43,9 @@ let SongsController = class SongsController {
     async getAllSongReviews() {
         return await this.songsService.getAllSongReviews();
     }
+    async getSongReviews(songName, releaseDate) {
+        return await this.songsService.getSongReviews(songName, releaseDate);
+    }
     async getAllAlbumReviews() {
         return await this.songsService.getAllAlbumReviews();
     }
@@ -94,6 +97,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "getAllSongReviews", null);
+__decorate([
+    (0, common_1.Get)('getsongreviews'),
+    __param(0, (0, common_1.Query)('q')),
+    __param(1, (0, common_1.Query)('year')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "getSongReviews", null);
 __decorate([
     (0, common_1.Get)('albumreviews'),
     __metadata("design:type", Function),

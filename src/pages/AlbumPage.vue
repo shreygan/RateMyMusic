@@ -1,41 +1,39 @@
-
-
 <script setup lang="ts">
-
 async function loadResults() {
-  let url = 'http://localhost:3000/songs/findalbums'
+  let url = "http://localhost:3000/songs/findalbums";
 
   if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
+    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
   }
 
-  const response = await fetch(url)
-  return await response.json()
+  const response = await fetch(url);
+  return await response.json();
 }
 
-const searchTerm = ref('')
-const isLoading = ref(false)
-const results = computedAsync(loadResults, [], isLoading)
+const searchTerm = ref("");
+const isLoading = ref(false);
+const results = computedAsync(loadResults, [], isLoading);
 
 const getReleaseYear = (dateString) => {
   const date = new Date(dateString);
   return date.getFullYear();
 };
-
-
 </script>
-
 
 <template>
   <BContainer class="my-4">
     <BFormInput v-model="searchTerm" />
     <router-link :to="{ path: '/MainPage' }">
-        <b-button variant="primary" class="btn-top-right">Click Me</b-button>
+      <b-button variant="primary" class="btn-top-right">Click Me</b-button>
     </router-link>
 
     <BCol v-for="(result, index) in results" :key="index" class="mb-3">
       <BCard>
-        <BCardTitle>{{ result.album_name }} ({{ getReleaseYear(result.release_date) }})</BCardTitle>
+        <BCardTitle
+          >{{ result.album_name }} ({{
+            getReleaseYear(result.release_date)
+          }})</BCardTitle
+        >
 
         <router-link to="/AlbumPage">
           <BCardText>{{ result.name }}</BCardText>

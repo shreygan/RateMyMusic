@@ -3,6 +3,7 @@ import { Connection } from 'mysql2';
 import { Database } from '../db.module';
 import { promisify } from 'util';
 import { relative } from 'path';
+import { FilterSongsDto } from './songs.controller';
 
 @Injectable()
 export class SongsService {
@@ -25,10 +26,10 @@ async getAllGenres(){
 `);
 }
 
-async filterSongs(filterSongsDto) {
-    const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration} = filterSongsDto._value;
+async filterSongs(filterSongsDto: FilterSongsDto) {
+    const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration} = filterSongsDto;
  
-    console.log(filterSongsDto._value);
+    console.log(filterSongsDto);
     console.log(startDate);
     console.log(endDate);
     console.log(Number(minDuration) * 60);
@@ -126,7 +127,17 @@ async advancedFilterSongs(advancedFilterSongsDto){
     const { rating, reviewText, songName, releaseDate, pid } =
       createSongReviewDto._value;
     // const reviewDate = "2023-11-24 12:00:00";
-    const reviewDate = new Date().toISOString().slice(0, 10);
+    // const reviewDate = new Date().toISOString().slice(0, 10);
+    const reviewDate = new Date();
+
+    const year = reviewDate.getFullYear();
+    const month = String(reviewDate.getMonth() + 1).padStart(2, '0');
+    const day = String(reviewDate.getDate()).padStart(2, '0');
+    const hour = String(reviewDate.getHours()).padStart(2, '0');
+    const minute = String(reviewDate.getMinutes()).padStart(2, '0');
+    const second = String(reviewDate.getSeconds()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     const rid = Math.floor(Math.random() * 900) + 10000;
     const likes = 0;
     const dislikes = 0;
@@ -161,15 +172,25 @@ async advancedFilterSongs(advancedFilterSongsDto){
     VALUES (?, ?, ?, ?, ?);
     `,
       [pid, rid, songName, releaseDate, rating],
-    );
+    ); 
 
     return createSongReviewDto;
   }
 
   async createAlbumReview(createAlbumReviewDto) {
     const { rating, reviewText, albumName, releaseDate, pid } =
-      createAlbumReviewDto;
-    const reviewDate = new Date().toISOString().slice(0, 10);
+      createAlbumReviewDto._value;
+    
+    const reviewDate = new Date();
+
+    const year = reviewDate.getFullYear();
+    const month = String(reviewDate.getMonth() + 1).padStart(2, '0');
+    const day = String(reviewDate.getDate()).padStart(2, '0');
+    const hour = String(reviewDate.getHours()).padStart(2, '0');
+    const minute = String(reviewDate.getMinutes()).padStart(2, '0');
+    const second = String(reviewDate.getSeconds()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     const rid = Math.floor(Math.random() * 90000) + 10000;
     const likes = 0;
     const dislikes = 0;
@@ -188,11 +209,11 @@ async advancedFilterSongs(advancedFilterSongsDto){
       [
         rid,
         pid,
-        reviewDate,
+        formattedDate,
         reviewText,
         likes,
         dislikes,
-        reviewDate,
+        formattedDate,
         likes,
         dislikes,
         helpfulness,
@@ -262,6 +283,36 @@ async advancedFilterSongs(advancedFilterSongsDto){
         AND als.album_release_date = a.release_date AND r2.pid = u.pid
   ORDER BY r1.helpfulness DESC;
     `);
+  }
+
+  async getSongReviews(songName: string, releaseDate: string) {
+    return await this.query(`
+    SELECT
+    r2.rid,
+    r2.pid,
+    r2.review_date,
+    r2.review_text,
+    r2.likes,
+    r2.dislikes,
+    r1.helpfulness,
+    sr.song_name,
+    sr.release_date,
+    sr.rating,
+    s.duration,
+    s.genre,
+    als.album_name,
+    als.album_release_date,
+    a.cover,
+    u.username
+  FROM Review1 r1, Review2 r2, SongReview sr, Song s, AlbumSong als, Album a, User4 u
+  WHERE r1.review_date = r2.review_date AND r1.likes = r2.likes
+        AND r1.dislikes = r2.dislikes AND r2.rid = sr.rid
+        AND r2.pid = sr.pid AND sr.song_name = s.song_name
+        AND sr.release_date = s.release_date AND s.song_name = als.song_name
+        AND s.release_date = als.song_release_date AND als.album_name = a.album_name
+        AND als.album_release_date = a.release_date AND r2.pid = u.pid AND sr.song_name = ? AND sr.release_date = ?
+  ORDER BY r1.helpfulness DESC;
+    `, [songName, releaseDate]);
   }
 
   async findAllSongs(searchTerm?: string) {

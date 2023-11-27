@@ -1,325 +1,218 @@
-
-
 <script setup lang="ts">
-import axios from 'axios'
-
+import axios from "axios";
 
 async function loadAllSongs() {
-    let url = 'http://localhost:3000/songs/findsongs'
+  let url = "http://localhost:3000/songs/findsongs";
 
-    if (searchTerm.value) {
-        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`
-    }
+  if(useAdvancedFilters.value) {
+     return axios.post(
+      `http://localhost:3000/songs/advancedfiltersongs`,
+      {
+        ...advancedFilters,
+        ...filters,
+      }
+    ).then(response => response.data)
+  } else if(useFilters.value) {
+    return axios.post(
+      `http://localhost:3000/songs/filtersongs`,
+      filters,
+    ).then(response => response.data);
+  }
 
-    const response = await fetch(url)
-    return await response.json()
+  if (filters.searchTerm) {
+    url += `?q=${encodeURIComponent(filters.searchTerm.trim().toLowerCase())}`;
+  }
+
+  return axios.get(url).then(response => response.data);
 }
 
 async function getAllGenres() {
-    let url = 'http://localhost:3000/songs/getallgenres'
+  let url = "http://localhost:3000/songs/getallgenres";
 
-    const response = await fetch(url)
-    return await response.json()
+  const response = await fetch(url);
+  return await response.json();
 }
-
-
-async function submitFilterRequest(filterDataValue: any) {
-
-    try {
-        const response = await axios.post(`http://localhost:3000/songs/filtersongs`, filterDataValue);
-        console.log(response);
-        if (response.status === 201) {
-            console.log('Review submitted successfully!');
-            console.log(response.data);
-            return response.data;
-        } else {
-            console.error('Failed to submit review. Unexpected status:', response.status);
-        }
-    } catch (error) {
-        console.error('Error submitting review:', error.message);
-    }
-}
-
-
-async function submitAdvancedFilterRequest(advancedFilterValues: any) {
-
-try {
-    const response = await axios.post(`http://localhost:3000/songs/advancedfiltersongs`, advancedFilterValues);
-    console.log(response);
-    if (response.status === 201) {
-        console.log('Review submitted successfully!');
-        console.log(response.data);
-        return response.data;
-    } else {
-        console.error('Failed to submit review. Unexpected status:', response.status);
-    }
-} catch (error) {
-    console.error('Error submitting review:', error.message);
-}
-}
-
-
 
 const useFilters = ref(false);
 
-
-const filterValues = ref({
-    searchTerm: '',
-    startDate: '',
-    endDate: '',
-    selectedGenre: 'All',
-    isSingle: false,
-    minDuration: 0,
-    maxDuration: 20,
-})
-
-const advancedFilterValues = ref({
-    topSongsNumber: 0,
-    ratingComparison: '',
-    ratingValue: 0,
-})
-
-
-
-
-async function submitFilters() {
-    if (useFilters.value) {
-        // If filters are used, fetch filtered songs
-        try {
-            const filteredSongs = await submitFilterRequest(filterValues);
-
-            results.value = filteredSongs; // Update results with filtered songs
-        } catch (error) {
-            console.error('Error fetching filtered songs:', error.message);
-        }
-    } else if (useAdvancedFilters.value) {
-        // If filters are used, fetch filtered songs
-        try {
-            const advancedFilteredSongs = await submitAdvancedFilterRequest(advancedFilterValues);
-
-            console.log(advancedFilteredSongs);
-
-            results.value = advancedFilteredSongs; // Update results with filtered songs
-        } catch (error) {
-            console.error('Error fetching filtered songs:', error.message);
-        }
-    }
-    else {
-        // If not, just load all songs
-        results.value = await loadAllSongs();
-    }
-}
-
-
-
-
-
-const searchTerm = ref('')
-const startDate = ref('');
-const endDate = ref('');
-const selectedGenre = ref('All');
-const isSingle = ref(false);
-const minDuration = ref(0);
-const maxDuration = ref(20);
+const filters = reactive({
+  searchTerm: "",
+  startDate: "",
+  endDate: "",
+  selectedGenre: "All",
+  isSingle: false,
+  minDuration: 0,
+  maxDuration: 20,
+});
 
 const useAdvancedFilters = ref(false);
-const topSongsNumber = ref(0);
-const ratingComparison = ref('');
-const ratingValue = ref(0);
 
-
-
-watch(searchTerm, (newVal) => {
-    filterValues.value.searchTerm = newVal;
+const advancedFilters = reactive({
+  topSongsNumber: 0,
+  ratingComparison: "",
+  ratingValue: 0,
 });
-watch(startDate, (newVal) => {
-    filterValues.value.startDate = newVal;
-});
-watch(endDate, (newVal) => {
-    filterValues.value.endDate = newVal;
-});
-watch(selectedGenre, (newVal) => {
-    filterValues.value.selectedGenre = newVal;
-});
-watch(isSingle, (newVal) => {
-    filterValues.value.isSingle = newVal;
-});
-watch(minDuration, (newVal) => {
-    filterValues.value.minDuration = newVal;
-});
-watch(maxDuration, (newVal) => {
-    filterValues.value.maxDuration = newVal;
-});
-
-// Watch for changes in useFilters and update useAdvancedFilters
-watch(useFilters, (newValue) => {
-  if (newValue) {
-    useAdvancedFilters.value = false;
-  }
-});
-
-// Watch for changes in useAdvancedFilters and update useFilters
-watch(useAdvancedFilters, (newValue) => {
-  if (newValue) {
-    useFilters.value = false;
-  }
-});
-
-watch(topSongsNumber, (newVal) => {
-    advancedFilterValues.value.topSongsNumber = newVal;
-});
-
-// Watch the ratingComparison and update advancedFilterValues
-watch(ratingComparison, (newVal) => {
-    advancedFilterValues.value.ratingComparison = newVal;
-});
-
-// Watch the ratingValue and update advancedFilterValues
-watch(ratingValue, (newVal) => {
-    advancedFilterValues.value.ratingValue = newVal;
-});
-
-
 // const genreOptions = ['Rap', 'Rock', 'Hip-Hop', 'R&B', 'Electronic', 'Country', 'Other'];
 
-const isLoading = ref(false)
-const results = computedAsync(loadAllSongs, [], isLoading)
+const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration } = toRefs(filters);
+const { topSongsNumber, ratingComparison, ratingValue } = toRefs(advancedFilters);
 
-const getReleaseYear = (dateString) => {
-    const date = new Date(dateString);
-    return date.getFullYear();
+
+
+const isLoading = ref(false);
+const results = computedAsync(loadAllSongs, [], isLoading);
+
+const getReleaseYear = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.getFullYear();
 };
-
 
 interface GenreObject {
   Genre: string;
 }
 
-const genreOptions = ref(['All']); // Initialize genreOptions as an empty array
+const genreOptions = ref(["All"]); // Initialize genreOptions as an empty array
 
-// Fetch genres when the component is mounted
+// Fetch z when the component is mounted
 onMounted(async () => {
-    const genres = await getAllGenres();
-    console.log(genres);
-    genreOptions.value = ['All', ...genres.map((genreObj: GenreObject) => genreObj.Genre)];
+  const genres = await getAllGenres();
+  console.log(genres);
+  genreOptions.value = [
+    "All",
+    ...genres.map((genreObj: GenreObject) => genreObj.Genre),
+  ];
 });
 
-
-
-
-
+function getImagePath(name: string) {
+  const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url)
+  return url.href
+}
 </script>
-
-<script lang="ts">
-import Navbar from '../components/Navbar.vue';
-
-export default {
-    components: {
-        Navbar,
-    },
-    methods: {
-        bufferToDataURI(bufferArray: number[]) {
-            // Convert the array to a base64-encoded data URI
-            const uint8Array = new Uint8Array(bufferArray);
-            const base64String = btoa(String.fromCharCode.apply(null, Array.from(uint8Array)));
-            return 'data:image/jpeg;base64,' + base64String;
-        }
-    },
-};
-</script>
-
-
-
 
 <template>
-    <BContainer class="my-4">
+  <BContainer class="my-4 mb-4 content">
+    <BCard border-variant="success">
+      <BCardTitle> Filters </BCardTitle>
 
+      <div class="filters">
+        <BFormCheckbox class="mr-2" v-model="useFilters"
+          >Use Filters</BFormCheckbox
+        >
+      </div>
 
-        <BCard>
-            <BCardTitle>
-                Filters
-            </BCardTitle>
+      <BCardBody v-if="useFilters">
+        <h5>Release Date Range</h5>
+        <BFormInput v-model="startDate" type="date" placeholder="Start Date" />
+        <BFormInput v-model="endDate" type="date" placeholder="End Date" />
 
-                <BFormCheckbox v-model="useFilters">Use Filters</BFormCheckbox>
+        <h5>Genre</h5>
+        <BFormSelect
+          v-model="selectedGenre"
+          :options="genreOptions"
+          placeholder="Select Genre"
+        />
 
-            <BCardBody>
-                <!-- Start Date and End Date -->
-                <p class="filter-title">Release Date Range</p>
-                <BFormInput v-model="startDate" type="date" placeholder="Start Date" />
-                <BFormInput v-model="endDate" type="date" placeholder="End Date" />
+        <!-- isSingle Checkbox -->
+        <h5>Type</h5>
+        <BFormCheckbox v-model="isSingle">Singles Only</BFormCheckbox>
 
-                <!-- Genre Dropdown -->
-                <p class="filter-title">Genre</p>
-                <BFormSelect v-model="selectedGenre" :options="genreOptions" placeholder="Select Genre" />
+        <!-- Min and Max Duration Sliders -->
+        <h5>Duration Range</h5>
+        <p>Min Duration: {{ minDuration }} minutes</p>
+        <BFormInput
+          type="range"
+          v-model.number="minDuration"
+          min="0"
+          max="20"
+          step="0.25"
+          :debounce="500"
+        />
 
-                <!-- isSingle Checkbox -->
-                <p class="filter-title">Type</p>
-                <BFormCheckbox v-model="isSingle">isSingle</BFormCheckbox>
+        <p>Max Duration: {{ maxDuration }} minutes</p>
+        <BFormInput
+          type="range"
+          v-model.number="maxDuration"
+          min="0"
+          max="20"
+          step="0.25"
+          :debounce="500"
+        />
+      </BCardBody>
 
-                <!-- Min and Max Duration Sliders -->
-                <p class="filter-title">Duration Range</p>
-                <p>Min Duration: {{ minDuration }} minutes</p>
-                <BFormInput type="range" v-model="minDuration" min="0" max="20" step="0.25" />
+      <BCardTitle>Advanced Filters</BCardTitle>
 
-                <p>Max Duration: {{ maxDuration }} minutes</p>
-                <BFormInput type="range" v-model="maxDuration" min="0" max="20" step="0.25" />
-            </BCardBody>
+      <div class="filters">
+        <BFormCheckbox v-model="useAdvancedFilters"
+          >Use Advanced Filters</BFormCheckbox
+        >
+      </div>
 
-        <BCardTitle>Advanced Filters</BCardTitle>
-        
-            <BFormCheckbox v-model="useAdvancedFilters">Use Advanced Filters</BFormCheckbox>
-        
-        <BCardBody>
-            <div class="mb-3">
-                <label class="form-label">Get top</label>
-                <BFormInput v-model="topSongsNumber" type="number" placeholder="" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">songs by genre, with average song rating</label>
-                <BFormSelect v-model="ratingComparison" :options="['>', '<', '>=', '<=']" />
-                <BFormInput v-model="ratingValue" type="number" placeholder="" />
-            </div>
-        </BCardBody>
+      <BCardBody v-if="useAdvancedFilters">
+        <div class="mb-3">
+          <label class="form-label">Get top</label>
+          <BFormInput v-model="topSongsNumber" type="number" placeholder=""  />
+        </div>
+        <div class="mb-3">
+          <label class="form-label"
+            >songs by genre, with average song rating</label
+          >
+          <BFormSelect
+            v-model="ratingComparison"
+            :options="['>', '<', '>=', '<=']"
+          />
+          <BFormInput v-model="ratingValue" type="number" placeholder="" />
+        </div>
+      </BCardBody>
+    </BCard>
 
+    <BFormInput
+      class="my-4"
+      v-model="searchTerm"
+      placeholder="Search for a song"
+    />
 
-                <b-button @click="submitFilters" variant="primary">Submit Filters</b-button>
-        </BCard>
+    <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+      <BCard style="width: 100%" :img-src="getImagePath(result.album_name)">
+        <!-- <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle> -->
+        <RouterLink :to="{name: '/songs/[songName]/[year]', params: { songName: result.song_name, year: result.song_release_date } }">
+          <h2>
+            {{ result.song_name }} ({{
+              getReleaseYear(result.song_release_date)
+            }})
+          </h2>
+        </RouterLink>
 
+        <!-- <b-card-img :src="bufferToDataURI(result.cover.data)" alt="Album Cover"></b-card-img> -->
+        <!-- <BCardImg
+          v-if="result.cover"
+          :src="getImagePath(result.album_name)"
+          alt="Album Cover"
+        ></BCardImg> -->
 
-
-
-
-
-        <BFormInput v-model="searchTerm" />
-        <router-link :to="{ path: '/MainPage' }">
-            <b-button variant="primary" class="btn-top-right">Click Me</b-button>
+        <router-link to="/AlbumPage">
+          <h4>{{ result.album_name }}</h4>
         </router-link>
-
-        <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-            <BCard style="width: 100%">
-                <!-- <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle> -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>{{ result.song_name }}</h2>
-                    <span>{{ getReleaseYear(result.song_release_date) }}</span>
-                </div>
-
-                <!-- <b-card-img :src="bufferToDataURI(result.cover.data)" alt="Album Cover"></b-card-img> -->
-                <b-card-img v-if="result.cover" :src="bufferToDataURI(result.cover.data)" alt="Album Cover"></b-card-img>
-
-                <router-link to="/AlbumPage">
-                    <BCardText>{{ result.album_name }}</BCardText>
-                </router-link>
-            </BCard>
-        </BCol>
-
-    </BContainer>
+      </BCard>
+    </BCol>
+  </BContainer>
 </template>
 
 <style scoped>
 /* Custom styling for the button in the top right corner */
 .btn-top-right {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.content {
+  width: 35rem;
+  padding-top: 2rem;
+}
+
+.filters {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

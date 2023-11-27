@@ -12,6 +12,7 @@ declare module 'vue' {
     BCardBody: typeof import('bootstrap-vue-next')['BCardBody']
     BCardFooter: typeof import('bootstrap-vue-next')['BCardFooter']
     BCardGroup: typeof import('bootstrap-vue-next')['BCardGroup']
+    BCardHeader: typeof import('bootstrap-vue-next')['BCardHeader']
     BCardImg: typeof import('bootstrap-vue-next')['BCardImg']
     BCardSubtitle: typeof import('bootstrap-vue-next')['BCardSubtitle']
     BCardText: typeof import('bootstrap-vue-next')['BCardText']

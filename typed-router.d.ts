@@ -43,8 +43,11 @@ declare module 'vue-router/auto/routes' {
     '/AlbumPage': RouteRecordInfo<'/AlbumPage', '/AlbumPage', Record<never, never>, Record<never, never>>,
     '/CreateReviewPage': RouteRecordInfo<'/CreateReviewPage', '/CreateReviewPage', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
-    '/MainPage': RouteRecordInfo<'/MainPage', '/MainPage', Record<never, never>, Record<never, never>>,
+    '/SearchTest': RouteRecordInfo<'/SearchTest', '/SearchTest', Record<never, never>, Record<never, never>>,
     '/SongPage': RouteRecordInfo<'/SongPage', '/SongPage', Record<never, never>, Record<never, never>>,
+    '/songs/[songName]/[year]': RouteRecordInfo<'/songs/[songName]/[year]', '/songs/:songName/:year', { songName: ParamValue<true>, year: ParamValue<true> }, { songName: ParamValue<false>, year: ParamValue<false> }>,
+    '/users/create': RouteRecordInfo<'/users/create', '/users/create', Record<never, never>, Record<never, never>>,
+    '/users/login': RouteRecordInfo<'/users/login', '/users/login', Record<never, never>, Record<never, never>>,
   }
 }
 

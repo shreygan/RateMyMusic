@@ -36,6 +36,7 @@ export declare class SongsController {
     advancedFilterSongs(advancedFilterSongsDto: AdvancedFilterSongsDto): Promise<any>;
     findAllAlbums(searchTerm?: string): Promise<any>;
     getAllSongReviews(): Promise<any>;
+    getSongReviews(songName?: string, releaseDate?: string): Promise<any>;
     getAllAlbumReviews(): Promise<any>;
     createAlbumReview(createAlbumReviewDto: CreateAlbumReviewDto): Promise<any>;
     createSongReview(createSongReviewDto: CreateSongReviewDto): Promise<any>;
