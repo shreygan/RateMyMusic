@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
-import { c } from "unplugin-vue-router/dist/options-8dbadba3.js";
 
 import { useRoute } from "vue-router";
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 
 const { allUsers, currentUser } = useUserStore();
+const successModal = ref(false);
 
 const user = {
   username: "",
@@ -29,7 +30,7 @@ async function login() {
     console.log(currentUser.value.email);
     console.log(currentUser.value.birthdate);
     console.log(currentUser.value.birthplace);
-
+    successModal.value = true;
   }
 }
 </script>
@@ -47,6 +48,7 @@ async function login() {
       />
 
       <BButton variant="primary" @click="login()">Join</BButton>
+      <BModal v-model="successModal" title="Success!">You may now browse and review songs and albums.</BModal>
     </BCol>
   </BRow>
 </template>
