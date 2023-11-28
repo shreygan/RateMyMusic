@@ -15,6 +15,10 @@ export class UsersService {
     this.connection,
   );
 
+  async getUserReview(data: any){
+
+  }
+
   async getPlaylistSongs(data: any) {
     return await this.query(
         `SELECT

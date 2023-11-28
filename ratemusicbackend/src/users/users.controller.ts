@@ -29,10 +29,11 @@ export interface ReviewDelete {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post('getuserbygenre')
-  // async getUsersByGenre(@Body() genre){
-  //   return await this.usersService.getUsersByGenre(genre);
-  // }
+  @Post('getuserreview')
+  async getUserReview(@Body() data) {
+    return await this.usersService.getUserReview(data);
+  }
+
 
   @Post('getplaylistsongs')
   async getPlaylistSongs(@Body() data) {

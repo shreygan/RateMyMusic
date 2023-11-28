@@ -42,6 +42,7 @@ declare module 'vue-router/auto/routes' {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/AlbumPage': RouteRecordInfo<'/AlbumPage', '/AlbumPage', Record<never, never>, Record<never, never>>,
     '/Playlists': RouteRecordInfo<'/Playlists', '/Playlists', Record<never, never>, Record<never, never>>,
+    '/reviews/[rid]/[pid]': RouteRecordInfo<'/reviews/[rid]/[pid]', '/reviews/:rid/:pid', { rid: ParamValue<true>, pid: ParamValue<true> }, { rid: ParamValue<false>, pid: ParamValue<false> }>,
     '/SearchTest': RouteRecordInfo<'/SearchTest', '/SearchTest', Record<never, never>, Record<never, never>>,
     '/SocialPage': RouteRecordInfo<'/SocialPage', '/SocialPage', Record<never, never>, Record<never, never>>,
     '/SongPage': RouteRecordInfo<'/SongPage', '/SongPage', Record<never, never>, Record<never, never>>,
