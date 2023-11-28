@@ -73,9 +73,9 @@ async function deleteReview(rid: string, userpid: string) {
     let url = "http://localhost:3000/users/deletereview";
     const response = await axios.post(url, { rid: rid, userpid: userpid });
 
-    if (selectedFilter.value === 'albums') {
+    if (selectedFilter.value === 'Album Reviews') {
         albumReviews.value = albumReviews.value.filter((review: any) => review.rid !== rid);
-    } else if (selectedFilter.value === 'songs') {
+    } else if (selectedFilter.value === 'Song Reviews') {
         songReviews.value = songReviews.value.filter((review: any) => review.rid !== rid);
     }
 
@@ -98,8 +98,8 @@ const albumReviews = computedAsync(loadAlbumReviews, [], isLoading);
 const songReviews = computedAsync(loadSongReviews, [], isLoading);
 const avgRatings = computedAsync(avgRatingPerUser, [], isLoading);
 
-const selectedFilter = ref("songs"); // Default filter
-const filterOptions = ["songs", "albums"];
+const selectedFilter = ref("Song Reviews"); // Default filter
+const filterOptions = ["Song Reviews", "Album Reviews"];
 
 </script>
 <!-- 
@@ -220,7 +220,7 @@ export default {
 
 
     <BCol class="mb-3">
-        <BCard style="width: 75vw; margin-top: 15%;">
+        <BCard style="width: 50vw; margin-top: 15%;">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>{{ currentUser.name }}, {{ currentUser.age }}</h2>
                 <span>@{{ currentUser.username }}</span>
@@ -243,12 +243,22 @@ export default {
                     <b> Birthdate:</b>&nbsp;&nbsp;{{ new Date(currentUser.birthdate).toLocaleDateString() }}
                 </BCardText>
                 <!-- {{ console.log(userpid) }} -->
-                <RouterLink
-                    :to="{ name: '/users/[userstats]', params: { userstats: userpid} }">
-                    <BButton style="margin-top: 3%; margin-bottom: -3%;" variant="primary" class="btn-bottom-left">View User
-                        Stats
-                    </BButton>
-                </RouterLink>
+                <div>
+                    <RouterLink :to="{ name: '/users/[userstats]', params: { userstats: userpid } }">
+                        <BButton style="margin-top: 3%; margin-bottom: -3%;" variant="primary" class="btn-bottom-left">View
+                            User
+                            Stats
+                        </BButton>
+                    </RouterLink>
+                </div>
+
+                <div style="margin-top: 2vh;">
+                    <RouterLink :to="{ name: '/users/[useralluc]', params: { useralluc: userpid } }">
+                        <BButton style="margin-top: 3%; margin-bottom: -3%;" variant="primary" class="btn-bottom-left">View
+                            User Charts
+                        </BButton>
+                    </RouterLink>
+                </div>
 
             </div>
         </BCard>
@@ -264,7 +274,7 @@ export default {
 
 
     <BContainer fluid class="my-4">
-        <BCol v-if="selectedFilter == 'albums'" lg="6" class="mb-3 column">
+        <BCol v-if="selectedFilter == 'Album Reviews'" lg="6" class="mb-3 column">
             <BContainer fluid>
                 <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
                     <BCard style="width: 70vw">
@@ -293,7 +303,7 @@ export default {
         </BCol>
 
 
-        <BCol v-if="selectedFilter == 'songs'" lg="6" class="mb-3 column">
+        <BCol v-if="selectedFilter == 'Song Reviews'" lg="6" class="mb-3 column">
             <BContainer fluid>
                 <BCol v-for="(review, index) in songReviews" :key="index" class="mb-3">
                     {{ console.log(review) }}

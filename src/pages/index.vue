@@ -198,7 +198,7 @@ export default {
                             <!-- <b-card-img style="width: 20vw;" :src="bufferToDataURI(review.cover.data)" alt="Album Cover"></b-card-img> -->
                             <b-card-img style="width: 50vw;" :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
 
-                            {{ console.log(review.cover.data) }}
+                            <!-- {{ console.log(review.cover.data) }} -->
                             <!-- {{ console.log(_arrayBufferToBase64(review.cover.data)) }} -->
 
                             <!-- Other card content -->

@@ -249,20 +249,25 @@ CREATE TABLE IF NOT EXISTS SongReview (
 );
 
 CREATE TABLE IF NOT EXISTS Playlist (
+    pid INTEGER,
     playlist_name VARCHAR(50),
     creation_date DATE,
     image LONGBLOB NULL,
     description VARCHAR(5000),
-    PRIMARY KEY (playlist_name, creation_date)
+    PRIMARY KEY (pid, playlist_name, creation_date),
+    FOREIGN KEY (pid) REFERENCES User4(pid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS PlaylistSong (
+    pid INTEGER,
     playlist_name VARCHAR(50),
     creation_date DATE,
     song_name VARCHAR(100),
     release_date DATE,
-    PRIMARY KEY (playlist_name, creation_date, song_name, release_date),
-    FOREIGN KEY (playlist_name, creation_date) REFERENCES Playlist(playlist_name, creation_date)
+    PRIMARY KEY (pid, playlist_name, creation_date, song_name, release_date),
+    FOREIGN KEY (pid, playlist_name, creation_date) REFERENCES Playlist(pid, playlist_name, creation_date)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
     FOREIGN KEY (song_name, release_date) REFERENCES Song(song_name, release_date)

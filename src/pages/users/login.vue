@@ -24,12 +24,12 @@ async function login() {
     // console.log(response.data);
     // currentUser.value = response.data;
     currentUser.value = response.data;
-    console.log(currentUser.value);
-    console.log(currentUser.value.pid);
-    console.log(currentUser.value.username);
-    console.log(currentUser.value.email);
-    console.log(currentUser.value.birthdate);
-    console.log(currentUser.value.birthplace);
+    // console.log(currentUser.value);
+    // console.log(currentUser.value.pid);
+    // console.log(currentUser.value.username);
+    // console.log(currentUser.value.email);
+    // console.log(currentUser.value.birthdate);
+    // console.log(currentUser.value.birthplace);
     successModal.value = true;
   }
 }

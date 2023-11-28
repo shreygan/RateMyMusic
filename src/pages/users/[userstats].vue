@@ -45,8 +45,6 @@ async function getCurrentUser() {
     currentUser.birthplace = data[0].birthplace;
     currentUser.age = data[0].age;
     currentUser.profile_pic = data[0].profile_pic;
-
-
 }
 
 const avgRatings = ref([]);

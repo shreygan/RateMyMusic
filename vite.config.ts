@@ -17,4 +17,7 @@ export default defineConfig({
     }),
     vue(),
   ],
+  server: {
+    host: true
+  }
 })

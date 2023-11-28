@@ -1,143 +1,112 @@
 <script setup lang="ts">
+import axios from "axios";
+
 import { useUserStore } from "../composables/userStore";
-const { allUsers } = useUserStore();
-
-async function loadResults() {
-  let url = "http://localhost:3000/songs/findalbums";
-
-  if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
-  }
-
-  const response = await fetch(url);
-  return await response.json();
-}
+const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
-const selectedIndices = ref<number[]>([]);
+
+async function loadAllUserCharts(){
+    let url = "http://localhost:3000/users/getallusercharts";
+
+    if (searchTerm.value) {
+        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+    } 
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+const useFilters = ref(false);
+
+const selectedFilter = ref("songs"); // Default filter
+const filterOptions = ["songs", "albums"];
+
+
 const isLoading = ref(false);
-const results = computedAsync(loadResults, [], isLoading);
+const results = computedAsync(loadAllUserCharts, [], isLoading);
 
-const getReleaseYear = (dateString) => {
-  const date = new Date(dateString);
-  return date.getFullYear();
-};
+</script>
 
-function getImagePath(name: string) {
-  const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url);
-  return url.href;
-}
-
-function toggleCardSelection(index: number) {
-    if (selectedIndices.value.includes(index) && selectedIndices.value.length <= 9) {
-        selectedIndices.value = selectedIndices.value.filter((i) => i !== index);
-    } else if (selectedIndices.value.length <= 9) {
-        selectedIndices.value.push(index);
-    }
-}
-
-const selectedAlbumCovers = computed(() => {
-  const covers = Array(9).fill('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/2048px-Square_gray.svg.png');
-
-  // Fill in the grid with the selected album covers in order
-  selectedIndices.value.forEach((index, i) => {
-    if (i < 9) {
-      covers[i] = getImagePath(results.value[index].album_name);
-    }
-  });
-
-  return covers;
-});
-
-function getGridImage(index: number) {
-  return selectedAlbumCovers.value[index];
+<script lang="ts">
+export default {
+    methods: {
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
+        }
+    },
 }
 </script>
 
 <template>
-  <BContainer style="margin-top: 10rem">
-    <BRow>
-      <BCol>
-        <h1>Create a Chart</h1>
-      </BCol>
-    </BRow>
+  <b-container class="main-container">
+            <div class="main-title" style="margin-top: 20%">
+                <h1>All UserCharts</h1>
+            </div>
+        </b-container>
 
-    <BRow>
-      <BFormInput
-        class="my-4"
-        v-model="searchTerm"
-        placeholder="Search for a song"
-        style="max-width: 20rem; margin-right: auto; margin-left: auto"
-      />
 
-      <BContainer class="search-results">
-        <BRow style="max-width: 600px;">
-        <BCol v-for="(result, index) in results" :key="index" class="my-3">
-          <BCard
-            style="width: 100%"
-            class="search-item"
-            :img-src="getImagePath(result.album_name)"
-            @click="toggleCardSelection(index)"
-            :bg-variant="selectedIndices.includes(index) ? 'primary' : 'secondary'"
-          >
-            <RouterLink
-              :to="{
-                name: '/songs/[songName]/[year]',
-                params: {
-                  songName: result.album_name,
-                  year: result.release_date,
-                },
-              }"
-              style="color: white; text-decoration: none"
-            >
-              <h4>
-                {{ result.album_name }} ({{
-                  getReleaseYear(result.release_date)
-                }})
-              </h4>
-            </RouterLink>
-          </BCard>
+        <BCard border-variant="success">
+        <div class="filters">
+            <BFormCheckbox class="mr-2" v-model="useFilters">Use Filters</BFormCheckbox>
+        </div>
+
+        <BCardTitle> Filters </BCardTitle>
+
+        <!-- <p class="text-left"> Find all users who have reviewed all </p> -->
+
+        <BCol v-if="useFilters" class="mb-4">
+            <h4>Find User Charts that contain all artist Albums:</h4>
+            <BFormInput v-model="searchTerm" style="margin-top: 3vh;" />
         </BCol>
-    </BRow>
-      </BContainer>
-    </BRow>
 
-    <BRow v-for="row in 3" :key="row" class="grid-row my-4 mx-4">
-      <BCol v-for="col in 3" :key="col" class="grid-col">
-        <BImg
-          class="chartImg"
-          
-          :src="getGridImage((row - 1) * 3 + (col - 1))"
-        />
-        <div class="grid-item"></div>
-      </BCol>
-    </BRow>
-  </BContainer>
+    </BCard>
+
+
+
+
+
+        <BFormInput v-model="searchTerm" style="margin-top: 3vh;" />
+
+        <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+            {{ console.log(result) }}
+            <BCard style="width: 40vw; margin-top: 10%;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <RouterLink :to="{ name: '/users/[pid]/[ucid]', params: { pid: result.pid, ucid: result.ucid } }">
+                        <h2>{{ result.userchart_name }}</h2>
+                    </RouterLink>
+                    <span>@{{ result.username }}</span>
+                </div>
+
+                <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
+                    alt="Album Cover"></BCardImg>
+            </BCard>
+        </BCol>
 </template>
 
 <style scoped>
-.chartImg {
-  max-width: 15rem;
-  max-height: 15rem;
+/* Custom styling for the button in the top right corner */
+.btn-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
 }
 
-.grid-row {
-  display: flex;
+.content {
+  width: 35rem;
+  padding-top: 2rem;
 }
 
-.grid-col {
-  flex: 1;
-}
-
-.search-item {
-  /* width: 20rem; */
-  max-width: 15rem;
-  min-width: 15rem;
-}
-
-.search-results {
-  max-height: 250px;
-  overflow-y: auto;
-  max-width: 600px;
+.filters {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

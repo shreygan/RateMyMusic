@@ -3,6 +3,7 @@
     color: white;
     font-size: large;
 }
+
 .p:hover {
     color: black;
 }
@@ -50,7 +51,7 @@ export default {
             <b-navbar-nav>
                 <b-nav-item to="/AlbumPage"><span class="p">Albums</span></b-nav-item>
                 <b-nav-item to="/SongPage"><span class="p">Songs</span></b-nav-item>
-                <b-nav-item to="/UserCharts"><span class="p">User Charts</span></b-nav-item>
+                <b-nav-item to="/UserCharts"><span class="p">UserCharts</span></b-nav-item>
                 <b-nav-item to="/Playlists"><span class="p">Playlists</span></b-nav-item>
                 <b-nav-item to="/SocialPage"><span class="p">Social</span></b-nav-item>
             </b-navbar-nav>
@@ -65,7 +66,7 @@ export default {
                     <!-- <b-dropdown-item href="#">View Profile</b-dropdown-item> -->
                     <RouterLink v-if="userPid" :to="{
                         name: '/users/[user]',
-                        params: { user: userPid},
+                        params: { user: userPid },
                     }">
                         <b-dropdown-item> View Profile </b-dropdown-item>
                     </RouterLink>
@@ -73,19 +74,40 @@ export default {
 
                     <RouterLink v-if="userPid" :to="{
                         name: '/users/[updateuser]',
-                        params: { updateuser: userPid},
+                        params: { updateuser: userPid },
                     }">
                         <b-dropdown-item> Update User </b-dropdown-item>
                     </RouterLink>
 
-
                     <RouterLink v-if="userPid" :to="{
                         name: '/users/[createreview]',
-                        params: { createreview: userPid},
+                        params: { createreview: userPid },
                     }">
                         <b-dropdown-item> Create Review </b-dropdown-item>
                     </RouterLink>
-                    
+
+                    <RouterLink v-if="userPid" :to="{
+                        name: '/users/[createuserchart]',
+                        params: { createuserchart: userPid },
+                    }">
+                        <b-dropdown-item> Create UserChart </b-dropdown-item>
+                    </RouterLink>
+
+                    <RouterLink v-if="userPid" :to="{
+                        name: '/users/[createplaylist]',
+                        params: { createplaylist: userPid },
+                    }">
+                        <b-dropdown-item> Create Playlist </b-dropdown-item>
+                    </RouterLink>
+
+                    <RouterLink v-if="userPid" :to="{
+                        name: '/users/[useralluc]',
+                        params: { useralluc: userPid },
+                    }">
+                        <b-dropdown-item> View UserCharts </b-dropdown-item>
+                    </RouterLink>
+
+
 
                     <b-dropdown-item v-if="!userPid" href="/users/create">Create an Account</b-dropdown-item>
                     <b-dropdown-item v-if="!userPid" href="/users/login">Sign In</b-dropdown-item>

@@ -1,180 +1,86 @@
 <script setup lang="ts">
+import axios from "axios";
+
 import { useUserStore } from "../composables/userStore";
-const { allUsers } = useUserStore();
-
-interface Song {
-  song_name: string;
-  song_release_date: string;
-  album_name: string;
-  song_duration: number;
-}
-
-async function loadResults() {
-  let url = "http://localhost:3000/songs/findsongs";
-
-  if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
-  }
-
-  const response = await fetch(url);
-  return await response.json();
-}
+const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
-const playlistTitle = ref("");
-const selectedIndices = ref<number[]>([]);
+
+async function loadAllPlaylists(){
+    let url = "http://localhost:3000/users/getallplaylists";
+
+    if (searchTerm.value) {
+        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+    } 
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+
 const isLoading = ref(false);
-const results = computedAsync(loadResults, [], isLoading);
-const playlist = ref<Song[]>([]);
+const results = computedAsync(loadAllPlaylists, [], isLoading);
 
-const getReleaseYear = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.getFullYear();
-};
+</script>
 
-function getImagePath(name: string) {
-  const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url);
-  return url.href;
-}
-
-function toggleSongSelection(index: number) {
-  if (selectedIndices.value.includes(index)) {
-    selectedIndices.value = selectedIndices.value.filter((i) => i !== index);
-    const removedIndex = playlist.value.findIndex(
-      (song) => song.song_name === results.value[index].song_name
-    );
-    if (removedIndex !== -1) {
-      playlist.value.splice(removedIndex, 1);
-    }
-  } else {
-    selectedIndices.value.push(index);
-
-    const selectedSong: Song = {
-      song_name: results.value[index].song_name,
-      song_release_date: results.value[index].song_release_date,
-      album_name: results.value[index].album_name,
-      song_duration: results.value[index].duration,
-    };
-
-    playlist.value.push(selectedSong);
-  }
-}
-
-function formatDuration(duration: number): string {
-  const minutes = Math.floor(duration / 60);
-  const seconds = duration % 60;
-
-  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-}
-
-function getTotalDuration(): number {
-  return playlist.value.reduce((acc, song) => acc + song.song_duration, 0);
+<script lang="ts">
+export default {
+    methods: {
+        arrayBufferToBase64(buffer: number[]) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return 'data:image/jpeg;base64,' + window.btoa(binary);
+        }
+    },
 }
 </script>
 
 <template>
-  <BContainer style="margin-top: 5rem">
-    <BRow>
-      <BCol>
-        <h1>Create a Playlist</h1>
-      </BCol>
-    </BRow>
+  <b-container class="main-container">
+            <div class="main-title" style="margin-top: 20%">
+                <h1>All Playlists</h1>
+            </div>
+        </b-container>
 
-    <BRow>
-      <BFormInput
-        class="my-4"
-        v-model="searchTerm"
-        placeholder="Search for a song"
-        style="max-width: 20rem; margin-right: auto; margin-left: auto"
-      />
+        <BFormInput v-model="searchTerm" />
 
-      <BContainer class="search-results">
-        <BRow>
-          <BCol>
-            <BListGroup>
-              <BListGroupItem
-                v-for="(result, index) in results"
-                :key="index"
-                :active="selectedIndices.includes(index)"
-                @click="toggleSongSelection(index)"
-                style="max-width: 500px"
-              >
-                <BRow>
-                  <BCol style="max-width: 10rem" class="my-2">
-                    <BImg
-                      :src="getImagePath(result.album_name)"
-                      style="max-block-size: 5rem; border-radius: 0.5rem"
-                    />
-                  </BCol>
-                  <BCol class="my-3">
-                    <h3>{{ result.song_name }}</h3>
-                    <h6>
-                      {{ result.album_name }} ({{
-                        getReleaseYear(result.song_release_date)
-                      }}) {{ result.song_duration }}
-                    </h6>
-                  </BCol>
-                </BRow>
-              </BListGroupItem>
-            </BListGroup>
-          </BCol>
-        </BRow>
-      </BContainer>
-    </BRow>
-    <BRow>
-      <BCol class="my-4">
-        <BFormInput
-          class="my-4 playlist-title"
-          v-model="playlistTitle"
-          v-if="playlist.length > 0"
-          placeholder="Playlist Title"
-        />
-        <h4 v-if="playlist.length > 0" style="margin-top: 2rem;">Total Duration: {{ formatDuration(getTotalDuration()) }}</h4>
-        <BListGroup>
-          <BListGroupItem v-for="song in playlist">
-            <BRow>
-              <BCol style="max-width: 10rem" class="my-2">
-                <BImg
-                  :src="getImagePath(song.album_name)"
-                  style="max-block-size: 5rem; border-radius: 0.5rem"
-                />
-              </BCol>
-              <BCol style="margin-top: auto; margin-bottom: auto">
-                <h3>{{ song.song_name }}</h3>
-                <h6>
-                  {{ song.album_name }} ({{
-                    getReleaseYear(song.song_release_date)
-                  }})
-                </h6>
-              </BCol>
-              <BCol style="margin-top: auto; margin-bottom: auto"
-                ><h6>
-                  Duration: {{ formatDuration(song.song_duration) }}
-                </h6></BCol
-              >
-            </BRow>
-          </BListGroupItem>
-        </BListGroup>
-      </BCol>
-    </BRow>
-  </BContainer>
+        <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+            {{ console.log(result) }}
+            <BCard style="width: 40vw; margin-top: 10%;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <RouterLink :to="{ name: '/users/[pid]/[creationdate]/[playlistname]', params: { pid: result.pid,  creationdate: result.creation_date, playlistname: result.playlist_name } }">
+                        <h2>{{ result.playlist_name }}</h2>
+                    </RouterLink>
+                    <span>@{{ result.username }}</span>
+                </div>
+
+                <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
+                    alt="Album Cover"></BCardImg>
+            </BCard>
+        </BCol>
 </template>
 
 <style scoped>
-.search-item {
-  /* width: 20rem; */
-  max-width: 15rem;
-  min-width: 15rem;
+/* Custom styling for the button in the top right corner */
+.btn-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
 }
 
-.search-results {
-  max-height: 250px;
-  overflow-y: auto;
-  max-width: 500px;
+.content {
+  width: 35rem;
+  padding-top: 2rem;
 }
 
-.playlist-title {
-    font-size: xx-large;
-    font-weight: 400;
+.filters {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

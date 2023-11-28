@@ -31,6 +31,10 @@ declare module 'vue' {
     BFormRating: typeof import('bootstrap-vue-next')['BFormRating']
     BFormSelect: typeof import('bootstrap-vue-next')['BFormSelect']
     BFormTextarea: typeof import('bootstrap-vue-next')['BFormTextarea']
+    BImg: typeof import('bootstrap-vue-next')['BImg']
+    BListGroup: typeof import('bootstrap-vue-next')['BListGroup']
+    BListGroupItem: typeof import('bootstrap-vue-next')['BListGroupItem']
+    BModal: typeof import('bootstrap-vue-next')['BModal']
     BNavbar: typeof import('bootstrap-vue-next')['BNavbar']
     BNavbarBrand: typeof import('bootstrap-vue-next')['BNavbarBrand']
     BNavbarNav: typeof import('bootstrap-vue-next')['BNavbarNav']
@@ -47,5 +51,6 @@ declare module 'vue' {
   }
   export interface ComponentCustomProperties {
     vBDropdownItem: typeof import('bootstrap-vue-next')['vBDropdownItem']
+    vBPopover: typeof import('bootstrap-vue-next')['vBPopover']
   }
 }

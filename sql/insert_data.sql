@@ -169,21 +169,20 @@ VALUES (67867867, 83726415, 'Early Summer', '1976-06-07', 5),
        (67867871, 80172634, 'Wesley’s Theory', '2015-03-15', 5);
 
 INSERT
-INTO Playlist(playlist_name, creation_date, image, description)
-VALUES ('Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
-       ('Rap Essentials', '2023-09-21', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Rap.jpg'), 'The hottest rap tracks right now.'),
-       ('Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Hip Hop Classics.jpeg'),
+INTO Playlist(pid, playlist_name, creation_date, image, description)
+VALUES (58708, 'Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
+       (58708, 'Rap Essentials', '2023-09-21', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Rap.jpg'), 'The hottest rap tracks right now.'),
+       (58708, 'Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Hip Hop Classics.jpeg'),
         'Take a trip down memory lane with these hip hop classics.'),
-       ('R&B Soul', '2023-09-23', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/R&B.jpg'), 'Soothing R&B for the soul.'),
-       ('Top Hits', '2023-09-24', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
+       (58708, 'R&B Soul', '2023-09-23', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/R&B.jpg'), 'Soothing R&B for the soul.'),
+       (58708, 'Top Hits', '2023-09-24', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
 
 INSERT
-INTO PlaylistSong(playlist_name, creation_date, song_name, release_date)
-VALUES ('Jazz Vibes', '2023-09-20', 'Early Summer', '1976-06-07'),
-       ('Rap Essentials', '2023-09-21', 'Did You Wrong', '2020-05-08'),
-       ('Hip Hop Classics', '2023-09-22', 'Through the Wire', '2003-09-30'),
-       ('R&B Soul', '2023-09-23', 'Know Yourself', '2015-02-13'),
-       ('Top Hits', '2023-09-24', 'Wesley’s Theory', '2015-03-15');
+INTO PlaylistSong(pid, playlist_name, creation_date, song_name, release_date)
+VALUES (58708, 'Rap Essentials', '2023-09-21', 'Did You Wrong', '2020-05-08'),
+       (58708, 'Hip Hop Classics', '2023-09-22', 'Through the Wire', '2003-09-30'),
+       (58708, 'R&B Soul', '2023-09-23', 'Know Yourself', '2015-02-13'),
+       (58708, 'Top Hits', '2023-09-24', 'Wesley’s Theory', '2015-03-15');
 
 INSERT
 INTO UserChart(ucid, userchart_name, image, pid)

@@ -10,7 +10,14 @@ export interface User {
   password: string;
   name: string;
   profile_pic: string;
-  age: number
+  age: number;
+}
+
+export interface UCData {
+  pid: number;
+  title: string;
+  image: string;
+  albums: any[];
 }
 
 export interface ReviewDelete {
@@ -26,6 +33,46 @@ export class UsersController {
   // async getUsersByGenre(@Body() genre){
   //   return await this.usersService.getUsersByGenre(genre);
   // }
+
+  @Post('getplaylistsongs')
+  async getPlaylistSongs(@Body() data) {
+    return await this.usersService.getPlaylistSongs(data);
+  }
+
+  @Get('getallplaylists')
+  async getAllPlaylists(@Query('q') searchTerm?: string) {
+    return await this.usersService.getAllPlaylists(searchTerm);
+  }
+
+  @Post('createplaylist')
+  async createPlaylist(@Body() playlist) {
+    return await this.usersService.createPlaylist(playlist);
+  }
+
+  @Post('getavgratingperuserchartalbum')
+  async getAvgRatingPerUserChartAlbum(@Body() data) {
+    return await this.usersService.getAvgRatingPerUserChartAlbum(data);
+  }
+
+  @Post('getuserchartalbums')
+  async getUserChartAlbums(@Body() data) {
+    return await this.usersService.getUserChartAlbums(data);
+  }
+
+  @Get('getallusercharts')
+  async getAllUserCharts(@Query('q') searchTerm?: string) {
+    return await this.usersService.getAllUserCharts(searchTerm);
+  }
+
+  @Get('getpersonalusercharts')
+  async getPersonalUserCharts(@Query('q') userpid?: string) {
+    return await this.usersService.getPersonalUserCharts(userpid);
+  }
+
+  @Post('insertuserchart')
+  async insertUserChart(@Body() data) {
+    return await this.usersService.insertUserChart(data);
+  }
 
   @Post('avgratingperuser')
   async avgRatingPerUser(@Body() data) {
