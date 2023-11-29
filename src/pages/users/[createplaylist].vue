@@ -3,6 +3,7 @@ import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
+import { sanitizeInput } from "../../utils/utils";
 
 const { allUsers, currentUser } = useUserStore();
 
@@ -30,7 +31,7 @@ async function loadResults() {
   let url = "http://localhost:3000/songs/findsongs";
 
   if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+    url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
   }
 
   const response = await fetch(url);
@@ -43,8 +44,8 @@ async function insertPlaylist() {
   const toast = useToast();
   let url = "http://localhost:3000/users/createplaylist";
   playlistData.pid = userpid.value;
-  playlistData.playlist_name = playlistName.value;
-  playlistData.description = description.value;
+  playlistData.playlist_name = sanitizeInput(playlistName.value);
+  playlistData.description = sanitizeInput(description.value);
   playlistData.songs = playlist.value.map((song: Song) => ({
     song_name: song.song_name,
     song_release_date: song.song_release_date,
@@ -69,11 +70,6 @@ async function insertPlaylist() {
     }
   });
   if (failed) return;
-
-
-
-
-  
 
   try {
     const response = await axios.post(url, playlistData);

@@ -2,6 +2,7 @@
 import axios from "axios";
 
 import { useUserStore } from "../composables/userStore";
+import { sanitizeInput } from "../utils/utils";
 const { allUsers, currentUser } = useUserStore();
 
 
@@ -27,8 +28,9 @@ async function loadAllSongs() {
     ).then(response => response.data);
   }
 
+
   if (filters.searchTerm) {
-    url += `?q=${encodeURIComponent(filters.searchTerm.trim().toLowerCase())}`;
+    url += `?q=${encodeURIComponent(sanitizeInput(filters.searchTerm).trim().toLowerCase())}`;
   }
 
   return axios.get(url).then(response => response.data);
@@ -196,7 +198,9 @@ export default {
     />
 
     <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-      <BCard style="width: 100%" :img-src="arrayBufferToBase64(result.cover.data)" >
+      <BCard style="width: 100%" >
+
+
         <!-- :img-src="arrayBufferToBase64(result.cover.data)" -->
         <!-- <BCardTitle>{{ result.song_name }} ({{ getReleaseYear(result.song_release_date) }})</BCardTitle> -->
         <RouterLink :to="{name: '/songs/[songName]/[year]', params: { songName: result.song_name, year: result.song_release_date } }">

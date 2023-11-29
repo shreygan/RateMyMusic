@@ -3,9 +3,9 @@ import { createPool } from 'mysql2';
 
 const connectionPool = createPool({
   host: '127.0.0.1',
-  user: 'root',
-  password: '1234',
-  database: 'RateMyMusic',
+  user: 'super-user',
+  password: 'password',
+  database: 'rymdb',
   waitForConnections: true,
   connectionLimit: 10,
   maxIdle: 10, 

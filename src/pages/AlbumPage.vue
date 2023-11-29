@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { sanitizeInput,  } from "../utils/utils";
+
 async function loadResults() {
   let url = "http://localhost:3000/songs/findalbums";
 
   if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+    url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
   }
 
   const response = await fetch(url);
@@ -18,6 +20,8 @@ const getReleaseYear = (dateString) => {
   const date = new Date(dateString);
   return date.getFullYear();
 };
+
+
 </script>
 
 <template>

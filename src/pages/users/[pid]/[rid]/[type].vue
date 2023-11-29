@@ -3,6 +3,7 @@ import { useRoute } from "vue-router";
 import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useUserStore } from "../../../../composables/userStore";
+import { sanitizeInput } from "../../../../utils/utils";
 const { currentUser } = useUserStore();
 
 const route = useRoute();
@@ -97,7 +98,7 @@ async function insertReviewComment() {
             review_pid: userpid.value,
             comment_pid: currentUser.value.pid,
             rid: rid.value,
-            comment_text: commentText.value,
+            comment_text: sanitizeInput(commentText.value),
         });
 
         if (response.status === 201) {
