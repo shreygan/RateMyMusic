@@ -3,6 +3,7 @@ import { useUserStore } from "../../composables/userStore";
 import axios from "axios";
 
 import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
 const { allUsers, currentUser } = useUserStore();
 
@@ -21,10 +22,10 @@ async function loadResults() {
   return await response.json();
 }
 
-function getImagePath(name: string) {
-  const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
-  return url.href;
-}
+// function getImagePath(name: string) {
+//   const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
+//   return url.href;
+// }
 
 const searchTerm = ref("");
 const selectedIndices = ref<number[]>([]);
@@ -50,36 +51,64 @@ const UCData = reactive({
 });
 
 async function insertUserChart() {
+  const toast = useToast();
   let url = "http://localhost:3000/users/insertuserchart";
   UCData.title = ucTitle.value;
   UCData.albums = selectedAlbums.value;
   UCData.image = "";
   UCData.pid = userpid.value;
   console.log(UCData);
-  const response = await axios.post(url, UCData);
-  console.log(response.data);
+  try {
+    const response = await axios.post(url, UCData);
+    console.log(response.data);
+    toast.success("User Chart Created Successfully");
+  } catch (error) {
+    toast.error("User Chart Creation Failed");
+  }
 }
 
 const ucTitle = ref("");
 
-async function toggleAlbumSelection(index: number) {
-  if (selectedIndices.value.includes(index)) {
-    selectedIndices.value = selectedIndices.value.filter((i) => i !== index);
-    const removedIndex = selectedAlbums.value.findIndex(
-      (album) => album.album_name === results.value[index].album_name
-    );
+// async function toggleAlbumSelection(index: number) {
+  // if (selectedIndices.value.includes(index)) {
+  //   selectedIndices.value = selectedIndices.value.filter((i) => i !== index);
+  //   const removedIndex = selectedAlbums.value.findIndex(
+  //     (album) => album.album_name === results.value[index].album_name
+  //   );
+  //   if (removedIndex !== -1) {
+  //     selectedAlbums.value.splice(removedIndex, 1);
+  //   }
+  // } else {
+  //   selectedIndices.value.push(index);
+
+  //   const album: Album = {
+  //     album_name: results.value[index].album_name,
+  //     release_date: results.value[index].release_date,
+  //   };
+  //   selectedAlbums.value.push(album);
+  // }
+// }
+
+async function toggleAlbumSelection(album: Album) {
+  console.log(album);
+  const selectedAlbum = UCData.albums.find(
+    (a: Album) => a.album_name === album.album_name
+  );
+
+  if (selectedAlbum) {
+    // Album is already selected, remove it
+    const removedIndex = UCData.albums.indexOf(selectedAlbum);
     if (removedIndex !== -1) {
-      selectedAlbums.value.splice(removedIndex, 1);
+      UCData.albums.splice(removedIndex, 1);
     }
   } else {
-    selectedIndices.value.push(index);
-
-    const album: Album = {
-      album_name: results.value[index].album_name,
-      release_date: results.value[index].release_date,
-    };
-    selectedAlbums.value.push(album);
+    // Album is not selected, add it
+    UCData.albums.push(album);
   }
+}
+
+function isAlbumSelected(album: Album): boolean {
+  return UCData.albums.some((a) => a.album_name === album.album_name);
 }
 
 function __arrayBufferToBase64(buffer: number[]) {
@@ -97,13 +126,12 @@ const selectedAlbumCovers = computed(() => {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/2048px-Square_gray.svg.png"
   );
 
-  selectedIndices.value.forEach((index, i) => {
+  UCData.albums.forEach((album, i) => {
     if (i < 9) {
-      covers[i] = results.value[index];
-    //   covers[i] = __arrayBufferToBase64(results.value[index].cover.data);
-    }
+      const result = results.value.find((resultAlbum) => resultAlbum.album_name === album.album_name);
 
-    console.log(selectedAlbums.value);
+      covers[i] = result ? __arrayBufferToBase64(result.cover.data) : covers[i];
+    }
   });
 
   return covers;
@@ -116,8 +144,6 @@ const gridAlbums = computed(() => {
 
   selectedIndices.value.forEach((index, i) => {
     if (i < 9) {
-      // covers[i] = results.value[index];
-      // covers[i] = __arrayBufferToBase64(results.value[index].cover.data);
       albums[i] = results.value[index];
     }
   });
@@ -132,22 +158,30 @@ function getGridImage(index: number) {
 function getGridAlbum(index: number) {
   return gridAlbums.value[index];
 }
+// function getGridImage(album: Album) {
+//   const cover = __arrayBufferToBase64(album.cover.data);
+//   return cover || "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/2048px-Square_gray.svg.png";
+// }
+
+// function getGridAlbum(album: Album) {
+//   return album.album_name;
+// }
 </script>
 
 <script lang="ts">
-// export default {
-//   methods: {
-//     arrayBufferToBase64(buffer: number[]) {
-//       var binary = "";
-//       var bytes = new Uint8Array(buffer);
-//       var len = bytes.byteLength;
-//       for (var i = 0; i < len; i++) {
-//         binary += String.fromCharCode(bytes[i]);
-//       }
-//       return "data:image/jpeg;base64," + window.btoa(binary);
-//     },
-//   },
-// };
+export default {
+  methods: {
+    arrayBufferToBase64(buffer: number[]) {
+      var binary = "";
+      var bytes = new Uint8Array(buffer);
+      var len = bytes.byteLength;
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return "data:image/jpeg;base64," + window.btoa(binary);
+    },
+  },
+};
 </script>
 
 <template>
@@ -186,14 +220,14 @@ function getGridAlbum(index: number) {
                 <BListGroupItem
                   v-for="(result, index) in results"
                   :key="index"
-                  :active="selectedIndices.includes(index)"
-                  @click="toggleAlbumSelection(index)"
+                  :active="isAlbumSelected(result)"
+                  @click="toggleAlbumSelection(result)"
                   style="max-width: 500px"
                 >
                   <BRow>
                     <BCol style="max-width: 10rem" class="my-2">
                       <BImg
-                        :src="getImagePath(result.album_name)"
+                        :src="arrayBufferToBase64(result.cover.data)"
                         style="max-block-size: 5rem; border-radius: 0.5rem"
                       />
                     </BCol>
@@ -231,6 +265,7 @@ function getGridAlbum(index: number) {
     <BButton
       style="margin-top: 2%; margin-bottom: -3%"
       variant="primary"
+      size="lg"
       class="btn-bottom-left"
       @click="insertUserChart()"
       >Create User Chart
@@ -270,6 +305,7 @@ function getGridAlbum(index: number) {
 
 .chartImg {
   transition: filter 0.3s;
+  border-radius: 0.5rem;
 }
 
 .chartImg:hover {

@@ -119,31 +119,6 @@ export default {
         </div>
     </b-container>
 
-    <!-- <BContainer>
-        <BRow>
-            <BCol>
-                <BListGroup>
-                    <BListGroupItem v-for="(result, index) in results" :key="index" style="max-width: 500px">
-                        <BRow>
-                            <BCol style="max-width: 10rem" class="my-2">
-                                <strong style="margin-right: 1.5vw;">{{ result.ranking }}</strong>
-                                <BImg :src="arrayBufferToBase64(result.cover.data)"
-                                    style="max-block-size: 5rem; border-radius: 0.5rem" />
-                            </BCol>
-                            <BCol class="my-3">
-                                <h3>{{ result.album_name }}</h3>
-                                <h6>
-                                    {{ result.artist_name }} ({{
-                                        getReleaseYear(result.release_date)
-                                    }}) &nbsp;&nbsp;&nbsp; AVG: {{ result.avg_rating.substring(0, 3) }}/5
-                                </h6>
-                            </BCol>
-                        </BRow>
-                    </BListGroupItem>
-                </BListGroup>
-            </BCol>
-        </BRow>
-    </BContainer> -->
 
     <BContainer>
         <BRow>

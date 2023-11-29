@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { pid } from 'process';
 
 export interface User {
   pid: number;
@@ -20,7 +21,6 @@ export interface UCData {
   albums: any[];
 }
 
-
 export interface ReviewDelete {
   rid: number;
   userpid: any;
@@ -30,7 +30,22 @@ export interface ReviewDelete {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('getuserreview')
+  @Post('insertreviewcomment')
+  async insertReviewComment(@Body() data) {
+    return await this.usersService.insertReviewComment(data);
+  }
+
+  @Post('getreviewcomments')
+  async getReviewComments(@Body() data) {
+    return await this.usersService.getReviewComments(data);
+  }
+
+  @Get('getalluserchartsfiltered')
+  async getAllUserchartsFiltered(@Query('q') artist_pid?: string) {
+    return await this.usersService.getAllUserChartsFiltered(artist_pid);
+  }
+
+  @Post('getuserreviews')
   async getUserReview(@Body() data) {
     return await this.usersService.getUserReview(data);
   }

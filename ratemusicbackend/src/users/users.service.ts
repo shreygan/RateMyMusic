@@ -15,13 +15,132 @@ export class UsersService {
     this.connection,
   );
 
-  async getUserReview(data: any){
-    return null
+  async insertReviewComment(data: any) {
+    console.log(data);
+
+    const newDate = new Date();
+    await this.query(
+        `INSERT
+         INTO Comment2(comment_date, comment_text, likes, dislikes, pid, rid)
+         VALUE (?, ?, 0, 0, ?, ?);`,
+         [newDate, data.comment_text, data.pid, data.rid]
+    );
+
+    return await this.query(
+        `INSERT
+         INTO Comment1(comment_date, likes, dislikes, position)
+         VALUE (?, 0, 0, 0);`,
+         [newDate]
+    );
+  }
+
+  async getReviewComments(data: any) {
+    return await this.query(
+        `SELECT
+            c2.comment_date,
+            c2.comment_text,
+            c2.likes,
+            c2.dislikes,
+            c2.pid,
+            c2.rid,
+            u4.username
+        FROM
+            Comment2 c2, Comment1 c1, User4 u4
+        WHERE
+            c2.pid = ? AND c2.rid = ? AND c2.comment_date = c1.comment_date
+            AND c2.likes = c1.likes AND c2.dislikes = c1.dislikes
+            AND c2.pid = u4.pid
+        ORDER BY c2.comment_date DESC;`,
+        [data.pid, data.rid]
+    );
+  }
+
+  async getAllUserChartsFiltered(artist_pid?: any) {
+    return await this.query(
+       `SELECT
+            u4.pid,
+            uc.ucid,
+            uc.userchart_name,
+            uc.image,
+            u4.username,
+            u4.profile_pic
+        FROM
+            User4 u4, UserChart uc
+        WHERE
+            u4.pid = uc.pid AND NOT EXISTS
+                ((SELECT a.album_name, a.release_date
+                FROM Album a, ArtistAlbum aa
+                WHERE aa.pid = ?
+                        AND a.album_name = aa.album_name
+                        AND a.release_date = aa.release_date)
+                EXCEPT
+                (SELECT uca.album_name, uca.release_date
+                FROM UserChartAlbum uca
+                WHERE uca.pid = u4.pid AND uca.ucid = uc.ucid));`,
+        [artist_pid]
+    );
+  }
+
+  async getUserReview(data: any) {
+    if (data.type == 'Song') {
+      return await this.query(
+        `SELECT
+                r2.rid,
+                r2.review_text,
+                r2.review_date,
+                r2.likes,
+                r2.dislikes,
+                r1.helpfulness,
+                sr.rating,
+                s.song_name AS album_name,
+                s.release_date,
+                a.genre,
+                a.duration,
+                a.cover,
+                a.number_of_songs
+            FROM
+                User4 u4, Review2 r2, Review1 r1, SongReview sr, Song s, AlbumSong als, Album a
+            WHERE
+                u4.pid = ? AND r2.rid = ? AND r2.review_date = r1.review_date
+                AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
+                AND sr.pid = u4.pid AND sr.rid = r2.rid AND sr.song_name = s.song_name
+                AND sr.release_date = s.release_date AND als.song_name = s.song_name
+                AND als.song_release_date = a.release_date AND als.album_name = a.album_name
+                AND als.album_release_date = a.release_date;`,
+        [data.pid, data.rid],
+      );
+    }
+
+    return await this.query(
+      `SELECT
+            r2.rid,
+            r2.review_text,
+            r2.review_date,
+            r2.likes,
+            r2.dislikes,
+            r1.helpfulness,
+            ar.rating,
+            a.album_name,
+            a.release_date,
+            a.isSingle,
+            a.genre,
+            a.duration,
+            a.cover,
+            a.number_of_songs
+        FROM
+            User4 u4, Review2 r2, Review1 r1, AlbumReview ar, Album a
+        WHERE
+            u4.pid = ? AND r2.rid = ? AND u4.pid = r2.pid AND r2.review_date = r1.review_date
+            AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
+            AND ar.pid = u4.pid AND ar.rid = r2.rid AND a.album_name = ar.album_name
+            AND a.release_date = ar.release_date;`,
+      [data.pid, data.rid],
+    );
   }
 
   async getPlaylistSongs(data: any) {
     return await this.query(
-        `SELECT
+      `SELECT
             p.pid,
             p.playlist_name,
             p.creation_date,
@@ -42,31 +161,31 @@ export class UsersService {
             AND ats.release_date = ps.release_date AND at2.pid = ats.pid
             AND als.song_name = ps.song_name AND als.song_release_date = ps.release_date
             AND als.album_name = a.album_name AND als.album_release_date = a.release_date;`,
-        [data.pid, data.playlist_name, data.creation_date.substring(0, 10)]
+      [data.pid, data.playlist_name, data.creation_date.substring(0, 10)],
     );
   }
 
   async getAllPlaylists(searchTerm?: string) {
-    console.log(searchTerm)
+    console.log(searchTerm);
 
-    // if (data.searchTerm._value){
-    //     return await this.query(
-    //       `SELECT
-    //             p.pid,
-    //             p.playlist_name,
-    //             p.creation_date,
-    //             u4.username,
-    //             p.image
-    //         FROM
-    //             User4 u4, Playlist p
-    //         WHERE
-    //             p.pid = u4.pid AND p.playlist_name LIKE CONCAT('%', ?, '%');`,
-    //       [data.searchTerm._value],
-    //     );
-    // }
+    if (searchTerm) {
+      return await this.query(
+        `SELECT
+                p.pid,
+                p.playlist_name,
+                p.creation_date,
+                u4.username,
+                p.image
+            FROM
+                User4 u4, Playlist p
+            WHERE
+                p.pid = u4.pid AND p.playlist_name LIKE CONCAT('%', ?, '%');`,
+        [searchTerm],
+      );
+    }
 
     return await this.query(
-        `SELECT
+      `SELECT
             p.pid,
             p.playlist_name,
             p.creation_date,
@@ -75,9 +194,8 @@ export class UsersService {
         FROM
             User4 u4, Playlist p
         WHERE
-            p.pid = u4.pid;`
+            p.pid = u4.pid;`,
     );
-
   }
 
   async createPlaylist(playlist: any) {
@@ -213,6 +331,11 @@ export class UsersService {
     const { albums, image, pid, title } = data;
 
     const ucid = Math.floor(Math.random() * 90000) + 10000;
+    console.log(albums);
+    console.log(image);
+    console.log(pid);
+    console.log(title);
+    console.log(ucid);
 
     await this.query(
       `INSERT

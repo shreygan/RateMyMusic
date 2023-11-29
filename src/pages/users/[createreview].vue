@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
-
+import { useToast } from "vue-toastification";
 import { useRoute } from "vue-router";
 
 const { allUsers, currentUser } = useUserStore();
@@ -56,6 +56,7 @@ async function submitReview(songName: any, songReleaseDate: any, albumName: any,
 }
 
 async function submitSongReview(songName: any, songReleaseDate: any) {
+  const toast = useToast();
   reviewData.value.songName = songName;
   reviewData.value.releaseDate = songReleaseDate.slice(0, 10);
   if (currentUser.value) {
@@ -72,20 +73,25 @@ async function submitSongReview(songName: any, songReleaseDate: any) {
       reviewData
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       console.log("Review submitted successfully!");
+      toast.success("Review submitted successfully!");
     } else {
       console.error(
         "Failed to submit review. Unexpected status:",
         response.status
       );
+      toast.error("Error submitting review");
     }
   } catch (error) {
     console.error("Error submitting review:", error.message);
+    toast.error("Error submitting review");
   }
 }
 
+
 async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
+  const toast = useToast();
   reviewData.value.albumName = albumName;
   reviewData.value.releaseDate = albumReleaseDate.slice(0, 10);
   reviewData.value.pid = currentUser.value.pid;
@@ -96,6 +102,8 @@ async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
       reviewData
     );
 
+    toast.success("Review submitted successfully!");
+
     if (response.status === 200) {
       console.log("Review submitted successfully!");
     } else {
@@ -105,6 +113,7 @@ async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
       );
     }
   } catch (error) {
+    toast.error("Error submitting review");
     console.error("Error submitting review:", error.message);
   }
 }
@@ -113,7 +122,7 @@ async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
 <template>
   <BContainer class="my-4">
     <BCol class="mb-4">
-      <BFormInput v-model="searchTerm" />
+      <BFormInput class="my-4" placeholder="Search" v-model="searchTerm" />
       <BFormSelect v-model="selectedFilter" class="mr-2">
         <option v-for="filter in filterOptions" :key="filter" :value="filter">
           {{ filter }}

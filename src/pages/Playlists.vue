@@ -4,7 +4,7 @@ import axios from "axios";
 import { useUserStore } from "../composables/userStore";
 const { allUsers, currentUser } = useUserStore();
 
-const searchTerm = ref("iuis");
+const searchTerm = ref("");
 
 
 async function loadAllPlaylists(){
@@ -58,8 +58,8 @@ export default {
                     <span>@{{ result.username }}</span>
                 </div>
 
-                <!-- <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
-                    alt="Album Cover"></BCardImg> -->
+                <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
+                    alt="Album Cover"></BCardImg>
             </BCard>
         </BCol>
 </template>

@@ -29,11 +29,7 @@ async getAllGenres(){
 async filterSongs(filterSongsDto: FilterSongsDto) {
     const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration} = filterSongsDto;
  
-    console.log(filterSongsDto);
-    console.log(startDate);
-    console.log(endDate);
-    console.log(Number(minDuration) * 60);
-    console.log(Number(maxDuration) * 60);
+    
     
     return await this.query(
         `
@@ -72,10 +68,8 @@ async filterSongs(filterSongsDto: FilterSongsDto) {
 async advancedFilterSongs(data: any){
   const { topSongsNumber, ratingComparison, ratingValue } = data;
 
-    console.log(ratingComparison);
-    console.log(ratingValue);
     const combinedString = `${ratingComparison} ${ratingValue}`;
-    console.log(combinedString);
+   
 
   console.log(data);
   

@@ -121,24 +121,28 @@ CREATE TABLE IF NOT EXISTS UserCommentLikes (
     FOREIGN KEY (user_pid) REFERENCES User4(pid)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-    FOREIGN KEY (comment_date, comment_pid, rid) REFERENCES Comment2(comment_date, pid, rid)
+    FOREIGN KEY (comment_date, comment_pid, rid) REFERENCES Comment2(comment_date, review_pid, rid)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Comment2 (
     comment_date DATETIME,
-    review_text VARCHAR(5000) NOT NULL,
+    comment_text VARCHAR(5000) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
-    pid INTEGER,
     rid INTEGER,
+    review_pid INTEGER,
+    comment_pid INTEGER,
     UNIQUE (comment_date, likes, dislikes),
-    PRIMARY KEY (comment_date, pid, rid),
-    FOREIGN KEY (pid) REFERENCES User4(pid)
+    PRIMARY KEY (comment_date, review_pid, rid),
+    FOREIGN KEY (review_pid) REFERENCES User4(pid)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-    FOREIGN KEY (pid, rid) REFERENCES Review2(pid, rid)
+    FOREIGN KEY (comment_pid) REFERENCES User4(pid)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+    FOREIGN KEY (review_pid, rid) REFERENCES Review2(pid, rid)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );

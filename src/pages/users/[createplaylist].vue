@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
 const { allUsers, currentUser } = useUserStore();
 
@@ -37,6 +38,7 @@ async function loadResults() {
 }
 
 async function insertPlaylist() {
+  const toast = useToast();
   let url = "http://localhost:3000/users/createplaylist";
   playlistData.pid = userpid.value;
   playlistData.playlist_name = playlistName.value;
@@ -46,12 +48,16 @@ async function insertPlaylist() {
     song_release_date: song.song_release_date,
   }));
 
-  const response = await axios.post(url, playlistData);
-  console.log(response.data);
+  try {
+    const response = await axios.post(url, playlistData);
+    console.log(response.data);
+    toast.success("Playlist created successfully");
+  } catch (error) {
+    toast.error("Error creating playlist");
+  }
 }
 
 const searchTerm = ref("");
-
 const description = ref("");
 const playlistName = ref("");
 const selectedSongs = ref<number[]>([]);
@@ -65,8 +71,13 @@ const getReleaseYear = (dateString: string) => {
 };
 
 function toggleSongSelection(index: number) {
-  if (selectedSongs.value.includes(index)) {
-    selectedSongs.value = selectedSongs.value.filter((i) => i !== index);
+
+  const isSelected = playlist.value.some(
+    (song) => song.song_name === results.value[index].song_name
+  );
+
+  if (isSelected) {
+    // Song is already selected, remove it
     const removedIndex = playlist.value.findIndex(
       (song) => song.song_name === results.value[index].song_name
     );
@@ -74,10 +85,7 @@ function toggleSongSelection(index: number) {
       playlist.value.splice(removedIndex, 1);
     }
   } else {
-    selectedSongs.value.push(index);
-
-    console.log(results.value[index]);
-
+    // Song is not selected, add it
     const selectedSong: Song = {
       song_name: results.value[index].song_name,
       song_release_date: results.value[index].song_release_date,
@@ -101,30 +109,36 @@ function getTotalDuration(): number {
   return playlist.value.reduce((acc, song) => acc + song.song_duration, 0);
 }
 
-function getImagePath(name: string) {
-  const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
-  return url.href;
+// function getImagePath(name: string) {
+//   const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
+//   return url.href;
+// }
+
+function isSongSelected(song: Song): boolean {
+  return playlist.value.some(
+    (selectedSong) => selectedSong.song_name === song.song_name
+  );
 }
 </script>
 
 <script lang="ts">
-// export default {
-//   methods: {
-//     arrayBufferToBase64(buffer: number[]) {
-//       var binary = "";
-//       var bytes = new Uint8Array(buffer);
-//       var len = bytes.byteLength;
-//       for (var i = 0; i < len; i++) {
-//         binary += String.fromCharCode(bytes[i]);
-//       }
-//       return "data:image/jpeg;base64," + window.btoa(binary);
-//     },
-//   },
-// };
+export default {
+  methods: {
+    arrayBufferToBase64(buffer: number[]) {
+      var binary = "";
+      var bytes = new Uint8Array(buffer);
+      var len = bytes.byteLength;
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return "data:image/jpeg;base64," + window.btoa(binary);
+    },
+  },
+};
 </script>
 
 <template>
-  <BContainer style="margin-top: 5vh">
+  <BContainer style="margin-top: 5rem;">
     <BRow>
       <BCol>
         <h1>Create a Playlist</h1>
@@ -148,14 +162,14 @@ function getImagePath(name: string) {
               <BListGroupItem
                 v-for="(result, index) in results"
                 :key="index"
-                :active="selectedSongs.includes(index)"
+                :active="isSongSelected(result)"
                 @click="toggleSongSelection(index)"
                 style="max-width: 500px"
               >
                 <BRow>
                   <BCol style="max-width: 10rem" class="my-2">
                     <BImg
-                      :src="getImagePath(result.album_name)"
+                      :src="arrayBufferToBase64(result.cover.data)"
                       style="max-block-size: 5rem; border-radius: 0.5rem"
                     />
                   </BCol>
@@ -197,7 +211,7 @@ function getImagePath(name: string) {
             <BRow>
               <BCol style="max-width: 10rem" class="my-2">
                 <BImg
-                  :src="getImagePath(song.album_name)"
+                  :src="arrayBufferToBase64(song.cover.data)"
                   style="max-block-size: 5rem; border-radius: 0.5rem"
                 />
               </BCol>

@@ -97,12 +97,12 @@ VALUES ('2023-09-11', 20, 345, 0),
        ('2023-09-21', 40, 4, 10);
 
 INSERT
-INTO Comment2(comment_date, review_text, likes, dislikes, pid, rid)
-VALUES ('2023-10-19 10:00:00', 'Loved this!', 45, 2, 83726415, 12312312),
-       ('2023-10-19 11:00:00', 'Absolutely agree.', 50, 1, 41902873, 23423423),
-       ('2023-10-19 12:30:00', 'I have mixed feelings.', 38, 10, 62519038, 34534534),
-       ('2023-10-19 13:45:00', 'Nice perspective!', 24, 4, 29384756, 45645645),
-       ('2023-10-19 15:00:00', 'Found this insightful.', 60, 5, 80172634, 56756756);
+INTO Comment2(comment_date, comment_text, likes, dislikes, review_pid, rid, comment_pid)
+VALUES ('2023-10-19 10:00:00', 'Loved this!', 45, 2, 83726415, 12312312, 58708),
+       ('2023-10-19 11:00:00', 'Absolutely agree.', 50, 1, 41902873, 23423423, 58708),
+       ('2023-10-19 12:30:00', 'I have mixed feelings.', 38, 10, 62519038, 34534534, 58708),
+       ('2023-10-19 13:45:00', 'Nice perspective!', 24, 4, 29384756, 45645645, 58708),
+       ('2023-10-19 15:00:00', 'Found this insightful.', 60, 5, 80172634, 56756756, 58708);
 
 INSERT
 INTO Comment1(comment_date, likes, dislikes, position)
@@ -182,7 +182,8 @@ INTO PlaylistSong(pid, playlist_name, creation_date, song_name, release_date)
 VALUES (58708, 'Rap Essentials', '2023-09-21', 'Did You Wrong', '2020-05-08'),
        (58708, 'Hip Hop Classics', '2023-09-22', 'Through the Wire', '2003-09-30'),
        (58708, 'R&B Soul', '2023-09-23', 'Know Yourself', '2015-02-13'),
-       (58708, 'Top Hits', '2023-09-24', 'Wesley’s Theory', '2015-03-15');
+       (58708, 'Top Hits', '2023-09-24', 'Wesley’s Theory', '2015-03-15'),
+       (58708, 'Jazz Vibes', '2023-09-20', 'Wesley’s Theory', '2015-03-15');
 
 INSERT
 INTO UserChart(ucid, userchart_name, image, pid)

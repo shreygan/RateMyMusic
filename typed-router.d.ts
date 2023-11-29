@@ -52,6 +52,7 @@ declare module 'vue-router/auto/routes' {
     '/users/[createreview]': RouteRecordInfo<'/users/[createreview]', '/users/:createreview', { createreview: ParamValue<true> }, { createreview: ParamValue<false> }>,
     '/users/[createuserchart]': RouteRecordInfo<'/users/[createuserchart]', '/users/:createuserchart', { createuserchart: ParamValue<true> }, { createuserchart: ParamValue<false> }>,
     '/users/[pid]/[creationdate]/[playlistname]': RouteRecordInfo<'/users/[pid]/[creationdate]/[playlistname]', '/users/:pid/:creationdate/:playlistname', { pid: ParamValue<true>, creationdate: ParamValue<true>, playlistname: ParamValue<true> }, { pid: ParamValue<false>, creationdate: ParamValue<false>, playlistname: ParamValue<false> }>,
+    '/users/[pid]/[rid]/[type]': RouteRecordInfo<'/users/[pid]/[rid]/[type]', '/users/:pid/:rid/:type', { pid: ParamValue<true>, rid: ParamValue<true>, type: ParamValue<true> }, { pid: ParamValue<false>, rid: ParamValue<false>, type: ParamValue<false> }>,
     '/users/[pid]/[ucid]': RouteRecordInfo<'/users/[pid]/[ucid]', '/users/:pid/:ucid', { pid: ParamValue<true>, ucid: ParamValue<true> }, { pid: ParamValue<false>, ucid: ParamValue<false> }>,
     '/users/[updateuser]': RouteRecordInfo<'/users/[updateuser]', '/users/:updateuser', { updateuser: ParamValue<true> }, { updateuser: ParamValue<false> }>,
     '/users/[user]': RouteRecordInfo<'/users/[user]', '/users/:user', { user: ParamValue<true> }, { user: ParamValue<false> }>,
