@@ -329,10 +329,6 @@ async advancedFilterSongs(data: any){
   }
 
   async findAllSongs(searchTerm?: string) {
-    // if(searchTerm) {
-    //   return await this.query('SELECT * FROM Song WHERE MATCH(song_name) AGAINST(?)', [searchTerm]);
-    // }
-
     if (searchTerm) {
       return await this.query(
         `

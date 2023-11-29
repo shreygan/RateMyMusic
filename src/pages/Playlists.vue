@@ -4,7 +4,8 @@ import axios from "axios";
 import { useUserStore } from "../composables/userStore";
 const { allUsers, currentUser } = useUserStore();
 
-const searchTerm = ref("");
+const searchTerm = ref("iuis");
+
 
 async function loadAllPlaylists(){
     let url = "http://localhost:3000/users/getallplaylists";
@@ -14,14 +15,12 @@ async function loadAllPlaylists(){
     } 
     
     const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    console.log(response);
+    return response.json();
 }
-
 
 const isLoading = ref(false);
 const results = computedAsync(loadAllPlaylists, [], isLoading);
-
 </script>
 
 <script lang="ts">
@@ -50,8 +49,8 @@ export default {
         <BFormInput v-model="searchTerm" />
 
         <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-            {{ console.log(result) }}
             <BCard style="width: 40vw; margin-top: 10%;">
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <RouterLink :to="{ name: '/users/[pid]/[creationdate]/[playlistname]', params: { pid: result.pid,  creationdate: result.creation_date, playlistname: result.playlist_name } }">
                         <h2>{{ result.playlist_name }}</h2>
@@ -59,8 +58,8 @@ export default {
                     <span>@{{ result.username }}</span>
                 </div>
 
-                <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
-                    alt="Album Cover"></BCardImg>
+                <!-- <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
+                    alt="Album Cover"></BCardImg> -->
             </BCard>
         </BCol>
 </template>

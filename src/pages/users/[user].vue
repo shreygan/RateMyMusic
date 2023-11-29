@@ -284,8 +284,8 @@ export default {
                         </div>
 
                         <!-- Album cover image -->
-                        <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
-                            alt="Album Cover"></b-card-img>
+                        <!-- <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
+                            alt="Album Cover"></b-card-img> -->
 
                         <div class="p-3">
                             <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
@@ -314,8 +314,8 @@ export default {
                         </div>
 
                         <!-- Album cover image -->
-                        <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
-                            alt="Album Cover"></b-card-img>
+                        <!-- <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
+                            alt="Album Cover"></b-card-img> -->
 
                         <div class="p-3">
                             <BCardText class="d-flex justify-content-between align-items-center mb-3">{{

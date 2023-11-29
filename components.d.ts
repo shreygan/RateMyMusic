@@ -37,6 +37,7 @@ declare module 'vue' {
     BModal: typeof import('bootstrap-vue-next')['BModal']
     BNavbar: typeof import('bootstrap-vue-next')['BNavbar']
     BNavbarBrand: typeof import('bootstrap-vue-next')['BNavbarBrand']
+    BNavbarItem: typeof import('bootstrap-vue-next')['BNavbarItem']
     BNavbarNav: typeof import('bootstrap-vue-next')['BNavbarNav']
     BNavbarToggle: typeof import('bootstrap-vue-next')['BNavbarToggle']
     BNavForm: typeof import('bootstrap-vue-next')['BNavForm']

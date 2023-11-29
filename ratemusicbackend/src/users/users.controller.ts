@@ -20,6 +20,7 @@ export interface UCData {
   albums: any[];
 }
 
+
 export interface ReviewDelete {
   rid: number;
   userpid: any;
@@ -34,14 +35,13 @@ export class UsersController {
     return await this.usersService.getUserReview(data);
   }
 
-
   @Post('getplaylistsongs')
   async getPlaylistSongs(@Body() data) {
     return await this.usersService.getPlaylistSongs(data);
   }
 
   @Get('getallplaylists')
-  async getAllPlaylists(@Query('q') searchTerm?: string) {
+  async getAllPlaylists(@Query('q') searchTerm) {
     return await this.usersService.getAllPlaylists(searchTerm);
   }
 

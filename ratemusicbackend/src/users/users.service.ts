@@ -16,7 +16,7 @@ export class UsersService {
   );
 
   async getUserReview(data: any){
-
+    return null
   }
 
   async getPlaylistSongs(data: any) {
@@ -47,21 +47,23 @@ export class UsersService {
   }
 
   async getAllPlaylists(searchTerm?: string) {
-    if (searchTerm) {
-        return await this.query(
-          `SELECT
-                p.pid,
-                p.playlist_name,
-                p.creation_date,
-                u4.username,
-                p.image
-            FROM
-                User4 u4, Playlist p
-            WHERE
-                p.pid = u4.pid AND p.playlist_name LIKE CONCAT('%', ?, '%');`,
-          [searchTerm],
-        );
-    }
+    console.log(searchTerm)
+
+    // if (data.searchTerm._value){
+    //     return await this.query(
+    //       `SELECT
+    //             p.pid,
+    //             p.playlist_name,
+    //             p.creation_date,
+    //             u4.username,
+    //             p.image
+    //         FROM
+    //             User4 u4, Playlist p
+    //         WHERE
+    //             p.pid = u4.pid AND p.playlist_name LIKE CONCAT('%', ?, '%');`,
+    //       [data.searchTerm._value],
+    //     );
+    // }
 
     return await this.query(
         `SELECT
