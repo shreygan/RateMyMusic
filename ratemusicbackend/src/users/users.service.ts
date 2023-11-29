@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { Connection } from 'mysql2';
 import { Database } from '../db.module';
 import { promisify } from 'util';
-import { User, ReviewDelete, UCData } from './users.controller';
+import { User, ReviewDelete, UCData, ErrorResponse } from './users.controller';
 
 @Injectable()
 export class UsersService {
@@ -15,49 +15,222 @@ export class UsersService {
     this.connection,
   );
 
-  async insertReviewComment(data: any) {
-    console.log(data);
+  async unfollowUser(u: any) {
+    console.log(u.data.follower_id);
+    console.log(u.data.followee_id);
+    console.log(u);
 
+
+    return await this.query(
+      `DELETE FROM Follows WHERE followerid = ? AND followeeid = ?;`,
+      [u.data.follower_id, u.data.followee_id],
+    );
+  }
+
+  async getUserFollowers(pid?: string) {
+    return await this.query(
+      `SELECT
+            f.followeeid,
+            u4_1.username AS followee_username,
+            u4_1.profile_pic AS followee_pic,
+            f.followerid,
+            u4_2.username AS follower_username,
+            u4_2.profile_pic AS follower_pic,
+            u4_2.birthplace AS follower_birthplace,
+            u2_2.name AS follower_name
+        FROM
+            Follows f, User4 u4_1, User4 u4_2, User2 u2_2
+        WHERE
+            f.followeeid = ? AND f.followeeid = u4_1.pid
+            AND f.followerid = u4_2.pid AND u4_2.username = u2_2.username;`,
+      [pid],
+    );
+  }
+
+  async getUserFollowing(pid?: string) {
+    return await this.query(
+      `SELECT
+            f.followerid,
+            u4_1.username AS follower_username,
+            u4_1.profile_pic AS follower_pic,
+            f.followeeid,
+            u4_2.username AS followee_username,
+            u4_2.profile_pic AS followee_pic,
+            u4_2.birthplace AS followee_birthplace,
+            u2_2.name AS followee_name
+        FROM
+            Follows f, User4 u4_1, User4 u4_2, User2 u2_2
+        WHERE
+            f.followerid = ? AND f.followerid = u4_1.pid
+            AND f.followeeid = u4_2.pid AND u4_2.username = u2_2.username;`,
+      [pid],
+    );
+  }
+
+  async getNumFollowers(pid?: string) {
+    return await this.query(
+      `SELECT
+             COUNT(f.followerid) AS num_followers
+         FROM
+             Follows f
+         WHERE
+             f.followeeid = ?;`,
+      [pid],
+    );
+  }
+
+  async getNumFollowing(pid?: string) {
+    return await this.query(
+      `SELECT
+             COUNT(f.followeeid) AS num_following
+         FROM
+             Follows f
+         WHERE
+             f.followerid = ?;`,
+      [pid],
+    );
+  }
+
+  // async followUser(data: any) {
+  //   const newDate = new Date();
+
+  //   console.log(data);
+
+  //   const result = await this.query(
+  //     `INSERT INTO Follows
+  //       VALUE (?, ?, ?);`,
+  //     [data.follower_id, data.followee_id, newDate],
+  //   );
+
+  //   console.log("RESULTDFHBHKGBDFKHGDFKHDHKFFHGBHFGNKDFHBGHKDFG", result);
+
+  //   return result;
+  // }
+
+  // async followUser(data: any) {
+  //   const newDate = new Date();
+
+  //   console.log(data);
+
+  //   try {
+  //     const result = await this.query(
+  //       `INSERT INTO Follows
+  //         VALUE (?, ?, ?);`,
+  //       [data.follower_id, data.followee_id, newDate],
+  //     );
+
+  //     console.log("Insertion result:", result);
+  //     return result;
+
+  //   } catch (error) {
+  //     console.error("Error in followUser:", error);
+
+  //     // Log the error message for debugging purposes
+  //     console.error(error.message);
+  //     const errorResponse = {
+  //       status: HttpStatus.INTERNAL_SERVER_ERROR,
+  //       message: 'Internal Server Error',
+  //       detailedMessage: error.message,
+  //       errorCode: error.errno || null,
+  //     };
+
+  //     // Here you can decide how much information to return to the client
+  //     // For a more generic error message:
+  //     throw new HttpException( errorResponse , HttpStatus.INTERNAL_SERVER_ERROR);
+
+  //     // Or, if you want to return the specific MySQL error (not recommended for production):
+  //     // throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+  //   }
+  // }
+
+  async followUser(data: any) {
+    try {
+      const result = await this.query(`INSERT INTO Follows VALUE (?, ?, ?);`, [
+        data.follower_id,
+        data.followee_id,
+        new Date(),
+      ]);
+      return result;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Internal Server Error',
+          detailedMessage: error.message,
+          errorCode: error?.errno || null,
+        } as ErrorResponse,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async getAllArtists(searchTerm?: string) {
+    if (searchTerm) {
+      return await this.query(
+        `SELECT
+            a2.pid,
+            a2.name,
+            a2.artist_pic
+        FROM
+            Artist2 a2
+        WHERE
+            a2.name LIKE CONCAT('%', ?, '%');`,
+        [searchTerm],
+      );
+    }
+
+    return await this.query(
+      `SELECT
+            a2.pid,
+            a2.name,
+            a2.artist_pic
+        FROM
+            Artist2 a2;`,
+    );
+  }
+
+  async insertReviewComment(data: any) {
     const newDate = new Date();
     await this.query(
-        `INSERT
-         INTO Comment2(comment_date, comment_text, likes, dislikes, pid, rid)
-         VALUE (?, ?, 0, 0, ?, ?);`,
-         [newDate, data.comment_text, data.pid, data.rid]
+      `INSERT
+         INTO Comment2(comment_date, comment_text, likes, dislikes, review_pid, rid, comment_pid)
+         VALUE (?, ?, 0, 0, ?, ?, ?)`,
+      [newDate, data.comment_text, data.review_pid, data.rid, data.comment_pid],
     );
 
     return await this.query(
-        `INSERT
+      `INSERT
          INTO Comment1(comment_date, likes, dislikes, position)
          VALUE (?, 0, 0, 0);`,
-         [newDate]
+      [newDate],
     );
   }
 
   async getReviewComments(data: any) {
     return await this.query(
-        `SELECT
+      `SELECT
             c2.comment_date,
             c2.comment_text,
             c2.likes,
             c2.dislikes,
-            c2.pid,
+            c2.review_pid,
             c2.rid,
+            c2.comment_pid,
             u4.username
         FROM
             Comment2 c2, Comment1 c1, User4 u4
         WHERE
-            c2.pid = ? AND c2.rid = ? AND c2.comment_date = c1.comment_date
+            c2.review_pid = ? AND c2.rid = ? AND c2.comment_date = c1.comment_date
             AND c2.likes = c1.likes AND c2.dislikes = c1.dislikes
-            AND c2.pid = u4.pid
-        ORDER BY c2.comment_date DESC;`,
-        [data.pid, data.rid]
+            AND c2.comment_pid = u4.pid
+        ORDER BY c2.comment_date;`,
+      [data.pid, data.rid],
     );
   }
 
-  async getAllUserChartsFiltered(artist_pid?: any) {
+  async getAllUserChartsFiltered(pid?: string) {
     return await this.query(
-       `SELECT
+      `SELECT
             u4.pid,
             uc.ucid,
             uc.userchart_name,
@@ -77,7 +250,7 @@ export class UsersService {
                 (SELECT uca.album_name, uca.release_date
                 FROM UserChartAlbum uca
                 WHERE uca.pid = u4.pid AND uca.ucid = uc.ucid));`,
-        [artist_pid]
+      [pid],
     );
   }
 
@@ -166,8 +339,6 @@ export class UsersService {
   }
 
   async getAllPlaylists(searchTerm?: string) {
-    console.log(searchTerm);
-
     if (searchTerm) {
       return await this.query(
         `SELECT
@@ -331,11 +502,11 @@ export class UsersService {
     const { albums, image, pid, title } = data;
 
     const ucid = Math.floor(Math.random() * 90000) + 10000;
-    console.log(albums);
-    console.log(image);
-    console.log(pid);
-    console.log(title);
-    console.log(ucid);
+    // console.log(albums);
+    // console.log(image);
+    // console.log(pid);
+    // console.log(title);
+    // console.log(ucid);
 
     await this.query(
       `INSERT
@@ -388,24 +559,35 @@ export class UsersService {
   async getUserById(userpid?: string) {
     return await this.query(
       `SELECT
-           u4.pid,
-           u4.birthdate,
-           u4.birthplace,
-           u4.username,
-           u4.password,
-           u4.profile_pic,
-           u3.age,
-           u2.name,
-           u1.email
-       FROM
-           User4 u4,
-           User3 u3,
-           User2 u2,
-           User1 u1
-       WHERE
-           u4.pid = ? AND u4.username = u3.username AND u4.birthdate = u3.birthdate
-           AND u4.username = u2.username AND u4.username = u1.username;`,
-
+            u4.pid,
+            u4.birthdate,
+            u4.birthplace,
+            u4.username,
+            u4.password,
+            u4.profile_pic,
+            u3.age,
+            u2.name,
+            u1.email,
+            (SELECT
+                COUNT(f.followeeid)
+            FROM
+                Follows f
+            WHERE
+                f.followerid = u4.pid) AS following,
+            (SELECT
+                COUNT(f.followerid)
+            FROM
+                Follows f
+            WHERE
+                f.followeeid = u4.pid) AS followers
+        FROM
+            User4 u4,
+            User3 u3,
+            User2 u2,
+            User1 u1
+        WHERE
+            u4.pid = ? AND u4.username = u3.username AND u4.birthdate = u3.birthdate
+            AND u4.username = u2.username AND u4.username = u1.username;`,
       [userpid],
     );
   }
@@ -586,13 +768,53 @@ export class UsersService {
     );
   }
 
-  //CREATE TABLE IF NOT EXISTS User4 (
-  // pid INTEGER PRIMARY KEY,
-  // birthdate DATE,
-  // birthplace VARCHAR(50),
-  // username VARCHAR(50) NOT NULL UNIQUE,
-  // password VARCHAR(100),
-  // profile_pic LONGBLOB
+  // async addUser(user: User) {
+  //   const pid = Math.floor(Math.random() * 90000) + 10000;
+  //   const age = 10; // CALCULATE AGE PROPERLY
+  //   const newDate = new Date(user.birthdate);
+
+  //   user.profile_pic = null;
+
+  //   await this.query(
+  //     `INSERT INTO User4 (pid,
+  //                         birthdate,
+  //                         birthplace,
+  //                         username,
+  //                         password,
+  //                         profile_pic)
+  //       VALUES (?, ?, ?, ?, ?, ?);`,
+  //     [
+  //       pid,
+  //       newDate,
+  //       user.birthplace,
+  //       user.username,
+  //       user.password,
+  //       user.profile_pic,
+  //     ],
+  //   );
+
+  //   await this.query(
+  //     `INSERT INTO User3 (username,
+  //                         birthdate,
+  //                         age)
+  //       VALUES (?, ?, ?);`,
+  //     [user.username, newDate, age],
+  //   );
+
+  //   await this.query(
+  //     `INSERT INTO User2 (username,
+  //                         name)
+  //       VALUES (?, ?);`,
+  //     [user.username, user.name],
+  //   );
+
+  //   return await this.query(
+  //     `INSERT INTO User1 (username,
+  //                         email)
+  //       VALUES (?, ?);`,
+  //     [user.username, user.email],
+  //   );
+  // }
 
   async addUser(user: User) {
     const pid = Math.floor(Math.random() * 90000) + 10000;
@@ -601,23 +823,36 @@ export class UsersService {
 
     user.profile_pic = null;
 
-    await this.query(
-      `INSERT INTO User4 (pid, 
-                          birthdate, 
-                          birthplace, 
-                          username, 
-                          password, 
-                          profile_pic) 
-        VALUES (?, ?, ?, ?, ?, ?);`,
-      [
-        pid,
-        newDate,
-        user.birthplace,
-        user.username,
-        user.password,
-        user.profile_pic,
-      ],
-    );
+    try {
+      await this.query(
+        `INSERT INTO User4 (pid, 
+                            birthdate, 
+                            birthplace, 
+                            username, 
+                            password, 
+                            profile_pic) 
+          VALUES (?, ?, ?, ?, ?, ?);`,
+        [
+          pid,
+          newDate,
+          user.birthplace,
+          user.username,
+          user.password,
+          user.profile_pic,
+        ],
+      );
+    } catch (error) {
+      console.error('Error in addUser - User4:', error);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'Error adding user to User4',
+          detailedMessage: error.message,
+          errorCode: error?.errno || null,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     await this.query(
       `INSERT INTO User3 (username, 

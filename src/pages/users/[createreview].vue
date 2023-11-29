@@ -63,9 +63,10 @@ async function submitSongReview(songName: any, songReleaseDate: any) {
     reviewData.value.pid = currentUser.value.pid;
   }
 
-  console.log(currentUser.value)
-
-  console.log("Review data:", reviewData.value);
+  if (reviewData.value.reviewText == '') {
+    toast.error("Please add a review description");
+    return;
+  }
 
   try {
     const response = await axios.post(

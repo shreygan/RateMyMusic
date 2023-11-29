@@ -37,6 +37,8 @@ async function loadResults() {
   return await response.json();
 }
 
+
+
 async function insertPlaylist() {
   const toast = useToast();
   let url = "http://localhost:3000/users/createplaylist";
@@ -48,9 +50,33 @@ async function insertPlaylist() {
     song_release_date: song.song_release_date,
   }));
 
+  const fields = [
+    { key: 'playlist_name', message: 'Please enter your playlist title' },
+    { key: 'songs', message: 'Please add at least one song' },
+  ];
+
+  let failed = false;
+  fields.forEach(field => {
+    if (typeof playlistData[field.key] === 'string' && playlistData[field.key].trim() === '') {
+      failed = true;
+      toast.error(field.message);
+      return;
+    }
+    if (field.key === 'songs' && playlistData[field.key].length === 0) {
+      failed = true;
+      toast.error(field.message);
+      return;
+    }
+  });
+  if (failed) return;
+
+
+
+
+  
+
   try {
     const response = await axios.post(url, playlistData);
-    console.log(response.data);
     toast.success("Playlist created successfully");
   } catch (error) {
     toast.error("Error creating playlist");
@@ -64,6 +90,8 @@ const selectedSongs = ref<number[]>([]);
 const isLoading = ref(false);
 const results = computedAsync(loadResults, [], isLoading);
 const playlist = ref<Song[]>([]);
+
+
 
 const getReleaseYear = (dateString: string) => {
   const date = new Date(dateString);
@@ -109,10 +137,7 @@ function getTotalDuration(): number {
   return playlist.value.reduce((acc, song) => acc + song.song_duration, 0);
 }
 
-// function getImagePath(name: string) {
-//   const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
-//   return url.href;
-// }
+
 
 function isSongSelected(song: Song): boolean {
   return playlist.value.some(

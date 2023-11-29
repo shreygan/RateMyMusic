@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios';
+import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
 const user = {
     name: '',
@@ -13,34 +15,48 @@ const user = {
 
 
 async function createNewUser() {
+    const toast = useToast();
     let url = "http://localhost:3000/users/createuser";
 
-    const response = await axios.post(url, user);
 
-    // const formData = new FormData();
+    const fields = [
+        { key: 'name', message: 'Please enter your name' },
+        { key: 'username', message: 'Please enter your username' },
+        { key: 'password', message: 'Please enter your password' },
+        { key: 'email', message: 'Please enter your email' },
+        { key: 'birthdate', message: 'Please enter your birthdate' },
+        { key: 'birthplace', message: 'Please enter your birthplace' },
+    ];
 
-    // // Append user data to formData
-    // Object.entries(user).forEach(([key, value]) => {
-    //     formData.append(key, value);
-    // });
+    var failed = false;
+    fields.map(field => {
+        if (user[field.key] === '') {
+            failed = true;
+            return toast.error(field.message);
+        }
+    });
+    if (failed) return;
 
-    // // Append file data to formData
-    // if (file.value) {
-    //     formData.append('profile_pic', file.value);
-    // }
 
-    // try {
-    //     const response = await axios.post('http://localhost:3000/users/createuser', formData, {
-    //         headers: {
-    //             'Content-Type': 'multipart/form-data',
-    //         },
-    //     });
+    try {
+        const response = await axios.post(url, user);
+        console.log(response.data);
+        toast.success("User account Successfully");
+    } catch (error) {
+        // toast.error(`Error following @${followee_username}`);
+        if (error.response) {
+            console.log(error.response.data);
 
-    //     // Handle the response as needed
-    //     console.log(response.data);
-    // } catch (error) {
-    //     // Handle error
-    //     console.error('Error creating new user:', error);
+            if (error.response.data?.errorCode == 1062) {
+                toast.error(`This username already exists!`);
+            } else {
+                toast.error(`Error following ${error.response.data?.detailedMessage}`);
+            }
+        }
+    }
+
+
+
 }
 </script>
 
@@ -60,8 +76,8 @@ async function createNewUser() {
 
             <BFormInput v-model="user.birthplace" placeholder="birthplace" />
 
-            <b-form-file v-model="user.profile_pic" :state="Boolean(user.profile_pic)" placeholder="Choose a file or drop it here..."
-                drop-placeholder="Drop the file here..."></b-form-file>
+            <b-form-file v-model="user.profile_pic" :state="Boolean(user.profile_pic)"
+                placeholder="Choose a file or drop it here..." drop-placeholder="Drop the file here..."></b-form-file>
 
             <BButton variant="primary" @click="createNewUser()">Join</BButton>
         </BCol>

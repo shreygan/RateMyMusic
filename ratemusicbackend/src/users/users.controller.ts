@@ -26,9 +26,47 @@ export interface ReviewDelete {
   userpid: any;
 }
 
+export interface ErrorResponse {
+  status: number;
+  message: string;
+  detailedMessage: string;
+  errorCode: number;
+}
+
+
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post('unfollowuser')
+    async unfollowUser(@Body() data) {
+        return await this.usersService.unfollowUser(data);
+    }
+
+  @Get('getUserFollowers')
+  async getUserFollowers(@Query('q') pid?: string) {
+    return await this.usersService.getUserFollowers(pid);
+  }
+
+  @Get('getUserFollowing')
+  async getUserFollowing(@Query('q') pid?: string) {
+    return await this.usersService.getUserFollowing(pid);
+  }
+
+  @Get('getnumfollowing')
+  async getNumFollowing(@Query('q') pid?: string) {
+    return await this.usersService.getNumFollowing(pid);
+  }
+
+  @Post('followuser')
+  async followUser(@Body() data) {
+    return await this.usersService.followUser(data);
+  }
+
+  @Get('getallartists')
+  async getAllArtists(@Query('q') searchTerm?: string) {
+    return await this.usersService.getAllArtists(searchTerm);
+  }
 
   @Post('insertreviewcomment')
   async insertReviewComment(@Body() data) {
@@ -41,8 +79,8 @@ export class UsersController {
   }
 
   @Get('getalluserchartsfiltered')
-  async getAllUserchartsFiltered(@Query('q') artist_pid?: string) {
-    return await this.usersService.getAllUserChartsFiltered(artist_pid);
+  async getAllUserchartsFiltered(@Query('q') pid?: string) {
+    return await this.usersService.getAllUserChartsFiltered(pid);
   }
 
   @Post('getuserreviews')

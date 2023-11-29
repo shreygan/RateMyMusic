@@ -7,6 +7,8 @@ const { currentUser } = useUserStore();
 
 const route = useRoute();
 
+
+
 const userpid = computed(() => route.params.pid as string);
 const rid = computed(() => route.params.rid as string);
 const type = computed(() => route.params.type as string);
@@ -55,14 +57,10 @@ async function getReviewUser() {
     reviewUser.birthplace = data[0].birthplace;
     reviewUser.age = data[0].age;
     reviewUser.profile_pic = data[0].profile_pic;
-
-    console.log(reviewUser.pid);
 }
 
 async function getUserReview() {
     let url = "http://localhost:3000/users/getuserreviews";
-    console.log(userpid.value);
-    console.log(rid.value);
 
     const response = await axios.post(url, {
         pid: userpid.value,
@@ -89,27 +87,26 @@ async function insertReviewComment() {
     const toast = useToast();
     let url = "http://localhost:3000/users/insertreviewcomment";
 
+    if (commentText.value === "") {
+        toast.error("Comment cannot be empty");
+        return;
+    }
+
     try {
         const response = await axios.post(url, {
-            reviewer_pid: currentUser.value.pid,
+            review_pid: userpid.value,
             comment_pid: currentUser.value.pid,
             rid: rid.value,
             comment_text: commentText.value,
         });
 
         if (response.status === 201) {
-            console.log("Comment submitted successfully!");
-            toast.success("Comment submitted successfully!");
+            toast.success("Commented successfully!");
         } else {
-            console.error(
-                "Failed to submit comment. Unexpected status:",
-                response.status
-            );
-            toast.error("Error submitting comment");
+            toast.error("Error commenting");
         }
     } catch (error) {
-        console.error("Error submitting comment:", error.message);
-        toast.error("Error submitting comment");
+        toast.error("Error commenting");
     }
 }
 
@@ -125,7 +122,7 @@ watch(
 
 const review = computedAsync(getUserReview, isLoading);
 const comments = computedAsync(getReviewComments, [], isLoading);
-// const comments = ref(await getReviewComments());
+
 </script>
 
 <script lang="ts">
@@ -140,7 +137,7 @@ export default {
             }
             return "data:image/jpeg;base64," + window.btoa(binary);
         },
-    },
+    }
 };
 </script>
 
@@ -148,7 +145,6 @@ export default {
     <BCol>
         <BCard class="mb-3">
             <BCardText>
-                {{ console.log(review) }}
                 <p>{{ type }} {{ "Review for:" }}</p>
                 <p>{{ review.album_name }}</p>
                 <p>Rating: {{ review.rating }}</p>
@@ -182,16 +178,21 @@ export default {
 
         <BCard title="Comments">
             <BListGroup flush>
-                {{ console.log(comments) }}
-                <BListGroupItem v-for="(result, index) in comments" :key="index">
-                    <h6>@{{ result.username }}</h6>
+                <BListGroupItem v-for="(result, index) in comments" :key="index" style="width: 20vw;">
+                    <div class="mb-2">
+                        <h6>@{{ result.username }}</h6>
+                        <small class="text-muted">{{ result.comment_date.substring(0, 10) + ' ' +
+                            result.comment_date.substring(11, 19) }}</small>
+                    </div>
                     <p>{{ result.comment_text }}</p>
                 </BListGroupItem>
             </BListGroup>
         </BCard>
 
-        <h4 style="padding-top: 2.5rem" class="my-4">Leave a new comment</h4>
-        <BFormInput v-model="commentText"></BFormInput>
-        <BButton @click="insertReviewComment()" class="my-4" size="lg" variant="primary">Submit</BButton>
+        <div v-if="currentUser.pid">
+            <h4 style="padding-top: 2.5rem" class="my-4">Leave a new comment</h4>
+            <BFormInput v-model="commentText"></BFormInput>
+            <BButton @click="insertReviewComment()" class="my-4" size="lg" variant="primary">Submit</BButton>
+        </div>
     </BCol>
 </template>
