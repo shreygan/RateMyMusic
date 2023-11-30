@@ -1,14 +1,30 @@
 <script setup lang="ts">
+import { defineComponent } from 'vue';
+
 async function loadAlbumReviews() {
-  let url = "http://localhost:3000/songs/albumreviews";
-  const response = await fetch(url);
-  return await response.json();
+    let url = "http://localhost:3000/songs/albumreviews";
+    const response = await fetch(url);
+    return await response.json();
 }
 
+import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
+
 async function loadSongReviews() {
-  let url = "http://localhost:3000/songs/songreviews";
-  const response = await fetch(url);
-  return await response.json();
+    let url = "http://localhost:3000/songs/songreviews";
+    const response = await fetch(url);
+    return await response.json();
+}
+
+function renderStars(rating: number) {
+    const stars: string[] = [];
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars.push('★');
+        } else {
+            stars.push('☆');
+        }
+    }
+    return stars.join(' ');
 }
 
 const isLoading = ref(false);
@@ -16,24 +32,13 @@ const albumReviews = computedAsync(loadAlbumReviews, [], isLoading);
 const songReviews = computedAsync(loadSongReviews, [], isLoading);
 </script>
 
+
+<!-- 
 <script lang="ts">
 export default {
-  methods: {
-    arrayBufferToBase64(buffer: number[]) {
-      var binary = "";
-      var bytes = new Uint8Array(buffer);
-      var len = bytes.byteLength;
-      for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
-      }
-      return "data:image/jpeg;base64," + window.btoa(binary);
-    },
-  },
   toggleLike(review: any) {
-    // Toggle the isLiked property when the checkbox is changed
     review.isLiked = !review.isLiked;
 
-    // Adjust the likes count accordingly (e.g., send a request to the server to update likes count)
     if (review.isLiked) {
       review.likes += 1;
     } else {
@@ -42,10 +47,8 @@ export default {
   },
 
   toggleDislike(review: any) {
-    // Toggle the isLiked property when the checkbox is changed
     review.isLiked = !review.isLiked;
 
-    // Adjust the likes count accordingly (e.g., send a request to the server to update likes count)
     if (review.isLiked) {
       review.likes += 1;
     } else {
@@ -53,9 +56,9 @@ export default {
     }
   },
 };
-</script>
+</script> -->
 
-<style scoped>
+<!-- <style scoped>
 .btn-link {
   background-color: transparent;
   border: none;
@@ -102,177 +105,150 @@ export default {
   filter: grayscale(100%);
   filter: hue-rotate(240deg);
 }
+</style> -->
+
+
+<style scoped>
+.main-title {
+    text-align: center;
+    margin: 0;
+    /* Updated to set margin-top to 0 */
+    /* padding-bottom: 200pt; */
+    padding-bottom: 2%;
+    margin-top: 10%;
+}
+
+.main {
+    font-weight: bold;
+}
 </style>
 
+
 <template>
-  <b-container class="main-container">
-    <div class="main-title" style="margin-top: 20%">
-      <h1>Welcome to <span class="main">RateMyMusic</span></h1>
-      <p>Your go-to place for music ratings and reviews</p>
+    <b-container class="main-container">
+        <div class="main-title">
+            <h1>Welcome to <span class="main">RateMyMusic</span></h1>
+            <p>Your go-to place for music ratings and reviews</p>
+        </div>
+    </b-container>
+
+    <div>
+        <BRow no-gutters>
+            <BCol lg="6" class="mb-3 column">
+
+                <h4 class="mb-3">Recent Album Reviews</h4>
+
+                <BContainer style="max-height: 20%; overflow-y: auto;">
+                    <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
+                        <BCard style="max-width: 50rem; min-height: 20rem;">
+                            <small class="text-muted" style="position: absolute; top: 5%; left: 5%;">Album</small>
+                            <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                                {{ new Date(review.review_date).toLocaleString([], {
+                                    year: 'numeric', month: 'numeric',
+                                    day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                                })
+                                }}</small>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2>{{ review.album_name }}</h2>
+                                <!-- <span>@{{ review.username }}</span> -->
+                                <RouterLink style="text-decoration: none;"
+                                    :to="{ name: '/users/[user]', params: { user: review.pid } }">
+                                    <span>@{{ review.username }}</span>
+                                </RouterLink>
+                            </div>
+
+
+                            <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
+                                alt="Album Cover"></b-card-img>
+
+                            <div class="p-3">
+                                <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                                    review.review_text }}</BCardText>
+
+                                <!-- <div class="d-flex align-items-center">
+                                        <button @click="toggleLike(review)" class="btn btn-link upvote-button">
+                                            <img v-if="review.isLiked" src="/src/assets/vote.png" alt="Upvoted"
+                                                class="upvote-icon-upvoted" />
+                                            <img v-else src="/src/assets/vote.png" alt="Upvote" class="upvote-icon" />
+                                        </button>
+                                        <span class="me-4">{{ review.likes }} </span>
+                                    </div> -->
+
+                                <!-- ADD UserReviewLikes and UserCommentLikes tables, so we can store what reviews and comments a user has liked -->
+                                <!-- to make sure that review.isLiked work properly -->
+
+                                <!-- <div class="d-flex align-items-center">
+                                        <button @click="toggleDislike(review)" class="btn btn-link upvote-button">
+                                            <img v-if="review.isLiked" src="/src/assets/vote.png" alt="Downvoted"
+                                                class="downvote-icon-downvoted" />
+                                            <img v-else src="/src/assets/vote.png" alt="Downvote" class="downvote-icon" />
+                                        </button>
+                                        <span class="me-4">{{ review.dislikes }} </span>
+                                    </div> -->
+
+
+                                <!-- <BCardFooter>Rating: {{ review.rating}}, {{ renderStars(review.rating) }}</BCardFooter> -->
+                                <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+                            </div>
+                        </BCard>
+                    </BCol>
+                </BContainer>
+            </BCol>
+
+            <BCol lg="6" class="mb-3 column">
+                <h4 class="mb-3">Recent Song Reviews</h4>
+
+                <BContainer style="max-height: 20%; overflow-y: auto;">
+
+                    <BCol v-for="(review, index) in songReviews" :key="index" class="mb-3">
+                        <BCard style="max-width: 50rem; min-height: 20rem;">
+                            <small class="text-muted" style="position: absolute; top: 5%; left: 5%;">Song</small>
+                            <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                                {{ new Date(review.review_date).toLocaleString([], {
+                                    year: 'numeric', month: 'numeric',
+                                    day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                                })
+                                }}</small>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2>{{ review.song_name }}</h2>
+                                <RouterLink style="text-decoration: none;"
+                                    :to="{ name: '/users/[user]', params: { user: review.pid } }">
+                                    <span>@{{ review.username }}</span>
+                                </RouterLink>
+                            </div>
+
+                            <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
+                                alt="Album Cover"></b-card-img>
+
+                            <div class="p-3">
+                                <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                                    review.review_text }}</BCardText>
+                                <!-- 
+                                    <div class="d-flex align-items-center">
+                                        <button @click="toggleLike(review)" class="btn btn-link upvote-button">
+                                            <img v-if="review.isLiked" src="/src/assets/vote.png" alt="Upvoted"
+                                                class="upvote-icon-upvoted" />
+                                            <img v-else src="/src/assets/vote.png" alt="Upvote" class="upvote-icon" />
+                                        </button>
+                                        <span class="me-4">{{ review.likes }} </span>
+                                    </div>
+
+                                    <div class="d-flex align-items-center">
+                                        <button @click="toggleDislike(review)" class="btn btn-link upvote-button">
+                                            <img v-if="review.isLiked" src="/src/assets/vote.png" alt="Downvoted"
+                                                class="downvote-icon-downvoted" />
+                                            <img v-else src="/src/assets/vote.png" alt="Downvote" class="downvote-icon" />
+                                        </button>
+                                        <span class="me-4">{{ review.dislikes }} </span>
+                                    </div> -->
+
+                                <!-- <BCardFooter>Rating: {{ review.rating }}</BCardFooter> -->
+                                <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+                            </div>
+                        </BCard>
+                    </BCol>
+                </BContainer>
+            </BCol>
+        </BRow>
     </div>
-  </b-container>
-
-  <div>
-    <BContainer class="my-4">
-      <BRow no-gutters>
-        <BCol lg="6" class="mb-3 column">
-          <BContainer>
-            <BCol
-              v-for="(review, index) in albumReviews"
-              :key="index"
-              class="mb-3"
-            >
-              <BCard style="max-width: 50rem; min-height: 20rem;">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3"
-                >
-                  <h2>{{ review.album_name }}</h2>
-                  <span>@{{ review.username }}</span>
-                </div>
-
-                <b-card-img
-                  style="max-width: 10rem"
-                  :src="arrayBufferToBase64(review.cover.data)"
-                  alt="Album Cover"
-                ></b-card-img>
-
-                <div class="p-3">
-                  <BCardText
-                    class="d-flex justify-content-between align-items-center mb-3"
-                    >{{ review.review_text }}</BCardText
-                  >
-
-                  <div class="d-flex align-items-center">
-                    <button
-                      @click="toggleLike(review)"
-                      class="btn btn-link upvote-button"
-                    >
-                      <img
-                        v-if="review.isLiked"
-                        src="/src/assets/vote.png"
-                        alt="Upvoted"
-                        class="upvote-icon-upvoted"
-                      />
-                      <img
-                        v-else
-                        src="/src/assets/vote.png"
-                        alt="Upvote"
-                        class="upvote-icon"
-                      />
-                    </button>
-                    <!-- <img src="/src/assets/vote.png"> -->
-                    <span class="me-4">{{ review.likes }} </span>
-                  </div>
-
-                  <!-- ADD UserReviewLikes and UserCommentLikes tables, so we can store what reviews and comments a user has liked -->
-                  <!-- to make sure that review.isLiked work properly -->
-
-                  <div class="d-flex align-items-center">
-                    <button
-                      @click="toggleDislike(review)"
-                      class="btn btn-link upvote-button"
-                    >
-                      <img
-                        v-if="review.isLiked"
-                        src="/src/assets/vote.png"
-                        alt="Downvoted"
-                        class="downvote-icon-downvoted"
-                      />
-                      <img
-                        v-else
-                        src="/src/assets/vote.png"
-                        alt="Downvote"
-                        class="downvote-icon"
-                      />
-                    </button>
-                    <!-- <img src="/src/assets/vote.png"> -->
-                    <span class="me-4">{{ review.dislikes }} </span>
-                  </div>
-
-                  <!-- <BCardText>{{ review.dislikes }}</BCardText> -->
-                  <BCardFooter>Rating: {{ review.rating }}</BCardFooter>
-                </div>
-              </BCard>
-            </BCol>
-          </BContainer>
-        </BCol>
-
-        <BCol lg="6" class="mb-3 column">
-          <BContainer>
-            <BCol
-              v-for="(review, index) in songReviews"
-              :key="index"
-              class="mb-3"
-            >
-              <BCard style="max-width: 50rem; min-height: 20rem;">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3"
-                >
-                  <h2>{{ review.song_name }}</h2>
-                  <span>@{{ review.username }}</span>
-                </div>
-
-                <b-card-img
-                  style="max-width: 10rem"
-                  :src="arrayBufferToBase64(review.cover.data)"
-                  alt="Album Cover"
-                ></b-card-img>
-
-                <div class="p-3">
-                  <BCardText
-                    class="d-flex justify-content-between align-items-center mb-3"
-                    >{{ review.review_text }}</BCardText
-                  >
-
-                  <div class="d-flex align-items-center">
-                    <button
-                      @click="toggleLike(review)"
-                      class="btn btn-link upvote-button"
-                    >
-                      <img
-                        v-if="review.isLiked"
-                        src="/src/assets/vote.png"
-                        alt="Upvoted"
-                        class="upvote-icon-upvoted"
-                      />
-                      <img
-                        v-else
-                        src="/src/assets/vote.png"
-                        alt="Upvote"
-                        class="upvote-icon"
-                      />
-                    </button>
-                    <span class="me-4">{{ review.likes }} </span>
-                  </div>
-
-                  <div class="d-flex align-items-center">
-                    <button
-                      @click="toggleDislike(review)"
-                      class="btn btn-link upvote-button"
-                    >
-                      <img
-                        v-if="review.isLiked"
-                        src="/src/assets/vote.png"
-                        alt="Downvoted"
-                        class="downvote-icon-downvoted"
-                      />
-                      <img
-                        v-else
-                        src="/src/assets/vote.png"
-                        alt="Downvote"
-                        class="downvote-icon"
-                      />
-                    </button>
-                    <span class="me-4">{{ review.dislikes }} </span>
-                  </div>
-
-                  <BCardFooter>Rating: {{ review.rating }}</BCardFooter>
-                </div>
-              </BCard>
-            </BCol>
-          </BContainer>
-        </BCol>
-      </BRow>
-    </BContainer>
-  </div>
 </template>

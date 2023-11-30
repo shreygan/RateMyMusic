@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
+import { sanitizeInput } from "../../utils/utils";
 
 const user = {
     name: '',
@@ -20,13 +21,19 @@ async function createNewUser() {
 
 
     const fields = [
-        { key: 'name', message: 'Please enter your name' },
-        { key: 'username', message: 'Please enter your username' },
-        { key: 'password', message: 'Please enter your password' },
-        { key: 'email', message: 'Please enter your email' },
-        { key: 'birthdate', message: 'Please enter your birthdate' },
-        { key: 'birthplace', message: 'Please enter your birthplace' },
+        { key: 'name', message: 'Invalid name' },
+        { key: 'username', message: 'Invalid username' },
+        { key: 'password', message: 'Invalid password' },
+        { key: 'email', message: 'Invalid email' },
+        { key: 'birthdate', message: 'Invalid birthdate' },
+        { key: 'birthplace', message: 'Invalid birthplace' },
     ];
+
+    for (const field in user) {
+        if (typeof user[field] === 'string') {
+            user[field] = sanitizeInput(user[field]);
+        }
+    }
 
     var failed = false;
     fields.map(field => {
@@ -36,6 +43,10 @@ async function createNewUser() {
         }
     });
     if (failed) return;
+
+   
+
+    console.log(user);
 
 
     try {

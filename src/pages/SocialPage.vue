@@ -3,6 +3,8 @@ import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useUserStore } from "../composables/userStore";
 
+import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
+
 const { allUsers, currentUser } = useUserStore();
 
 async function getAllGenres() {
@@ -119,22 +121,6 @@ async function getUserFollowing() {
 const following = computedAsync(getUserFollowing, [], isLoading);
 
 
-</script>
-
-<script lang="ts">
-export default {
-    methods: {
-        arrayBufferToBase64(buffer: number[]) {
-            var binary = "";
-            var bytes = new Uint8Array(buffer);
-            var len = bytes.byteLength;
-            for (var i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return "data:image/jpeg;base64," + window.btoa(binary);
-        },
-    },
-};
 </script>
 
 <template>

@@ -17,6 +17,14 @@ export interface CreateSongReviewDto {
   pid: number;
 }
 
+export interface CreateUserchartReviewDto {
+  rating: number;
+  reviewText: string;
+  ucid: number;
+  uc_pid: number;
+  pid: number;
+}
+
 export class FilterSongsDto {
   searchTerm?: string;
   startDate?: string;
@@ -37,6 +45,28 @@ export class AdvancedFilterSongsDto {
 export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
+  @Get('getalbumreviews')
+  async getAlbumReviews(
+    @Query('q') albumName?: string,
+    @Query('year') releaseDate?: string,
+  ) {
+    return await this.songsService.getAlbumReviews(albumName, releaseDate);
+  }
+
+
+  @Get('getalbumsongs')
+  async getAlbumSongs(
+    @Query('q') albumName?: string,
+    @Query('year') releaseDate?: string,
+  ) {
+    return await this.songsService.getAlbumSongs(albumName, releaseDate);
+  }
+
+  @Get('findusercharts')
+  async findAllUsercharts(@Query('q') searchTerm?: string) {
+    return await this.songsService.findAllUsercharts(searchTerm);
+  }
+
   @Get('getallgenres')
   async getAllGenres() {
     return await this.songsService.getAllGenres();
@@ -47,7 +77,6 @@ export class SongsController {
     return await this.songsService.findAllSongs(searchTerm);
   }
 
-
   @Post('filtersongs')
   async filterSongs(@Body() filterSongsDto: FilterSongsDto) {
     return await this.songsService.filterSongs(filterSongsDto);
@@ -57,10 +86,6 @@ export class SongsController {
   async advancedFilterSongs(@Body() data) {
     return await this.songsService.advancedFilterSongs(data);
   }
-
-
-
-
 
   @Get('findalbums')
   async findAllAlbums(@Query('q') searchTerm?: string) {
@@ -73,13 +98,25 @@ export class SongsController {
   }
 
   @Get('getsongreviews')
-  async getSongReviews(@Query('q') songName?: string, @Query('year') releaseDate?: string) {
+  async getSongReviews(
+    @Query('q') songName?: string,
+    @Query('year') releaseDate?: string,
+  ) {
     return await this.songsService.getSongReviews(songName, releaseDate);
   }
 
   @Get('albumreviews')
   async getAllAlbumReviews() {
     return await this.songsService.getAllAlbumReviews();
+  }
+
+  @Post('createuserchartreviews')
+  async createUserChartReview(
+    @Body() createUserchartReviewDto: CreateUserchartReviewDto,
+  ) {
+    return await this.songsService.createUserChartReview(
+      createUserchartReviewDto,
+    );
   }
 
   @Post('createalbumreviews')
@@ -91,8 +128,4 @@ export class SongsController {
   async createSongReview(@Body() createSongReviewDto: CreateSongReviewDto) {
     return await this.songsService.createSongReview(createSongReviewDto);
   }
-
-
-
-
 }

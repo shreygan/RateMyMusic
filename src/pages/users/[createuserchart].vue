@@ -4,8 +4,10 @@ import axios from "axios";
 
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
+import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
 
 const { allUsers, currentUser } = useUserStore();
+
 
 const route = useRoute();
 
@@ -15,7 +17,7 @@ async function loadResults() {
     let url = "http://localhost:3000/songs/findalbums";
 
     if (searchTerm.value) {
-        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+        url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
     }
 
     const response = await fetch(url);
@@ -53,7 +55,7 @@ const UCData = reactive({
 async function insertUserChart() {
     const toast = useToast();
     let url = "http://localhost:3000/users/insertuserchart";
-    UCData.title = ucTitle.value;
+    UCData.title = sanitizeInput(ucTitle.value);
     UCData.albums = selectedAlbums.value;
     UCData.image = "";
     UCData.pid = userpid.value;
@@ -134,16 +136,6 @@ function isAlbumSelected(album: Album): boolean {
     return UCData.albums.some((a) => a.album_name === album.album_name);
 }
 
-function __arrayBufferToBase64(buffer: number[]) {
-    var binary = "";
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
-    }
-    return "data:image/jpeg;base64," + window.btoa(binary);
-}
-
 const selectedAlbumCovers = computed(() => {
     const covers = Array(9).fill(
         "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/2048px-Square_gray.svg.png"
@@ -153,7 +145,7 @@ const selectedAlbumCovers = computed(() => {
         if (i < 9) {
             const result = results.value.find((resultAlbum) => resultAlbum.album_name === album.album_name);
 
-            covers[i] = result ? __arrayBufferToBase64(result.cover.data) : covers[i];
+            covers[i] = result ? arrayBufferToBase64(result.cover.data) : covers[i];
         }
     });
 
@@ -189,22 +181,6 @@ function getGridAlbum(index: number) {
 // function getGridAlbum(album: Album) {
 //   return album.album_name;
 // }
-</script>
-
-<script lang="ts">
-export default {
-    methods: {
-        arrayBufferToBase64(buffer: number[]) {
-            var binary = "";
-            var bytes = new Uint8Array(buffer);
-            var len = bytes.byteLength;
-            for (var i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return "data:image/jpeg;base64," + window.btoa(binary);
-        },
-    },
-};
 </script>
 
 <template>

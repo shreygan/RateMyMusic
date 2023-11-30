@@ -136,7 +136,7 @@ export default {
                                 <h6>
                                     {{ result.artist_name }} ({{
                                         getReleaseYear(result.release_date)
-                                    }}) &nbsp;&nbsp;&nbsp; AVG: {{ result.avg_rating.substring(0, 3) }}/5
+                                    }}) &nbsp;&nbsp;&nbsp; AVG: {{ result.avg_rating }}/5
                                 </h6>
                             </BCol>
                         </BRow>

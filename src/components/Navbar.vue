@@ -25,6 +25,8 @@
 import { useUserStore } from "../composables/userStore";
 import { computed } from "vue";
 
+// import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
+
 export default {
     data() {
         return {

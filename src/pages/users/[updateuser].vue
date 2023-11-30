@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRoute } from "vue-router";
 import { useUserStore } from "../../composables/userStore";
 import { useToast } from "vue-toastification";
+import { sanitizeInput } from "../../utils/utils";
 
 const { currentUser } = useUserStore();
 
@@ -29,18 +30,27 @@ async function updateCurrentUser() {
 
   try {
   const response = await axios.post(url, user);
-  currentUser.value.name = user.name;
-  currentUser.value.username = user.username;
-  currentUser.value.password = user.password;
-  currentUser.value.email = user.email;
-  currentUser.value.birthdate = user.birthdate;
-  currentUser.value.birthplace = user.birthplace;
+  currentUser.value.name = sanitizeInput(user.name);
+  currentUser.value.username = sanitizeInput(user.username);
+  currentUser.value.password = sanitizeInput(user.password);
+  currentUser.value.email = sanitizeInput(user.email);
+  currentUser.value.birthdate = sanitizeInput(user.birthdate);
+  currentUser.value.birthplace = sanitizeInput(user.birthplace);
   console.log("Updated user", currentUser.value);
   console.log(response.data.success);
   toast.success("Updated profile successfully!");
   } catch (error) {
-    toast.error("Failed to update profile");
-  }
+        // toast.error(`Error following @${followee_username}`);
+        if (error.response) {
+            console.log(error.response.data);
+
+            if (error.response.data?.errorCode == 1761) {
+                toast.error(`This username already exists!`);
+            } else {
+                toast.error(`Error following ${error.response.data}`);
+            }
+        }
+    }
   
 }
 </script>

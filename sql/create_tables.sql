@@ -310,6 +310,7 @@ CREATE TABLE IF NOT EXISTS UserChartReview (
     uc_pid INTEGER,
     rv_pid INTEGER,
     rid INTEGER,
+    rating INTEGER NOT NULL,
     PRIMARY KEY (ucid, uc_pid, rv_pid, rid),
     FOREIGN KEY (ucid, uc_pid) REFERENCES UserChart(ucid, pid)
       ON DELETE CASCADE

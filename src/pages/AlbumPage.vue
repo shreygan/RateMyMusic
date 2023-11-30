@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { sanitizeInput,  } from "../utils/utils";
+import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
 
 async function loadResults() {
-  let url = "http://localhost:3000/songs/findalbums";
+    let url = "http://localhost:3000/songs/findalbums";
 
-  if (searchTerm.value) {
-    url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
-  }
+    if (searchTerm.value) {
+        url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
+    }
 
-  const response = await fetch(url);
-  return await response.json();
+    const response = await fetch(url);
+    return await response.json();
 }
 
 const searchTerm = ref("");
@@ -17,41 +17,54 @@ const isLoading = ref(false);
 const results = computedAsync(loadResults, [], isLoading);
 
 const getReleaseYear = (dateString) => {
-  const date = new Date(dateString);
-  return date.getFullYear();
+    const date = new Date(dateString);
+    return date.getFullYear();
 };
 
 
 </script>
 
 <template>
-  <BContainer class="my-4">
-    <BFormInput v-model="searchTerm" />
-    <router-link :to="{ path: '/MainPage' }">
-      <b-button variant="primary" class="btn-top-right">Click Me</b-button>
-    </router-link>
+    <BContainer class="main-container">
+        <div class="main-title" style="margin-top: 20%; margin-bottom: 10%;">
+            <h1>All Albums</h1>
+        </div>
+    </BContainer>
 
-    <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-      <BCard>
-        <BCardTitle
-          >{{ result.album_name }} ({{
-            getReleaseYear(result.release_date)
-          }})</BCardTitle
-        >
 
-        <router-link to="/AlbumPage">
-          <BCardText>{{ result.name }}</BCardText>
+    <BContainer class="my-4 mb-4 content">
+        <BFormInput v-model="searchTerm" />
+        <router-link :to="{ path: '/MainPage' }">
+            <BButton variant="primary" class="btn-top-right">Click Me</BButton>
         </router-link>
-      </BCard>
-    </BCol>
-  </BContainer>
+
+        <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+          <RouterLink
+                    :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.album_name, year: result.release_date } }">
+                <BCard style="width: 100%" :img-src="arrayBufferToBase64(result.cover.data)">
+                    <BCardTitle>{{ result.album_name }} ({{
+                        getReleaseYear(result.release_date)
+                    }})</BCardTitle>
+
+
+                    <BCardText>{{ result.name }}</BCardText>
+                </BCard>
+            </RouterLink>
+
+        </BCol>
+    </BContainer>
 </template>
 
 <style scoped>
 /* Custom styling for the button in the top right corner */
 .btn-top-right {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.content {
+    width: 35rem;
+    padding-top: 2rem;
 }
 </style>

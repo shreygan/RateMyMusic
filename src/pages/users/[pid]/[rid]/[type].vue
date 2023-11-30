@@ -3,7 +3,7 @@ import { useRoute } from "vue-router";
 import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useUserStore } from "../../../../composables/userStore";
-import { sanitizeInput } from "../../../../utils/utils";
+import { sanitizeInput, arrayBufferToBase64 } from "../../../../utils/utils";
 const { currentUser } = useUserStore();
 
 const route = useRoute();
@@ -33,7 +33,7 @@ onMounted(() => {
 });
 
 onMounted(async () => {
-    review.value = await getUserReview();
+    await getUserReview();
 });
 
 // const getReleaseYear = (dateString: string) => {
@@ -69,7 +69,6 @@ async function getUserReview() {
         type: type.value,
     });
     const data = await response.data;
-    console.log(data);
     return data[0];
 }
 
@@ -80,8 +79,20 @@ async function getReviewComments() {
         pid: userpid.value,
         rid: rid.value,
     });
+    refreshKey.value++;
     const data = await response.data;
     return data;
+}
+
+const refreshKey = ref(0);
+function getCardKey(user) {
+    return `${user.pid}-${refreshKey.value}`;
+}
+
+
+async function fetchAndUpdateComments() {
+    const newComments = await getReviewComments();
+    comments.value = newComments; // Assuming comments is a reactive ref
 }
 
 async function insertReviewComment() {
@@ -103,6 +114,9 @@ async function insertReviewComment() {
 
         if (response.status === 201) {
             toast.success("Commented successfully!");
+            refreshKey.value++;
+            await fetchAndUpdateComments();
+
         } else {
             toast.error("Error commenting");
         }
@@ -111,17 +125,22 @@ async function insertReviewComment() {
     }
 }
 
+function renderStars(rating: number) {
+    const stars: string[] = [];
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars.push('★');
+        } else {
+            stars.push('☆');
+        }
+    }
+    return stars.join(' ');
+}
+
 const isLoading = ref(false);
 
-watch(
-    commentSubmitted,
-    async () => {
-        comments.value = await getReviewComments();
-    },
-    { immediate: false }
-);
+const review = computedAsync(getUserReview, [], isLoading);
 
-const review = computedAsync(getUserReview, isLoading);
 const comments = computedAsync(getReviewComments, [], isLoading);
 
 </script>
@@ -143,43 +162,43 @@ export default {
 </script>
 
 <template>
-    <BCol>
-        <BCard class="mb-3">
-            <BCardText>
-                <p>{{ type }} {{ "Review for:" }}</p>
-                <p>{{ review.album_name }}</p>
-                <p>Rating: {{ review.rating }}</p>
-                <p>Review: {{ review.review_text }}</p>
-            </BCardText>
+    <BCol style="margin-top: 20%;">
+
+        {{ console.log(type) }}
+
+        <BCard v-if="review && review.rid" style="max-width: 50rem; min-height: 20rem;">
+            <small v-if="type == 'Userchart'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Userchart</small>
+            <small v-if="type == 'Song'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Song</small>
+            <small v-if="type == 'Album'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Album</small>
+            <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                {{ new Date(review.review_date).toLocaleString([], {
+                    year: 'numeric', month: 'numeric',
+                    day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                })
+                }}
+            </small>
+            <div style="margin-top: 5%;" class="d-flex justify-content-between align-items-center mb-3">
+                <h2>{{ review.album_name }}</h2>
+                <RouterLink style="text-decoration: none;" :to="{ name: '/users/[user]', params: { user: review.pid } }">
+                    <span>@{{ review.username }}</span>
+                </RouterLink>
+            </div>
+
+            <b-card-img v-if="review.cover" style="width: 30rem" :src="arrayBufferToBase64(review.cover.data)"
+                alt="Album Cover"></b-card-img>
+
+            <div class="p-3">
+                <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                    review.review_text }}</BCardText>
+
+                <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+            </div>
         </BCard>
 
-        <!-- <BCol v-if="type == 'Song'" lg="6" class="mb-3 column">
-            <BContainer fluid>
-                <BCol class="mb-3">
-                    {{ console.log(review) }}
-
-                    <BCard style="width: 200%">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h2>{{ review.song_name }}</h2>
-                            <span>@{{ currentUser.username }}</span>
-                        </div>
-
-                        <b-card-img style="width: 40vw;" :src="arrayBufferToBase64(review.cover.data)"
-                            alt="Album Cover"></b-card-img>
-
-                        <div class="p-3">
-                            <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
-                                review.review_text }}</BCardText>
-                            <BCardFooter>Rating: {{ review.rating }}</BCardFooter>
-                        </div>
-                    </BCard>
-                </BCol>
-            </BContainer>
-        </BCol> -->
 
         <BCard title="Comments">
             <BListGroup flush>
-                <BListGroupItem v-for="(result, index) in comments" :key="index" style="width: 20vw;">
+                <BListGroupItem v-for="(result, index) in comments" :key="getCardKey(result)" style="max-width: 35vw;">
                     <div class="mb-2">
                         <h6>@{{ result.username }}</h6>
                         <small class="text-muted">{{ result.comment_date.substring(0, 10) + ' ' +

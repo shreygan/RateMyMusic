@@ -3,7 +3,7 @@ import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
-import { sanitizeInput } from "../../utils/utils";
+import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
 
 const { allUsers, currentUser } = useUserStore();
 
@@ -140,22 +140,6 @@ function isSongSelected(song: Song): boolean {
     (selectedSong) => selectedSong.song_name === song.song_name
   );
 }
-</script>
-
-<script lang="ts">
-export default {
-  methods: {
-    arrayBufferToBase64(buffer: number[]) {
-      var binary = "";
-      var bytes = new Uint8Array(buffer);
-      var len = bytes.byteLength;
-      for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
-      }
-      return "data:image/jpeg;base64," + window.btoa(binary);
-    },
-  },
-};
 </script>
 
 <template>

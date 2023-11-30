@@ -41,6 +41,7 @@ declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/AlbumPage': RouteRecordInfo<'/AlbumPage', '/AlbumPage', Record<never, never>, Record<never, never>>,
+    '/albums/[albumName]/[year]': RouteRecordInfo<'/albums/[albumName]/[year]', '/albums/:albumName/:year', { albumName: ParamValue<true>, year: ParamValue<true> }, { albumName: ParamValue<false>, year: ParamValue<false> }>,
     '/Playlists': RouteRecordInfo<'/Playlists', '/Playlists', Record<never, never>, Record<never, never>>,
     '/reviews/[rid]/[pid]': RouteRecordInfo<'/reviews/[rid]/[pid]', '/reviews/:rid/:pid', { rid: ParamValue<true>, pid: ParamValue<true> }, { rid: ParamValue<false>, pid: ParamValue<false> }>,
     '/SearchTest': RouteRecordInfo<'/SearchTest', '/SearchTest', Record<never, never>, Record<never, never>>,

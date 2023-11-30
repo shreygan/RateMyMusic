@@ -2,6 +2,7 @@
 import axios from "axios";
 
 import { useUserStore } from "../composables/userStore";
+import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
 const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
@@ -11,7 +12,7 @@ async function loadAllPlaylists(){
     let url = "http://localhost:3000/users/getallplaylists";
 
     if (searchTerm.value) {
-        url += `?q=${encodeURIComponent(searchTerm.value.trim().toLowerCase())}`;
+        url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
     } 
     
     const response = await fetch(url);
@@ -21,22 +22,6 @@ async function loadAllPlaylists(){
 
 const isLoading = ref(false);
 const results = computedAsync(loadAllPlaylists, [], isLoading);
-</script>
-
-<script lang="ts">
-export default {
-    methods: {
-        arrayBufferToBase64(buffer: number[]) {
-            var binary = '';
-            var bytes = new Uint8Array(buffer);
-            var len = bytes.byteLength;
-            for (var i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return 'data:image/jpeg;base64,' + window.btoa(binary);
-        }
-    },
-}
 </script>
 
 <template>

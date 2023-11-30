@@ -39,9 +39,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('unfollowuser')
-    async unfollowUser(@Body() data) {
-        return await this.usersService.unfollowUser(data);
-    }
+  async unfollowUser(@Body() data) {
+    return await this.usersService.unfollowUser(data);
+  }
 
   @Get('getUserFollowers')
   async getUserFollowers(@Query('q') pid?: string) {
@@ -136,6 +136,11 @@ export class UsersController {
   @Get('getuserbyid')
   async getUserById(@Query('q') userpid?: string) {
     return await this.usersService.getUserById(userpid);
+  }
+
+  @Get('getuseruserchartreviews')
+  async getUserUserchartReviews(@Query('q') userpid?: string) {
+    return await this.usersService.getUserUserchartReviews(userpid);
   }
 
   @Get('getuseralbumreviews')

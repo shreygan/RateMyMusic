@@ -16,23 +16,70 @@ export class SongsService {
     this.connection,
   );
 
-async getAllGenres(){
-  return await this.query(`
+  async getAlbumReviews(albumName: string, releaseDate: string) {
+    return await this.query(
+       `SELECT
+            a.album_name,
+            a.release_date,
+            ar.pid,
+            ar.rid,
+            ar.rating,
+            r2.review_text,
+            r2.review_date,
+            u4.username,
+            u4.profile_pic
+        FROM
+            Album a, AlbumReview ar, Review2 r2, User4 u4
+        WHERE
+            a.album_name = ? AND a.release_date = ? AND r2.pid = u4.pid
+            AND ar.album_name = a.album_name AND ar.release_date = a.release_date
+            AND r2.rid = ar.rid AND r2.pid = ar.pid;`,
+        [albumName, releaseDate]
+    );
+  }
+
+  async getAlbumSongs(albumName: string, releaseDate: string) {
+    return await this.query(
+      `SELECT
+            a.album_name,
+            a.release_date AS album_release_date,
+            a.cover,
+            s.song_name,
+            s.release_date AS song_release_date,
+            s.duration
+        FROM
+            Album a, AlbumSong als, Song s
+        WHERE
+            a.album_name = ? AND a.release_date = ?
+            AND als.album_name = a.album_name AND als.album_release_date = a.release_date
+            AND s.song_name = als.song_name AND s.release_date = als.song_release_date;`,
+      [albumName, releaseDate],
+    );
+  }
+
+  async getAllGenres() {
+    return await this.query(`
     SELECT Genre FROM Song
     UNION
     SELECT Genre FROM Album
     UNION
     SELECT Genre FROM Artist2;
 `);
-}
+  }
 
-async filterSongs(filterSongsDto: FilterSongsDto) {
-    const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration} = filterSongsDto;
- 
-    
-    
+  async filterSongs(filterSongsDto: FilterSongsDto) {
+    const {
+      searchTerm,
+      startDate,
+      endDate,
+      selectedGenre,
+      isSingle,
+      minDuration,
+      maxDuration,
+    } = filterSongsDto;
+
     return await this.query(
-        `
+      `
         SELECT
             s.song_name,
             s.release_date AS song_release_date,
@@ -54,27 +101,28 @@ async filterSongs(filterSongsDto: FilterSongsDto) {
             AND s.genre = COALESCE(?, s.genre)
             AND a.isSingle = ?
             AND s.duration BETWEEN ? AND ?;
-        `,    
-        [searchTerm ? searchTerm : '', 
-        startDate ? startDate : '1500-01-01', 
-        endDate ? endDate : new Date().toISOString().slice(0, 10), 
-        selectedGenre != 'All' ? selectedGenre : null, 
-        isSingle, 
-        Number(minDuration) * 60, 
-        Number(maxDuration) * 60],
+        `,
+      [
+        searchTerm ? searchTerm : '',
+        startDate ? startDate : '1500-01-01',
+        endDate ? endDate : new Date().toISOString().slice(0, 10),
+        selectedGenre != 'All' ? selectedGenre : null,
+        isSingle,
+        Number(minDuration) * 60,
+        Number(maxDuration) * 60,
+      ],
     );
-}
+  }
 
-async advancedFilterSongs(data: any){
-  const { topSongsNumber, ratingComparison, ratingValue } = data;
+  async advancedFilterSongs(data: any) {
+    const { topSongsNumber, ratingComparison, ratingValue } = data;
 
     const combinedString = `${ratingComparison} ${ratingValue}`;
-   
 
-  console.log(data);
-  
-  await this.query(
-    `CREATE OR REPLACE VIEW AverageRatings AS SELECT
+    console.log(data);
+
+    await this.query(
+      `CREATE OR REPLACE VIEW AverageRatings AS SELECT
          sr.song_name,
          sr.release_date,
          s.genre,
@@ -93,11 +141,20 @@ async advancedFilterSongs(data: any){
             WHEN ? = '<' THEN  average_rating < ?
             WHEN ? = '<=' THEN average_rating <= ?
         END;`,
-    [ratingComparison, ratingValue, ratingComparison, ratingValue, ratingComparison, ratingValue, ratingComparison, ratingValue],
-  );
+      [
+        ratingComparison,
+        ratingValue,
+        ratingComparison,
+        ratingValue,
+        ratingComparison,
+        ratingValue,
+        ratingComparison,
+        ratingValue,
+      ],
+    );
 
-  return await this.query(
-    `SELECT
+    return await this.query(
+      `SELECT
         r.song_name,
         r.release_date AS song_release_date,
         r.genre,
@@ -123,12 +180,39 @@ async advancedFilterSongs(data: any){
         AND a.album_name = aa.album_name AND a.release_date = aa.release_date
         AND aa.pid = at2.pid
         AND genre_rank <= ?;`,
-    [topSongsNumber],
-  );
-//   console.log(result);
-  
-}
+      [topSongsNumber],
+    );
+    //   console.log(result);
+  }
 
+  async createUserChartReview(CreateUserchartReviewDto) {
+    const { rating, reviewText, ucid, uc_pid, pid } = CreateUserchartReviewDto._value;
+
+    const reviewDate = new Date();
+
+    const rid = Math.floor(Math.random() * 900) + 10000;
+    const likes = 0;
+    const dislikes = 0;
+    const helpfulness = 0;
+
+    await this.query(
+        `INSERT INTO Review2 (rid, pid, review_date, review_text, likes, dislikes)
+         VALUES (?, ?, ?, ?, ?, ?);`,
+         [rid, pid, reviewDate, reviewText, likes, dislikes],
+    );
+
+    await this.query(
+        `INSERT INTO Review1 (review_date, likes, dislikes, helpfulness)
+         VALUES (?, ?, ?, ?);`,
+         [reviewDate, likes, dislikes, helpfulness],
+    );
+
+    return await this.query(
+        `INSERT INTO UserChartReview
+         VALUE (?, ?, ?, ?, ?);`,
+        [ucid, uc_pid, pid, rid, rating],
+    );
+  }
 
   async createSongReview(createSongReviewDto) {
     const { rating, reviewText, songName, releaseDate, pid } =
@@ -137,26 +221,11 @@ async advancedFilterSongs(data: any){
     // const reviewDate = new Date().toISOString().slice(0, 10);
     const reviewDate = new Date();
 
-    const year = reviewDate.getFullYear();
-    const month = String(reviewDate.getMonth() + 1).padStart(2, '0');
-    const day = String(reviewDate.getDate()).padStart(2, '0');
-    const hour = String(reviewDate.getHours()).padStart(2, '0');
-    const minute = String(reviewDate.getMinutes()).padStart(2, '0');
-    const second = String(reviewDate.getSeconds()).padStart(2, '0');
-
-    const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     const rid = Math.floor(Math.random() * 900) + 10000;
     const likes = 0;
     const dislikes = 0;
     const helpfulness = 0;
 
-    console.log('pid: ' + pid);
-    console.log('rating: ' + rating);
-    console.log('reviewText: ' + reviewText);
-    console.log('songName: ' + songName);
-    console.log('releaseDate: ' + releaseDate);
-    console.log(createSongReviewDto);
-    // Unique for review 2 ----> review_date, likes, dislikes
     await this.query(
       `
     INSERT INTO Review2 (rid, pid, review_date, review_text, likes, dislikes)
@@ -179,7 +248,7 @@ async advancedFilterSongs(data: any){
     VALUES (?, ?, ?, ?, ?);
     `,
       [pid, rid, songName, releaseDate, rating],
-    ); 
+    );
 
     return createSongReviewDto;
   }
@@ -187,7 +256,7 @@ async advancedFilterSongs(data: any){
   async createAlbumReview(createAlbumReviewDto) {
     const { rating, reviewText, albumName, releaseDate, pid } =
       createAlbumReviewDto._value;
-    
+
     const reviewDate = new Date();
 
     const year = reviewDate.getFullYear();
@@ -258,7 +327,7 @@ async advancedFilterSongs(data: any){
         AND r1.dislikes = r2.dislikes AND r2.rid = ar.rid
         AND r2.pid = ar.pid AND ar.album_name = a.album_name
         AND ar.release_date = a.release_date AND r2.pid = u.pid
-  ORDER BY r1.helpfulness DESC;
+  ORDER BY r2.review_date DESC;
     `);
   }
 
@@ -288,12 +357,13 @@ async advancedFilterSongs(data: any){
         AND sr.release_date = s.release_date AND s.song_name = als.song_name
         AND s.release_date = als.song_release_date AND als.album_name = a.album_name
         AND als.album_release_date = a.release_date AND r2.pid = u.pid
-  ORDER BY r1.helpfulness DESC;
+  ORDER BY r1.review_date DESC;
     `);
   }
 
   async getSongReviews(songName: string, releaseDate: string) {
-    return await this.query(`
+    return await this.query(
+      `
     SELECT
     r2.rid,
     r2.pid,
@@ -319,7 +389,41 @@ async advancedFilterSongs(data: any){
         AND s.release_date = als.song_release_date AND als.album_name = a.album_name
         AND als.album_release_date = a.release_date AND r2.pid = u.pid AND sr.song_name = ? AND sr.release_date = ?
   ORDER BY r1.helpfulness DESC;
-    `, [songName, releaseDate]);
+    `,
+      [songName, releaseDate],
+    );
+  }
+
+  async findAllUsercharts(searchTerm?: string) {
+    if (searchTerm) {
+      return await this.query(
+        `SELECT
+             uc.image,
+             uc.userchart_name,
+             uc.ucid,
+             uc.pid AS uc_pid,
+             u4.username
+         FROM
+             UserChart uc, User4 u4
+         WHERE
+             uc.pid = u4.pid AND
+             uc.userchart_name LIKE CONCAT('%', ?, '%');
+      `,
+        [searchTerm],
+      );
+    }
+
+    return await this.query(
+      `SELECT
+             uc.image,
+             uc.userchart_name,
+             uc.ucid,
+             uc.pid AS uc_pid,
+             u4.username
+         FROM
+             UserChart uc, User4 u4
+         WHERE uc.pid = u4.pid;`,
+    );
   }
 
   async findAllSongs(searchTerm?: string) {

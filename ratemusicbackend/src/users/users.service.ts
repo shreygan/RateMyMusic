@@ -20,7 +20,6 @@ export class UsersService {
     console.log(u.data.followee_id);
     console.log(u);
 
-
     return await this.query(
       `DELETE FROM Follows WHERE followerid = ? AND followeeid = ?;`,
       [u.data.follower_id, u.data.followee_id],
@@ -91,57 +90,7 @@ export class UsersService {
     );
   }
 
-  // async followUser(data: any) {
-  //   const newDate = new Date();
 
-  //   console.log(data);
-
-  //   const result = await this.query(
-  //     `INSERT INTO Follows
-  //       VALUE (?, ?, ?);`,
-  //     [data.follower_id, data.followee_id, newDate],
-  //   );
-
-  //   console.log("RESULTDFHBHKGBDFKHGDFKHDHKFFHGBHFGNKDFHBGHKDFG", result);
-
-  //   return result;
-  // }
-
-  // async followUser(data: any) {
-  //   const newDate = new Date();
-
-  //   console.log(data);
-
-  //   try {
-  //     const result = await this.query(
-  //       `INSERT INTO Follows
-  //         VALUE (?, ?, ?);`,
-  //       [data.follower_id, data.followee_id, newDate],
-  //     );
-
-  //     console.log("Insertion result:", result);
-  //     return result;
-
-  //   } catch (error) {
-  //     console.error("Error in followUser:", error);
-
-  //     // Log the error message for debugging purposes
-  //     console.error(error.message);
-  //     const errorResponse = {
-  //       status: HttpStatus.INTERNAL_SERVER_ERROR,
-  //       message: 'Internal Server Error',
-  //       detailedMessage: error.message,
-  //       errorCode: error.errno || null,
-  //     };
-
-  //     // Here you can decide how much information to return to the client
-  //     // For a more generic error message:
-  //     throw new HttpException( errorResponse , HttpStatus.INTERNAL_SERVER_ERROR);
-
-  //     // Or, if you want to return the specific MySQL error (not recommended for production):
-  //     // throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-  //   }
-  // }
 
   async followUser(data: any) {
     try {
@@ -258,56 +207,80 @@ export class UsersService {
     if (data.type == 'Song') {
       return await this.query(
         `SELECT
+             r2.rid,
+             r2.pid,
+             r2.review_text,
+             r2.review_date,
+             r2.likes,
+             r2.dislikes,
+             r1.helpfulness,
+             sr.rating,
+             s.song_name AS album_name,
+             s.release_date,
+             a.genre,
+             a.duration,
+             a.cover,
+             a.number_of_songs,
+             u4.username
+         FROM
+             User4 u4, Review2 r2, Review1 r1, SongReview sr, Song s, AlbumSong als, Album a
+         WHERE
+             u4.pid = ? AND u4.pid = r2.pid AND r2.rid = ? AND r2.review_date = r1.review_date
+             AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
+             AND sr.pid = u4.pid AND sr.rid = r2.rid AND sr.song_name = s.song_name
+             AND sr.release_date = s.release_date AND als.song_name = s.song_name
+             AND als.song_release_date = a.release_date AND als.album_name = a.album_name
+             AND als.album_release_date = a.release_date;`,
+        [data.pid, data.rid],
+      );
+    } else if (data.type == 'Album') {
+        return await this.query(
+          `SELECT
                 r2.rid,
+                r2.pid,
                 r2.review_text,
                 r2.review_date,
                 r2.likes,
                 r2.dislikes,
                 r1.helpfulness,
-                sr.rating,
-                s.song_name AS album_name,
-                s.release_date,
+                ar.rating,
+                a.album_name,
+                a.release_date,
+                a.isSingle,
                 a.genre,
                 a.duration,
                 a.cover,
-                a.number_of_songs
+                a.number_of_songs,
+                u4.username
             FROM
-                User4 u4, Review2 r2, Review1 r1, SongReview sr, Song s, AlbumSong als, Album a
+                User4 u4, Review2 r2, Review1 r1, AlbumReview ar, Album a
             WHERE
-                u4.pid = ? AND r2.rid = ? AND r2.review_date = r1.review_date
+                u4.pid = ? AND r2.rid = ? AND u4.pid = r2.pid AND r2.review_date = r1.review_date
                 AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
-                AND sr.pid = u4.pid AND sr.rid = r2.rid AND sr.song_name = s.song_name
-                AND sr.release_date = s.release_date AND als.song_name = s.song_name
-                AND als.song_release_date = a.release_date AND als.album_name = a.album_name
-                AND als.album_release_date = a.release_date;`,
-        [data.pid, data.rid],
-      );
+                AND ar.pid = u4.pid AND ar.rid = r2.rid AND a.album_name = ar.album_name
+                AND a.release_date = ar.release_date;`,
+          [data.pid, data.rid],
+        );
     }
 
     return await this.query(
-      `SELECT
-            r2.rid,
-            r2.review_text,
-            r2.review_date,
-            r2.likes,
-            r2.dislikes,
-            r1.helpfulness,
-            ar.rating,
-            a.album_name,
-            a.release_date,
-            a.isSingle,
-            a.genre,
-            a.duration,
-            a.cover,
-            a.number_of_songs
-        FROM
-            User4 u4, Review2 r2, Review1 r1, AlbumReview ar, Album a
-        WHERE
-            u4.pid = ? AND r2.rid = ? AND u4.pid = r2.pid AND r2.review_date = r1.review_date
-            AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
-            AND ar.pid = u4.pid AND ar.rid = r2.rid AND a.album_name = ar.album_name
-            AND a.release_date = ar.release_date;`,
-      [data.pid, data.rid],
+        `SELECT
+             u4.pid,
+             u4.username,
+             u4.pid,
+             r2.review_date,
+             r2.review_text,
+             r2.rid,
+             ucr.rating,
+             uc.userchart_name AS album_name,
+             uc.image AS cover
+         FROM
+             User4 u4, Review2 r2, UserChartReview ucr, UserChart uc
+         WHERE
+             u4.pid = ? AND r2.pid = u4.pid AND r2.rid = ?
+             AND ucr.rv_pid = u4.pid AND ucr.rid = r2.rid
+             AND ucr.uc_pid = uc.pid AND ucr.ucid = uc.ucid;`,
+        [data.pid, data.rid],
     );
   }
 
@@ -602,6 +575,32 @@ export class UsersService {
     );
   }
 
+  async getUserUserchartReviews(userpid?: string) {
+    return await this.query(
+       `SELECT
+            r2.rid,
+            r2.review_text,
+            r2.review_date,
+            r2.likes,
+            r2.dislikes,
+            r1.helpfulness,
+            ucr.rating,
+            ucr.uc_pid,
+            ucr.rv_pid,
+            uc.ucid,
+            uc.userchart_name,
+            uc.image
+        FROM
+            User4 u4, Review2 r2, Review1 r1, UserChartReview ucr, UserChart uc
+        WHERE
+            u4.pid = ? AND r2.pid = u4.pid AND r2.review_date = r1.review_date
+            AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
+            AND ucr.rv_pid = u4.pid AND ucr.rid = r2.rid AND ucr.ucid = uc.ucid
+            AND ucr.uc_pid = uc.pid;`,
+      [userpid],
+    );
+  }
+
   async getUserSongReviews(userpid?: string) {
     return await this.query(
       `SELECT
@@ -661,8 +660,9 @@ export class UsersService {
   }
 
   async updateUser(user: User) {
-    return await this.query(
-      `START TRANSACTION;
+    try {
+      return await this.query(
+        `START TRANSACTION;
             UPDATE User4
             SET birthdate = ?,
                 birthplace = ?,
@@ -685,22 +685,33 @@ export class UsersService {
             WHERE username = ?;
 
         COMMIT;`,
-      [
-        user.birthdate,
-        user.birthplace,
-        user.username,
-        user.password,
-        user.profile_pic,
-        user.pid,
-        user.birthdate,
-        user.age,
-        user.username,
-        user.name,
-        user.username,
-        user.email,
-        user.username,
-      ],
-    );
+        [
+          user.birthdate,
+          user.birthplace,
+          user.username,
+          user.password,
+          user.profile_pic,
+          user.pid,
+          user.birthdate,
+          user.age,
+          user.username,
+          user.name,
+          user.username,
+          user.email,
+          user.username,
+        ],
+      );
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'Error adding user to User4',
+          detailedMessage: error.message,
+          errorCode: error?.errno || null,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     // return await this.query(
     //     `UPDATE User4
@@ -818,8 +829,21 @@ export class UsersService {
 
   async addUser(user: User) {
     const pid = Math.floor(Math.random() * 90000) + 10000;
-    const age = 10; // CALCULATE AGE PROPERLY
-    const newDate = new Date(user.birthdate);
+    // const age = 10; // CALCULATE AGE PROPERLY
+
+    const birthDate = new Date(user.birthdate);
+
+    const todayDate = new Date();
+
+    var age = todayDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      todayDate.getMonth() < birthDate.getMonth() ||
+      (todayDate.getMonth() === birthDate.getMonth() &&
+        todayDate.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
 
     user.profile_pic = null;
 
@@ -834,7 +858,7 @@ export class UsersService {
           VALUES (?, ?, ?, ?, ?, ?);`,
         [
           pid,
-          newDate,
+          birthDate,
           user.birthplace,
           user.username,
           user.password,
@@ -859,7 +883,7 @@ export class UsersService {
                           birthdate, 
                           age) 
         VALUES (?, ?, ?);`,
-      [user.username, newDate, age],
+      [user.username, birthDate, age],
     );
 
     await this.query(

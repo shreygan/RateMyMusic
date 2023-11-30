@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
+import { sanitizeInput } from "../../utils/utils";
 
 const { allUsers, currentUser } = useUserStore();
 const successModal = ref(false);
@@ -17,6 +18,12 @@ async function login() {
   console.log(currentUser.value);
   console.log(allUsers.value);
   let url = "http://localhost:3000/users/login";
+
+  for (const field in user) {
+    if (typeof user[field] === 'string') {
+      user[field] = sanitizeInput(user[field]);
+    }
+  }
 
   const response = await axios.post(url, user);
 
