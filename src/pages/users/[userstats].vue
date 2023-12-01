@@ -75,7 +75,7 @@ const filterText = computed(() => {
 
 const isLoading = ref(false);
 
-const selectedFilter = ref("SUM"); 
+const selectedFilter = ref("SUM");
 
 watch(selectedFilter, async (newValue) => {
     await avgRatingPerUser(newValue);
@@ -94,34 +94,25 @@ export default {
             selectedAggregation: "SUM",
         };
     },
-    //     methods: {
-    //         bufferToDataURI(bufferArray: number[]) {
-    //             // Convert the array to a base64-encoded data URI
-    //             const uint8Array = new Uint8Array(bufferArray);
-    //             const base64String = btoa(
-    //                 String.fromCharCode.apply(null, Array.from(uint8Array))
-    //             );
-    //             return "data:image/jpeg;base64," + base64String;
-    //         },
-    //         selectAggregation(aggregation: any) {
-    //             this.selectedAggregation = aggregation;
-    //             // You can perform actions based on the selected aggregation here
-    //         },
-    //     },
-    // };
 };
 </script>
 
 <style scoped></style>
 
 <template>
-   <BFormSelect v-model="selectedFilter" class="mr-2" style="margin-top: 10vh;">
-            <option v-for="filter in filterOptions" :key="filter" :value="filter" style="width: 10vw;">
-                {{ filter }}
-            </option>
-        </BFormSelect>
+    <b-container class="main-container">
+        <div class="main-title" style="margin-top: 20%; margin-bottom: 15%">
+            <h1>View Stats by Artist for @{{ currentUser.username }}</h1>
+        </div>
+    </b-container>
 
-    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width:70vw;">
+    <BFormSelect v-model="selectedFilter" class="mr-2" style="margin-top: 10vh;">
+        <option v-for="filter in filterOptions" :key="filter" :value="filter" style="width: 10vw;">
+            {{ filter }}
+        </option>
+    </BFormSelect>
+
+    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width:20vw;">
         <BCard style="
         width: 70%;
         margin-left: 20%;
@@ -129,17 +120,17 @@ export default {
         max-height: 80vh;
         overflow-y: auto;
       ">
-      {{console.log(artist)}}
+            {{ console.log(artist) }}
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>{{ artist.name }}</h2>
             </div>
 
             <div class="p-3">
                 <div class="p-3">
-                <BCardText class="d-flex mb-3">
-                    <b> {{ filterText }} :</b>&nbsp;&nbsp;{{ artist.agg_value }}
-                </BCardText>
-            </div>
+                    <BCardText class="d-flex mb-3">
+                        <b> {{ filterText }} :</b>&nbsp;&nbsp;{{ artist.agg_value }}
+                    </BCardText>
+                </div>
             </div>
         </BCard>
     </BCol>

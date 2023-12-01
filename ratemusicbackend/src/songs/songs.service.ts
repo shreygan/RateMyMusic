@@ -78,6 +78,8 @@ export class SongsService {
       maxDuration,
     } = filterSongsDto;
 
+    console.log(filterSongsDto);
+
     return await this.query(
       `
         SELECT

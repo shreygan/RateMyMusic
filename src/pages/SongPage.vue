@@ -160,6 +160,7 @@ function getImagePath(name: string) {
                 <router-link to="/AlbumPage">
                     <h4>{{ result.album_name }}</h4>
                 </router-link>
+                <p> {{ result.genre }} </p>
             </BCard>
         </BCol>
     </BContainer>

@@ -217,7 +217,9 @@ export default {
                                 </RouterLink>
                             </div>
 
-                            <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
+                            {{ console.log(review) }}
+
+                            <b-card-img v-if="review.cover" style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
                                 alt="Album Cover"></b-card-img>
 
                             <div class="p-3">

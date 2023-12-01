@@ -19,6 +19,8 @@ async function createNewUser() {
     const toast = useToast();
     let url = "http://localhost:3000/users/createuser";
 
+    console.log(user.profile_pic);
+
 
     const fields = [
         { key: 'name', message: 'Invalid name' },
@@ -43,10 +45,6 @@ async function createNewUser() {
         }
     });
     if (failed) return;
-
-   
-
-    console.log(user);
 
 
     try {
@@ -88,7 +86,9 @@ async function createNewUser() {
             <BFormInput v-model="user.birthplace" placeholder="birthplace" />
 
             <b-form-file v-model="user.profile_pic" :state="Boolean(user.profile_pic)"
-                placeholder="Choose a file or drop it here..." drop-placeholder="Drop the file here..."></b-form-file>
+                placeholder="Choose a profile pic or drop it here..." drop-placeholder="Drop the profile pic here..."
+                accept=".jpeg, .jpg">
+            </b-form-file>
 
             <BButton variant="primary" @click="createNewUser()">Join</BButton>
         </BCol>

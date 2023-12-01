@@ -16,10 +16,6 @@ export class UsersService {
   );
 
   async unfollowUser(u: any) {
-    console.log(u.data.follower_id);
-    console.log(u.data.followee_id);
-    console.log(u);
-
     return await this.query(
       `DELETE FROM Follows WHERE followerid = ? AND followeeid = ?;`,
       [u.data.follower_id, u.data.followee_id],
@@ -89,8 +85,6 @@ export class UsersService {
       [pid],
     );
   }
-
-
 
   async followUser(data: any) {
     try {
@@ -234,8 +228,8 @@ export class UsersService {
         [data.pid, data.rid],
       );
     } else if (data.type == 'Album') {
-        return await this.query(
-          `SELECT
+      return await this.query(
+        `SELECT
                 r2.rid,
                 r2.pid,
                 r2.review_text,
@@ -259,12 +253,12 @@ export class UsersService {
                 AND r2.likes = r1.likes AND r2.dislikes = r1.dislikes
                 AND ar.pid = u4.pid AND ar.rid = r2.rid AND a.album_name = ar.album_name
                 AND a.release_date = ar.release_date;`,
-          [data.pid, data.rid],
-        );
+        [data.pid, data.rid],
+      );
     }
 
     return await this.query(
-        `SELECT
+      `SELECT
              u4.pid,
              u4.username,
              u4.pid,
@@ -280,7 +274,7 @@ export class UsersService {
              u4.pid = ? AND r2.pid = u4.pid AND r2.rid = ?
              AND ucr.rv_pid = u4.pid AND ucr.rid = r2.rid
              AND ucr.uc_pid = uc.pid AND ucr.ucid = uc.ucid;`,
-        [data.pid, data.rid],
+      [data.pid, data.rid],
     );
   }
 
@@ -475,11 +469,6 @@ export class UsersService {
     const { albums, image, pid, title } = data;
 
     const ucid = Math.floor(Math.random() * 90000) + 10000;
-    // console.log(albums);
-    // console.log(image);
-    // console.log(pid);
-    // console.log(title);
-    // console.log(ucid);
 
     await this.query(
       `INSERT
@@ -577,7 +566,7 @@ export class UsersService {
 
   async getUserUserchartReviews(userpid?: string) {
     return await this.query(
-       `SELECT
+      `SELECT
             r2.rid,
             r2.review_text,
             r2.review_date,
@@ -712,47 +701,6 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    // return await this.query(
-    //     `UPDATE User4
-    //      SET birthdate = ?,
-    //          birthplace = ?,
-    //          username = ?,
-    //          password = ?,
-    //          profile_pic = ?
-    //      WHERE pid = ?;`,
-    //         [user.birthdate,
-    //          user.birthplace,
-    //          user.username,
-    //          user.password,
-    //          user.profile_pic,
-    //          user.pid]
-    // );
-
-    // await this.query(
-    //     `UPDATE User3
-    //      SET age = ?
-    //      WHERE username = ? AND birthdate = ?;`,
-    //         [user.age,
-    //          user.username,
-    //          user.birthdate]
-    // );
-
-    // await this.query(
-    //     `UPDATE User2
-    //      SET name = ?
-    //      WHERE username = ?;`,
-    //         [user.name,
-    //          user.username]
-    // );
-
-    // return await this.query(
-    //     `UPDATE User1
-    //      SET email = ?
-    //      WHERE username = ?;`,
-    //         [user.email,
-    //          user.username]
-    // );
   }
 
   async getAllUsers() {
@@ -778,54 +726,6 @@ export class UsersService {
             AND u4.username = u1.username;`,
     );
   }
-
-  // async addUser(user: User) {
-  //   const pid = Math.floor(Math.random() * 90000) + 10000;
-  //   const age = 10; // CALCULATE AGE PROPERLY
-  //   const newDate = new Date(user.birthdate);
-
-  //   user.profile_pic = null;
-
-  //   await this.query(
-  //     `INSERT INTO User4 (pid,
-  //                         birthdate,
-  //                         birthplace,
-  //                         username,
-  //                         password,
-  //                         profile_pic)
-  //       VALUES (?, ?, ?, ?, ?, ?);`,
-  //     [
-  //       pid,
-  //       newDate,
-  //       user.birthplace,
-  //       user.username,
-  //       user.password,
-  //       user.profile_pic,
-  //     ],
-  //   );
-
-  //   await this.query(
-  //     `INSERT INTO User3 (username,
-  //                         birthdate,
-  //                         age)
-  //       VALUES (?, ?, ?);`,
-  //     [user.username, newDate, age],
-  //   );
-
-  //   await this.query(
-  //     `INSERT INTO User2 (username,
-  //                         name)
-  //       VALUES (?, ?);`,
-  //     [user.username, user.name],
-  //   );
-
-  //   return await this.query(
-  //     `INSERT INTO User1 (username,
-  //                         email)
-  //       VALUES (?, ?);`,
-  //     [user.username, user.email],
-  //   );
-  // }
 
   async addUser(user: User) {
     const pid = Math.floor(Math.random() * 90000) + 10000;
