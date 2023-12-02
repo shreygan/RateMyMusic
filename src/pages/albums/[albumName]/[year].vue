@@ -6,8 +6,7 @@ import { sanitizeInput, arrayBufferToBase64 } from "../../../utils/utils";
 
 const route = useRoute();
 
-const albumName = computed(() => route.params.albumName as string);
-const year = computed(() => route.params.year as string);
+
 
 async function loadAlbumReviews() {
     let url = "http://localhost:3000/songs/getalbumreviews";
@@ -17,7 +16,6 @@ async function loadAlbumReviews() {
     const response = await fetch(url);
     return await response.json();
 }
-
 
 async function loadAlbumSongs() {
     let url = "http://localhost:3000/songs/getalbumsongs";
@@ -35,12 +33,12 @@ function formatDuration(duration: number): string {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
 
-
-
-
 const isLoading = ref(false);
 const reviews = computedAsync(loadAlbumReviews, [], isLoading);
 const songs = computedAsync(loadAlbumSongs, [], isLoading);
+
+const albumName = computed(() => route.params.albumName as string);
+const year = computed(() => route.params.year as string);
 
 const albumRating = computed(() => {
     if (reviews.value.length == 0) {
@@ -59,8 +57,6 @@ const albumRating = computed(() => {
         <h1>{{ albumName }}</h1>
         <BImg v-if="songs[0]" :src="arrayBufferToBase64(songs[0].cover.data)" style="max-block-size: 40rem;" />
     </BCard>
-
-
     <BContainer>
         <BRow>
             <BCol>
@@ -87,7 +83,6 @@ const albumRating = computed(() => {
     <h2 style="margin-top: 5%;">Album Reviews</h2>
 
     <BCol>
-  
         <BCard v-for="(review, index) in reviews" :key="index" class="my-4">
           <RouterLink style="text-decoration: none; color: black;" :to="{
                             name: '/users/[pid]/[rid]/[type]',

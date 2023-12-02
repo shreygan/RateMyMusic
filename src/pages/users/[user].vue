@@ -4,7 +4,7 @@ import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useUserStore } from "../../composables/userStore";
 import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
-const { allUsers, currentUser } = useUserStore();
+const { currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -117,7 +117,7 @@ const isLoading = ref(false);
 const albumReviews = computedAsync(loadAlbumReviews, [], isLoading);
 const songReviews = computedAsync(loadSongReviews, [], isLoading);
 const userchartReviews = computedAsync(loadUserchartReviews, [], isLoading);
-const avgRatings = computedAsync(avgRatingPerUser, [], isLoading);
+// const avgRatings = computedAsync(avgRatingPerUser, [], isLoading);
 
 const selectedFilter = ref("Song Reviews"); // Default filter
 const filterOptions = ["Song Reviews", "Album Reviews", "UserChart Reviews"];

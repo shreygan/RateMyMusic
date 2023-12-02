@@ -1,5 +1,4 @@
 export function sanitizeInput(input: string): string {
-    // console.log("Untrimmed ", input);
     const sanitizedInput = input.replace(/['";\\]/g, '');
     const sanitizedHTML = sanitizedInput.replace(/<[^>]*>/g, '');
   
@@ -12,8 +11,6 @@ export function sanitizeInput(input: string): string {
     });
   
     const trimmedInput = sanitizedSQL.trim();
-    // console.log("Trimmed: ", trimmedInput);
-  
     return trimmedInput;
   }
 

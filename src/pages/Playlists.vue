@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import axios from "axios";
+// import axios from "axios";
 
-import { useUserStore } from "../composables/userStore";
+// import { useUserStore } from "../composables/userStore";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-const { allUsers, currentUser } = useUserStore();
+// const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
 
@@ -50,7 +50,6 @@ const results = computedAsync(loadAllPlaylists, [], isLoading);
 </template>
 
 <style scoped>
-/* Custom styling for the button in the top right corner */
 .btn-top-right {
   position: fixed;
   top: 20px;

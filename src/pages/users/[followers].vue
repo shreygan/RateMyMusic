@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { BCardTitle } from "bootstrap-vue-next";
+// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import { computed, reactive, onMounted, ref } from 'vue'
 import { computedAsync } from '@vueuse/core';
-import axios from "axios";
+// import axios from "axios";
 
 
 
-import { useUserStore } from "../../composables/userStore";
+// import { useUserStore } from "../../composables/userStore";
 // const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
@@ -65,16 +65,8 @@ async function getUserFollowers() {
     return await response.json();
 }
 
-
-
-
-
-
 const isLoading = ref(false);
 const results = computedAsync(getUserFollowers, [], isLoading);
-
-
-
 </script>
 
 <script lang="ts">

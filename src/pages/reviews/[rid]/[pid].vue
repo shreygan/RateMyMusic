@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import { computed, reactive, onMounted, ref } from 'vue'
-import { computedAsync } from '@vueuse/core';
-import axios from "axios";
+// import axios from "axios";
 
-import { useUserStore } from "../../../composables/userStore";
-// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
 const userpid = computed(() => route.params.pid as string);
-const rid = computed(() => route.params.rid as string);
+// const rid = computed(() => route.params.rid as string);
 
 const currentUser = reactive({
     pid: "",
@@ -23,7 +19,6 @@ const currentUser = reactive({
     age: "",
     profile_pic: "",
 });
-
 
 onMounted(() => {
     getCurrentUser();
@@ -40,7 +35,6 @@ async function getCurrentUser() {
     if (userpid.value) {
         url += `?q=${encodeURIComponent(userpid.value)}`;
     }
-
     const response = await fetch(url);
     const data = await response.json();
     currentUser.pid = data[0].pid;
@@ -51,23 +45,14 @@ async function getCurrentUser() {
     currentUser.birthplace = data[0].birthplace;
     currentUser.age = data[0].age;
     currentUser.profile_pic = data[0].profile_pic;
-
-    console.log(currentUser.pid);
 }
 
+// async function getUserReview() {
+//     let url = "http://localhost:3000/users/getuserreview";
 
-async function getUserReview() {
-    let url = "http://localhost:3000/users/getuserreview";
-
-    const response = await axios.post(url, { pid: userpid.value, rid: rid.value });
-    return response.data;
-}
-
-
-const isLoading = ref(false);
-const albums = computedAsync(getUserReview, [], isLoading);
-
-
+//     const response = await axios.post(url, { pid: userpid.value, rid: rid.value });
+//     return response.data;
+// }
 
 
 </script>
@@ -90,37 +75,11 @@ export default {
 
 
 <template>
-    <b-container class="main-container" v-if="results.length > 0">
+    <BContainer class="main-container" v-if="results.length > 0">
         <div class="main-title" style="margin-top: 20%">
             <h1> @<span class="main">{{ results[0].username }}</span>'s UserChart: {{ results[0].userchart_name }}</h1>
         </div>
-    </b-container>
-
-    <!-- <BContainer>
-        <BRow>
-            <BCol>
-                <BListGroup>
-                    <BListGroupItem v-for="(result, index) in results" :key="index" style="max-width: 500px">
-                        <BRow>
-                            <BCol style="max-width: 10rem" class="my-2">
-                                <strong style="margin-right: 1.5vw;">{{ result.ranking }}</strong>
-                                <BImg :src="arrayBufferToBase64(result.cover.data)"
-                                    style="max-block-size: 5rem; border-radius: 0.5rem" />
-                            </BCol>
-                            <BCol class="my-3">
-                                <h3>{{ result.album_name }}</h3>
-                                <h6>
-                                    {{ result.artist_name }} ({{
-                                        getReleaseYear(result.release_date)
-                                    }}) &nbsp;&nbsp;&nbsp; AVG: {{ result.avg_rating.substring(0, 3) }}/5
-                                </h6>
-                            </BCol>
-                        </BRow>
-                    </BListGroupItem>
-                </BListGroup>
-            </BCol>
-        </BRow>
-    </BContainer> -->
+    </BContainer>
 
     <BContainer>
         <BRow>

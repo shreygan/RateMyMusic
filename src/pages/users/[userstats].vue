@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { BCardTitle } from "bootstrap-vue-next";
+// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
-import { useUserStore } from "../../composables/userStore";
+// import { useUserStore } from "../../composables/userStore";
 // const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
@@ -73,7 +73,7 @@ const filterText = computed(() => {
 
 
 
-const isLoading = ref(false);
+// const isLoading = ref(false);
 
 const selectedFilter = ref("SUM");
 
@@ -82,7 +82,6 @@ watch(selectedFilter, async (newValue) => {
 });
 
 
-// Default filter
 const filterOptions = ["SUM", "MAX", "MIN", "AVG", "COUNT"];
 
 </script>

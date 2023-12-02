@@ -2,14 +2,14 @@
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 import { useToast } from "vue-toastification";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { sanitizeInput } from "../../utils/utils";
 
-const { allUsers, currentUser } = useUserStore();
+const { currentUser } = useUserStore();
 
-const route = useRoute();
+// const route = useRoute();
 
-const userpid = computed(() => route.params.createreview as string);
+// const userpid = computed(() => route.params.createreview as string);
 
 
 const selectedFilter = ref("Songs"); // Default filter
@@ -44,7 +44,7 @@ const reviewData = ref({
 
 const results = computedAsync(loadAll, [], isLoading);
 
-const getReleaseYear = (dateString) => {
+const getReleaseYear = (dateString: string) => {
     const date = new Date(dateString);
     return date.getFullYear();
 };
@@ -94,7 +94,6 @@ async function submitSongReview(songName: any, songReleaseDate: any) {
         toast.error("Error submitting review");
     }
 }
-
 
 async function submitAlbumReview(albumName: any, albumReleaseDate: any) {
     const toast = useToast();
@@ -164,11 +163,6 @@ async function submitUserChartReview(ucid: any, uc_pid: any) {
         console.error("Error submitting review:", error.message);
     }
 }
-
-
-
-
-
 </script>
 
 <template>
@@ -198,12 +192,10 @@ async function submitUserChartReview(ucid: any, uc_pid: any) {
                             : selectedFilter === "Songs" ? "(" + getReleaseYear(result.song_release_date) + ")" : ""
                         }}</BCardTitle>
 
-                    <!-- <router-link to="/AlbumPage"> -->
                     <BCardText>{{
                         selectedFilter === "Albums" ? result.name : selectedFilter === "Songs" ? result.album_name : "@" +
                             result.username
                     }}</BCardText>
-                    <!-- </router-link> -->
                 </BCard>
             </BCol>
         </BRow>

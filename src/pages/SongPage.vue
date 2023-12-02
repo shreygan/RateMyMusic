@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-import { useUserStore } from "../composables/userStore";
-const { allUsers, currentUser } = useUserStore();
-
+// const { allUsers, currentUser } = useUserStore();
 
 async function loadAllSongs() {
     let url = "http://localhost:3000/songs/findsongs";
@@ -17,20 +15,17 @@ async function loadAllSongs() {
         });
         console.log(response.data);
         return response.data;
-
-
-
     } else if (useFilters.value) {
         return axios.post(
             `http://localhost:3000/songs/filtersongs`,
             filters,
         ).then(response => response.data);
     }
-
+   
     if (filters.searchTerm) {
-        url += `?q=${encodeURIComponent(filters.searchTerm.trim().toLowerCase())}`;
+        url += `?q=${encodeURIComponent(sanitizeInput(filters.searchTerm).trim().toLowerCase())}`;
     }
-
+    
     return axios.get(url).then(response => response.data);
 }
 
@@ -60,12 +55,9 @@ const advancedFilters = reactive({
     ratingComparison: ">",
     ratingValue: '0',
 });
-// const genreOptions = ['Rap', 'Rock', 'Hip-Hop', 'R&B', 'Electronic', 'Country', 'Other'];
 
 const { searchTerm, startDate, endDate, selectedGenre, isSingle, minDuration, maxDuration } = toRefs(filters);
 const { topSongsNumber, ratingComparison, ratingValue } = toRefs(advancedFilters);
-
-
 
 const isLoading = ref(false);
 const results = computedAsync(loadAllSongs, [], isLoading);
@@ -79,9 +71,8 @@ interface GenreObject {
     Genre: string;
 }
 
-const genreOptions = ref(["All"]); // Initialize genreOptions as an empty array
+const genreOptions = ref(["All"]);
 
-// Fetch z when the component is mounted
 onMounted(async () => {
     const genres = await getAllGenres();
     console.log(genres);
@@ -91,10 +82,10 @@ onMounted(async () => {
     ];
 });
 
-function getImagePath(name: string) {
-    const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url)
-    return url.href
-}
+// function getImagePath(name: string) {
+//     const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url)
+//     return url.href
+// }
 </script>
 
 <template>
@@ -114,11 +105,9 @@ function getImagePath(name: string) {
                 <h5>Genre</h5>
                 <BFormSelect v-model="selectedGenre" :options="genreOptions" placeholder="Select Genre" />
 
-                <!-- isSingle Checkbox -->
                 <h5>Type</h5>
                 <BFormCheckbox v-model="isSingle">Singles Only</BFormCheckbox>
 
-                <!-- Min and Max Duration Sliders -->
                 <h5>Duration Range</h5>
                 <p>Min Duration: {{ minDuration }} minutes</p>
                 <BFormInput type="range" v-model.number="minDuration" min="0" max="20" step="0.25" :debounce="500" />
@@ -167,7 +156,6 @@ function getImagePath(name: string) {
 </template>
 
 <style scoped>
-/* Custom styling for the button in the top right corner */
 .btn-top-right {
     position: fixed;
     top: 20px;

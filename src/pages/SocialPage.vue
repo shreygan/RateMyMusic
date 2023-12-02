@@ -13,13 +13,13 @@ async function getAllGenres() {
     const response = await fetch(url);
     return await response.json();
 }
-const useFilters = ref(false);
+// const useFilters = ref(false);
 
-const filters = reactive({
-    selectedGenre: "All",
-});
+// const filters = reactive({
+//     selectedGenre: "All",
+// });
 
-const { selectedGenre } = toRefs(filters);
+// const { selectedGenre } = toRefs(filters);
 
 const genreOptions = ref(["All"]);
 
@@ -78,8 +78,6 @@ function getCardKey(user) {
         return `${user.pid}-${refreshKey.value}`;
   }
 
-
-
 async function unfollowUser(follower_id: string, followee_id: string, username: string) {
     const toast = useToast();
 
@@ -98,8 +96,6 @@ async function unfollowUser(follower_id: string, followee_id: string, username: 
 
 }
 
-
-
 async function getUserFollowing() {
     console.log("COMPUTING");
     isLoading.value = true;
@@ -112,15 +108,10 @@ async function getUserFollowing() {
     refreshKey.value++;
 
     const response = await fetch(url);
-    // console.log("RESPONSE", await response.json()); 
     return await response.json();
-    // return await response.json();
 }
 
-
 const following = computedAsync(getUserFollowing, [], isLoading);
-
-
 </script>
 
 <template>
@@ -129,38 +120,7 @@ const following = computedAsync(getUserFollowing, [], isLoading);
             <h1>Users of <span class="main">RateMyMusic</span></h1>
         </div>
     </b-container>
-    <!-- 
-    {{ console.log("CurrentUser:", JSON.stringify(currentUser.value, null, 2)) }}
-    {{ console.log("AllUsers:", JSON.stringify(allUsers.values, null, 2)) }} -->
-
-    <!-- <BCard border-variant="success">
-    <div class="filters">
-      <BFormCheckbox class="mr-2" v-model="useFilters"
-        >Use Filters</BFormCheckbox
-      >
-    </div>
-
-    <BCardTitle> Filters </BCardTitle>
-
-
-    <BCardBody v-if="useFilters">
-      <h5>Genre</h5>
-      <BFormSelect
-        v-model="selectedGenre"
-        :options="genreOptions"
-        placeholder="Select Genre"
-      />
-    </BCardBody>
-
-    <BCol v-if="useFilters" class="mb-4">
-      <BFormSelect v-model="selectedFilter" class="mr-2">
-        <option v-for="filter in filterOptions" :key="filter" :value="filter">
-          {{ filter }}
-        </option>
-      </BFormSelect>
-    </BCol>
-  </BCard> -->
-
+    
     <BCol v-for="(users, index) in allUsers" :key="getCardKey(users)" class="mb-3">
         <BCard style="width: 50vh; margin-top: 15%">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -188,13 +148,7 @@ const following = computedAsync(getUserFollowing, [], isLoading);
                     }}
                 </BCardText>
 
-                <!-- <BCardFooter>Rating: {{ review.rating }}</BCardFooter> -->
             </div>
-
-            <!-- <BButton v-if="currentUser.pid && currentUser.pid != users.pid" @click="followUser(users.pid, users.username)"
-                style="margin-top: -3%" variant="primary" class="btn-bottom-left">
-                Follow
-                User</BButton> -->
 
             <BButton v-if="currentUser.pid && currentUser.pid != users.pid &&  !following.some(f => f.followeeid === users.pid)"
                 @click="followUser(users.pid, users.username)" style="margin-top: -3%" variant="primary"
@@ -202,12 +156,9 @@ const following = computedAsync(getUserFollowing, [], isLoading);
                 Follow User
             </BButton>
 
-
             <BButton v-if="currentUser.pid && currentUser.pid != users.pid &&  following.some(f => f.followeeid === users.pid)" @click="unfollowUser(currentUser.pid, users.pid, users.username)"
                 style="margin-top: -3%" variant="danger" class="btn-bottom-left">
                 Unfollow User</BButton>
-
-
         </BCard>
     </BCol>
 </template>

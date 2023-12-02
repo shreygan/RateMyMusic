@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useUserStore } from "../../composables/userStore";
+// import { useUserStore } from "../../composables/userStore";
 import axios from "axios";
 
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
 
-const { allUsers, currentUser } = useUserStore();
-
+// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -35,7 +34,7 @@ const selectedAlbums = ref<any[]>([]);
 const isLoading = ref(false);
 const results = computedAsync(loadResults, [], isLoading);
 
-const getReleaseYear = (dateString) => {
+const getReleaseYear = (dateString: string) => {
     const date = new Date(dateString);
     return date.getFullYear();
 };
@@ -88,26 +87,6 @@ async function insertUserChart() {
 
 const ucTitle = ref("");
 
-// async function toggleAlbumSelection(index: number) {
-// if (selectedIndices.value.includes(index)) {
-//   selectedIndices.value = selectedIndices.value.filter((i) => i !== index);
-//   const removedIndex = selectedAlbums.value.findIndex(
-//     (album) => album.album_name === results.value[index].album_name
-//   );
-//   if (removedIndex !== -1) {
-//     selectedAlbums.value.splice(removedIndex, 1);
-//   }
-// } else {
-//   selectedIndices.value.push(index);
-
-//   const album: Album = {
-//     album_name: results.value[index].album_name,
-//     release_date: results.value[index].release_date,
-//   };
-//   selectedAlbums.value.push(album);
-// }
-// }
-
 async function toggleAlbumSelection(album: Album) {
     console.log(album);
     const selectedAlbum = UCData.albums.find(
@@ -115,14 +94,11 @@ async function toggleAlbumSelection(album: Album) {
     );
 
     if (selectedAlbum) {
-        // Album is already selected, remove it
         const removedIndex = UCData.albums.indexOf(selectedAlbum);
         if (removedIndex !== -1) {
             UCData.albums.splice(removedIndex, 1);
         }
     } else {
-        // Album is not selected, add it
-        // UCData.albums.push(album);
         const albumToSelect: Album = {
             album_name: album.album_name,
             release_date: album.release_date,
@@ -173,14 +149,6 @@ function getGridImage(index: number) {
 function getGridAlbum(index: number) {
     return gridAlbums.value[index];
 }
-// function getGridImage(album: Album) {
-//   const cover = __arrayBufferToBase64(album.cover.data);
-//   return cover || "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Square_gray.svg/2048px-Square_gray.svg.png";
-// }
-
-// function getGridAlbum(album: Album) {
-//   return album.album_name;
-// }
 </script>
 
 <template>
@@ -286,7 +254,6 @@ function getGridAlbum(index: number) {
 
 .chartImg:hover {
     filter: brightness(50%);
-    /* Adjust the percentage to control the darkness */
 }
 
 .album-name {
@@ -295,7 +262,6 @@ function getGridAlbum(index: number) {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    /* Set the text color to be visible against the darker background */
     opacity: 0;
     transition: opacity 0.3s;
 }

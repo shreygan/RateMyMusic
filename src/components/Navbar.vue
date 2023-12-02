@@ -25,7 +25,6 @@
 import { useUserStore } from "../composables/userStore";
 import { computed } from "vue";
 
-// import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
 
 export default {
     data() {
@@ -34,7 +33,7 @@ export default {
         };
     },
     setup() {
-        const { allUsers, currentUser } = useUserStore();
+        const { currentUser } = useUserStore();
 
         const userPid = computed(() => currentUser.value?.pid);
 
@@ -54,9 +53,6 @@ export default {
             return "data:image/jpeg;base64," + window.btoa(binary);
         },
     },
-    // print() {
-    //     console.log("hello");
-    // }
 };
 </script>
 

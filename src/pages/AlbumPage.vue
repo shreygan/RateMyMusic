@@ -16,12 +16,10 @@ const searchTerm = ref("");
 const isLoading = ref(false);
 const results = computedAsync(loadResults, [], isLoading);
 
-const getReleaseYear = (dateString) => {
+const getReleaseYear = (dateString: string) => {
     const date = new Date(dateString);
     return date.getFullYear();
 };
-
-
 </script>
 
 <template>
@@ -56,7 +54,6 @@ const getReleaseYear = (dateString) => {
 </template>
 
 <style scoped>
-/* Custom styling for the button in the top right corner */
 .btn-top-right {
     position: fixed;
     top: 20px;

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { BCardTitle } from "bootstrap-vue-next";
+// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import { computed, reactive, onMounted, ref } from 'vue'
 import { computedAsync } from '@vueuse/core';
 import axios from "axios";
 
-
-
-import { useUserStore } from "../../../../composables/userStore";
+// import { useUserStore } from "../../../../composables/userStore";
 // const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
@@ -33,10 +31,10 @@ onMounted(() => {
     getCurrentUser();
 });
 
-const getReleaseYear = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.getFullYear();
-};
+// const getReleaseYear = (dateString: string) => {
+//     const date = new Date(dateString);
+//     return date.getFullYear();
+// };
 
 async function getCurrentUser() {
     let url = "http://localhost:3000/users/getuserbyid";
@@ -72,8 +70,6 @@ async function getPlaylistSongs() {
 const isLoading = ref(false);
 const results = computedAsync(getPlaylistSongs, [], isLoading);
 
-
-
 </script>
 
 <script lang="ts">
@@ -99,7 +95,6 @@ export default {
             <h1> @<span class="main">{{ results[0].username }}</span>'s Playlist: {{ results[0].playlist_name }}</h1>
         </div>
     </b-container>
-
 
     <BContainer>
         <BRow>

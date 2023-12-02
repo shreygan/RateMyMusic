@@ -1,7 +1,5 @@
-
-
 <script setup lang="ts">
-import { useUserStore } from '../composables/userStore'
+// import { useUserStore } from '../composables/userStore'
 async function loadResults() {
   let url = 'http://localhost:3000/songs/findsongs'
 
@@ -17,14 +15,14 @@ const searchTerm = ref('')
 const isLoading = ref(false)
 const results = computedAsync(loadResults, [], isLoading)
 
-const getReleaseYear = (dateString) => {
+const getReleaseYear = (dateString: string) => {
   const date = new Date(dateString);
   return date.getFullYear();
 };
 
 const selectedFilter = ref('song_name');
 
-const { allUsers } = useUserStore();
+// const { allUsers } = useUserStore();
 
 </script>
 

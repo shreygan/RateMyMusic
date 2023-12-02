@@ -184,7 +184,7 @@ export class SongsService {
         AND genre_rank <= ?;`,
       [topSongsNumber],
     );
-    //   console.log(result);
+    
   }
 
   async createUserChartReview(CreateUserchartReviewDto) {
@@ -219,8 +219,8 @@ export class SongsService {
   async createSongReview(createSongReviewDto) {
     const { rating, reviewText, songName, releaseDate, pid } =
       createSongReviewDto._value;
-    // const reviewDate = "2023-11-24 12:00:00";
-    // const reviewDate = new Date().toISOString().slice(0, 10);
+
+
     const reviewDate = new Date();
 
     const rid = Math.floor(Math.random() * 900) + 10000;
@@ -274,7 +274,7 @@ export class SongsService {
     const dislikes = 0;
     const helpfulness = 0;
 
-    // Unique for review 2 ----> review_date, likes, dislikes
+    
     await this.query(
       `
       INSERT INTO Review2 (rid, pid, review_date, review_text, likes, dislikes)

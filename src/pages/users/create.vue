@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import { sanitizeInput } from "../../utils/utils";
 
@@ -52,7 +52,6 @@ async function createNewUser() {
         console.log(response.data);
         toast.success("User account Successfully");
     } catch (error) {
-        // toast.error(`Error following @${followee_username}`);
         if (error.response) {
             console.log(error.response.data);
 

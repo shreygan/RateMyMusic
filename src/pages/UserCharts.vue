@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import axios from "axios";
+// import axios from "axios";
 
-import { useUserStore } from "../composables/userStore";
+// import { useUserStore } from "../composables/userStore";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-const { allUsers, currentUser } = useUserStore();
+// const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
 
@@ -35,7 +35,7 @@ async function loadAllUserCharts() {
 
 watch(useFilters, async () => {
     await loadAllUserCharts();
-}, { immediate: true }); // The { immediate: true } option calls the function immediately on setup
+}, { immediate: true });
 
 
 async function loadAllArtists() {
@@ -61,11 +61,6 @@ const isLoading = ref(false);
 const results = computedAsync(loadAllUserCharts, [], isLoading);
 const selectedArtist = ref<Artist | null>(null);
 
-// function isArtistSelected(artist: Artist): boolean {
-//     return artists.value.some(
-//         (selectedSong) => selectedSong.artist_name === artist.artist_name
-//     );
-// }
 
 function toggleArtistSelection(artistSelection: Artist) {
     selectedArtist.value = artistSelection;
@@ -136,8 +131,8 @@ function toggleArtistSelection(artistSelection: Artist) {
     </BCol>
 </template>
 
+
 <style scoped>
-/* Custom styling for the button in the top right corner */
 .btn-top-right {
     position: fixed;
     top: 20px;
@@ -145,7 +140,6 @@ function toggleArtistSelection(artistSelection: Artist) {
 }
 
 .search-item {
-    /* width: 20rem; */
     max-width: 15rem;
     min-width: 15rem;
 }
@@ -155,7 +149,6 @@ function toggleArtistSelection(artistSelection: Artist) {
     overflow-y: auto;
     max-width: 500px;
 }
-
 
 .content {
     width: 35rem;

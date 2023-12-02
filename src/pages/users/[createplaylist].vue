@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import axios from "axios";
-import { useUserStore } from "../../composables/userStore";
+// import { useUserStore } from "../../composables/userStore";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
 
-const { allUsers, currentUser } = useUserStore();
+// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -82,7 +82,7 @@ async function insertPlaylist() {
 const searchTerm = ref("");
 const description = ref("");
 const playlistName = ref("");
-const selectedSongs = ref<number[]>([]);
+// const selectedSongs = ref<number[]>([]);
 const isLoading = ref(false);
 const results = computedAsync(loadResults, [], isLoading);
 const playlist = ref<Song[]>([]);
@@ -132,8 +132,6 @@ function formatDuration(duration: number): string {
 function getTotalDuration(): number {
     return playlist.value.reduce((acc, song) => acc + song.song_duration, 0);
 }
-
-
 
 function isSongSelected(song: Song): boolean {
     return playlist.value.some(
@@ -219,7 +217,6 @@ function isSongSelected(song: Song): boolean {
 
 <style scoped>
 .search-item {
-    /* width: 20rem; */
     max-width: 15rem;
     min-width: 15rem;
 }

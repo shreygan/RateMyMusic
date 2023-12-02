@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { BCardTitle } from "bootstrap-vue-next";
+// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import axios from "axios";
 
-import { useUserStore } from "../../composables/userStore";
+// import { useUserStore } from "../../composables/userStore";
 // const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
@@ -54,7 +54,6 @@ async function getCurrentUser() {
     console.log(currentUser.pid);
 }
 
-
 async function getUserChartAlbums() {
     let url = "http://localhost:3000/users/getuserchartalbums";
 
@@ -66,9 +65,6 @@ async function getAvgRatingPerUserChartAlbum() {
     let url = "http://localhost:3000/users/getavgratingperuserchartalbum";
 
     const response = await axios.post(url, { pid: userpid.value, ucid: ucid.value });
-    console.log(response.data);
-
-
     return response.data;
 }
 
@@ -89,10 +85,6 @@ const results = computed(() => {
     }
     return [];
 });
-
-
-
-
 </script>
 
 <script lang="ts">
@@ -111,14 +103,12 @@ export default {
 };
 </script>
 
-
 <template>
     <b-container class="main-container" v-if="results.length > 0">
         <div class="main-title" style="margin-top: 20%">
             <h1> @<span class="main">{{ results[0].username }}</span>'s UserChart: {{ results[0].userchart_name }}</h1>
         </div>
     </b-container>
-
 
     <BContainer>
         <BRow>

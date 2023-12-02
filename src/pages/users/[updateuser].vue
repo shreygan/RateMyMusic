@@ -7,9 +7,9 @@ import { sanitizeInput } from "../../utils/utils";
 
 const { currentUser } = useUserStore();
 
-const route = useRoute();
+// const route = useRoute();
 
-const userpid = computed(() => route.params.updateuser as string);
+// const userpid = computed(() => route.params.updateuser as string);
 
 const user = {
     pid: currentUser.value.pid,
