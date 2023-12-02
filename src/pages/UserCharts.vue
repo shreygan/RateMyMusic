@@ -1,9 +1,6 @@
 <script setup lang="ts">
-// import axios from "axios";
 
-// import { useUserStore } from "../composables/userStore";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-// const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
 

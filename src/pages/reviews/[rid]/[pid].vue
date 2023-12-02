@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { computed, reactive, onMounted, ref } from 'vue'
-// import axios from "axios";
 
 
 const route = useRoute();
 
 const userpid = computed(() => route.params.pid as string);
-// const rid = computed(() => route.params.rid as string);
 
 const currentUser = reactive({
     pid: "",
@@ -47,12 +45,7 @@ async function getCurrentUser() {
     currentUser.profile_pic = data[0].profile_pic;
 }
 
-// async function getUserReview() {
-//     let url = "http://localhost:3000/users/getuserreview";
 
-//     const response = await axios.post(url, { pid: userpid.value, rid: rid.value });
-//     return response.data;
-// }
 
 
 </script>

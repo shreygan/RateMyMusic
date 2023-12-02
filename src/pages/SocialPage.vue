@@ -13,13 +13,6 @@ async function getAllGenres() {
     const response = await fetch(url);
     return await response.json();
 }
-// const useFilters = ref(false);
-
-// const filters = reactive({
-//     selectedGenre: "All",
-// });
-
-// const { selectedGenre } = toRefs(filters);
 
 const genreOptions = ref(["All"]);
 
@@ -45,11 +38,9 @@ async function followUser(followee: string, followee_username: string) {
             toast.success(`Followed @${followee_username} successfully!`);
             refreshKey.value++;
         } else {
-            // toast.error(`Error following @${followee_username}`);
             toast.error(`Error following @${followee_username}: ${response.statusText}`);
         }
     } catch (error) {
-        // toast.error(`Error following @${followee_username}`);
         if (error.response) {
             console.log(error.response.data);
 

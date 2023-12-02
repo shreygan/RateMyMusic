@@ -117,7 +117,6 @@ const isLoading = ref(false);
 const albumReviews = computedAsync(loadAlbumReviews, [], isLoading);
 const songReviews = computedAsync(loadSongReviews, [], isLoading);
 const userchartReviews = computedAsync(loadUserchartReviews, [], isLoading);
-// const avgRatings = computedAsync(avgRatingPerUser, [], isLoading);
 
 const selectedFilter = ref("Song Reviews"); // Default filter
 const filterOptions = ["Song Reviews", "Album Reviews", "UserChart Reviews"];
@@ -224,7 +223,6 @@ export default {
                                 <span>@{{ profile.username }}</span>
                             </div>
 
-                            <!-- Album cover image -->
                             <b-card-img style="width: 30vh;" :src="arrayBufferToBase64(review.cover.data)"
                                 alt="Album Cover"></b-card-img>
 
@@ -257,7 +255,6 @@ export default {
                                 <span>@{{ profile.username }}</span>
                             </div>
 
-                            <!-- Album cover image -->
                             <b-card-img style="width: 30vh;" :src="arrayBufferToBase64(review.cover.data)"
                                 alt="Album Cover"></b-card-img>
 
@@ -295,7 +292,6 @@ export default {
                                 <span>@{{ profile.username }}</span>
                             </div>
 
-                            <!-- Album cover image -->
                             <b-card-img v-if="review.image" style="width: 30vh;" :src="arrayBufferToBase64(review.image.data)"
                                 alt="Album Cover"></b-card-img>
 

@@ -1,10 +1,6 @@
 <script setup lang="ts">
-// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
 import axios from "axios";
-
-// import { useUserStore } from "../../composables/userStore";
-// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -24,7 +20,7 @@ const currentUser = reactive({
 
 onMounted(() => {
     getCurrentUser();
-    avgRatingPerUser(selectedFilter.value); // Call the function when component is mounted
+    avgRatingPerUser(selectedFilter.value);
 });
 
 async function getCurrentUser() {
@@ -59,7 +55,6 @@ async function avgRatingPerUser(agg_choice: string) {
     return await response.data;
 }
 
-// Create a computed property
 const filterText = computed(() => {
     switch (selectedFilter.value) {
         case "SUM": return "Sum of ratings";
@@ -71,16 +66,11 @@ const filterText = computed(() => {
     }
 });
 
-
-
-// const isLoading = ref(false);
-
 const selectedFilter = ref("SUM");
 
 watch(selectedFilter, async (newValue) => {
     await avgRatingPerUser(newValue);
 });
-
 
 const filterOptions = ["SUM", "MAX", "MIN", "AVG", "COUNT"];
 
@@ -111,7 +101,7 @@ export default {
         </option>
     </BFormSelect>
 
-    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width:20vw;">
+    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width:100%;">
         <BCard style="
         width: 70%;
         margin-left: 20%;
@@ -121,16 +111,23 @@ export default {
       ">
             {{ console.log(artist) }}
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>{{ artist.name }}</h2>
+                <h2 class="center-me">{{ artist.name }}</h2>
             </div>
 
             <div class="p-3">
                 <div class="p-3">
-                    <BCardText class="d-flex mb-3">
-                        <b> {{ filterText }} :</b>&nbsp;&nbsp;{{ artist.agg_value }}
+                    <BCardText class="center-me">
+                        <b> {{ filterText }} </b>&nbsp;&nbsp;{{ artist.agg_value }}
                     </BCardText>
                 </div>
             </div>
         </BCard>
     </BCol>
 </template>
+
+<style>
+.center-me {
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>

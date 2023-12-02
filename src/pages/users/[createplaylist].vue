@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import axios from "axios";
-// import { useUserStore } from "../../composables/userStore";
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
-
-// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -37,7 +34,6 @@ async function loadResults() {
     const response = await fetch(url);
     return await response.json();
 }
-
 
 
 async function insertPlaylist() {
@@ -101,7 +97,6 @@ function toggleSongSelection(index: number) {
     );
 
     if (isSelected) {
-        // Song is already selected, remove it
         const removedIndex = playlist.value.findIndex(
             (song) => song.song_name === results.value[index].song_name
         );
@@ -109,7 +104,6 @@ function toggleSongSelection(index: number) {
             playlist.value.splice(removedIndex, 1);
         }
     } else {
-        // Song is not selected, add it
         const selectedSong: Song = {
             song_name: results.value[index].song_name,
             song_release_date: results.value[index].song_release_date,

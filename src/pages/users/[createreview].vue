@@ -2,21 +2,18 @@
 import axios from "axios";
 import { useUserStore } from "../../composables/userStore";
 import { useToast } from "vue-toastification";
-// import { useRoute } from "vue-router";
 import { sanitizeInput } from "../../utils/utils";
 
 const { currentUser } = useUserStore();
 
-// const route = useRoute();
-
-// const userpid = computed(() => route.params.createreview as string);
 
 
-const selectedFilter = ref("Songs"); // Default filter
+
+const selectedFilter = ref("Songs"); 
 const filterOptions = ["Songs", "Albums", "UserCharts"];
 
 async function loadAll() {
-    let url = "http://localhost:3000/songs/find"; //findsongs
+    let url = "http://localhost:3000/songs/find"; 
     url += selectedFilter.value;
 
     if (searchTerm.value) {

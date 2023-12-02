@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import axios from "axios";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-// const { allUsers, currentUser } = useUserStore();
 
 async function loadAllSongs() {
     let url = "http://localhost:3000/songs/findsongs";
@@ -82,10 +81,7 @@ onMounted(async () => {
     ];
 });
 
-// function getImagePath(name: string) {
-//     const url = new URL(`../assets/albums/${name}.jpg`, import.meta.url)
-//     return url.href
-// }
+
 </script>
 
 <template>

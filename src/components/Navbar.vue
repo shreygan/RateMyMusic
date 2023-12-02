@@ -29,7 +29,7 @@ import { computed } from "vue";
 export default {
     data() {
         return {
-            isWhiteArrow: true, // Set to true if you want the white arrow initially
+            isWhiteArrow: true,
         };
     },
     setup() {

@@ -32,9 +32,7 @@ const songRating = computed(() => {
 </script>
 
 <template>
-  Song: {{ songName }} - Year: {{ year }}
-
-  <BCard>
+  <BCard style="margin-top: 5rem;">
     <BCardTitle>{{ songName }}</BCardTitle>
     <BCardText>{{ songRating.toFixed(1) }} based on {{ results.length }} reviews</BCardText>
   </BCard>

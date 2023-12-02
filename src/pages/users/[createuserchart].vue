@@ -1,12 +1,10 @@
 <script setup lang="ts">
-// import { useUserStore } from "../../composables/userStore";
 import axios from "axios";
 
 import { useRoute } from "vue-router";
 import { useToast } from "vue-toastification";
 import { sanitizeInput, arrayBufferToBase64 } from "../../utils/utils";
 
-// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 
@@ -22,11 +20,6 @@ async function loadResults() {
     const response = await fetch(url);
     return await response.json();
 }
-
-// function getImagePath(name: string) {
-//   const url = new URL(`../../assets/albums/${name}.jpg`, import.meta.url);
-//   return url.href;
-// }
 
 const searchTerm = ref("");
 const selectedIndices = ref<number[]>([]);
@@ -232,7 +225,6 @@ function getGridAlbum(index: number) {
 }
 
 .search-item {
-    /* width: 20rem; */
     max-width: 15rem;
     min-width: 15rem;
 }

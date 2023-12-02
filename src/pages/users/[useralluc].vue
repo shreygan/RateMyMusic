@@ -1,10 +1,6 @@
 <script setup lang="ts">
-// import { BCardTitle } from "bootstrap-vue-next";
 import { useRoute } from "vue-router";
-// import axios from "axios";
 
-// import { useUserStore } from "../../composables/userStore";
-// const { allUsers, currentUser } = useUserStore();
 
 const route = useRoute();
 

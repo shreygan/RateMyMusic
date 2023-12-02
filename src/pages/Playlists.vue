@@ -1,9 +1,6 @@
 <script setup lang="ts">
-// import axios from "axios";
 
-// import { useUserStore } from "../composables/userStore";
 import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
-// const { allUsers, currentUser } = useUserStore();
 
 const searchTerm = ref("");
 
@@ -44,7 +41,7 @@ const results = computedAsync(loadAllPlaylists, [], isLoading);
                 </div>
 
                 <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
-                    alt="Album Cover"></BCardImg>
+                    alt=""></BCardImg>
             </BCard>
         </BCol>
 </template>

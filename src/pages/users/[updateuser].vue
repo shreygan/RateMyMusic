@@ -7,9 +7,7 @@ import { sanitizeInput } from "../../utils/utils";
 
 const { currentUser } = useUserStore();
 
-// const route = useRoute();
 
-// const userpid = computed(() => route.params.updateuser as string);
 
 const user = {
     pid: currentUser.value.pid,
@@ -40,7 +38,6 @@ async function updateCurrentUser() {
         console.log(response.data.success);
         toast.success("Updated profile successfully!");
     } catch (error) {
-        // toast.error(`Error following @${followee_username}`);
         if (error.response) {
             console.log(error.response.data);
 
@@ -60,7 +57,6 @@ async function updateCurrentUser() {
         <h2>Update a New User Profile</h2>
         <BCol class="d-flex">
             <div class="flex-column gap-2">
-                <!-- Display current user information -->
                 <p>Old name: {{ currentUser.name }}</p>
                 <p>Old username: {{ currentUser.username }}</p>
                 <p>Old password: {{ currentUser.password }}</p>

@@ -8,8 +8,6 @@ const { currentUser } = useUserStore();
 
 const route = useRoute();
 
-
-
 const userpid = computed(() => route.params.pid as string);
 const rid = computed(() => route.params.rid as string);
 const type = computed(() => route.params.type as string);
@@ -35,11 +33,6 @@ onMounted(() => {
 onMounted(async () => {
     await getUserReview();
 });
-
-// const getReleaseYear = (dateString: string) => {
-//     const date = new Date(dateString);
-//     return date.getFullYear();
-// };
 
 async function getReviewUser() {
     let url = "http://localhost:3000/users/getuserbyid";
