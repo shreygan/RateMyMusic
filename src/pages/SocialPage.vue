@@ -107,13 +107,13 @@ const following = computedAsync(getUserFollowing, [], isLoading);
 
 <template>
     <b-container class="main-container">
-        <div class="main-title" style="margin-top: 20%; margin-bottom: 15%">
+        <div class="main-title" style="margin-top: 5rem;">
             <h1>Users of <span class="main">RateMyMusic</span></h1>
         </div>
     </b-container>
     
     <BCol v-for="(users, index) in allUsers" :key="getCardKey(users)" class="mb-3">
-        <BCard style="width: 50vh; margin-top: 15%">
+        <BCard style="width: 35rem; margin-top: 2.5rem;">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>{{ users.name }}, {{ users.age }}</h2>
                 <RouterLink :to="{ name: '/users/[user]', params: { user: users.pid } }">
@@ -122,7 +122,7 @@ const following = computedAsync(getUserFollowing, [], isLoading);
             </div>
 
             <b-card-img v-if="users.profile_pic" :src="arrayBufferToBase64(users.profile_pic.data)"
-                style="border-radius: 50%; width: 40vh; height: 40vh;" alt="Album Cover"></b-card-img>
+                style="border-radius: 50%; width: 100%; height: 100%;" alt="Album Cover"></b-card-img>
 
             <div class="p-3">
                 <BCardText class="d-flex mb-3">
@@ -141,13 +141,13 @@ const following = computedAsync(getUserFollowing, [], isLoading);
 
             </div>
 
-            <BButton v-if="currentUser.pid && currentUser.pid != users.pid &&  !following.some(f => f.followeeid === users.pid)"
+            <BButton v-if="currentUser && currentUser.pid && currentUser.pid != users.pid &&  !following.some(f => f.followeeid === users.pid)"
                 @click="followUser(users.pid, users.username)" style="margin-top: -3%" variant="primary"
                 class="btn-bottom-left">
                 Follow User
             </BButton>
 
-            <BButton v-if="currentUser.pid && currentUser.pid != users.pid &&  following.some(f => f.followeeid === users.pid)" @click="unfollowUser(currentUser.pid, users.pid, users.username)"
+            <BButton v-if="currentUser && currentUser.pid && currentUser.pid != users.pid &&  following.some(f => f.followeeid === users.pid)" @click="unfollowUser(currentUser.pid, users.pid, users.username)"
                 style="margin-top: -3%" variant="danger" class="btn-bottom-left">
                 Unfollow User</BButton>
         </BCard>

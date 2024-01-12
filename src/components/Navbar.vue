@@ -57,7 +57,7 @@ export default {
 </script>
 
 <template>
-    <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" style="min-height: 5rem">
+    <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" style="min-height: 5vh">
         <b-navbar-brand to="/" style="color: white; font-size: x-large">RateMyMusic</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse" class="p"></b-navbar-toggle>
@@ -73,7 +73,7 @@ export default {
 
             <b-navbar-nav class="justify-content-end" style="flex: 1">
                 <b-nav-item-dropdown :toggle-class="{ 'white-dropdown-arrow': isWhiteArrow }" right>
-                    <template #button-content>
+                    <template #button-content v-if="userPid">
                         <BImg v-if="currentUser.name && currentUser.profile_pic"
                             :src="arrayBufferToBase64(currentUser.profile_pic.data)" class="profile-pic" />
                         <h6 class="d-none d-sm-inline p">

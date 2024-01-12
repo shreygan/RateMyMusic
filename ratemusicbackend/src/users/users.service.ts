@@ -313,7 +313,8 @@ export class UsersService {
                 p.playlist_name,
                 p.creation_date,
                 u4.username,
-                p.image
+                p.image,
+                p.description
             FROM
                 User4 u4, Playlist p
             WHERE
@@ -328,7 +329,8 @@ export class UsersService {
             p.playlist_name,
             p.creation_date,
             u4.username,
-            p.image
+            p.image,
+            p.description
         FROM
             User4 u4, Playlist p
         WHERE

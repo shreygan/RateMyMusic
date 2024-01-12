@@ -82,32 +82,37 @@ export default {
 
 
 <template>
-    <b-container class="main-container" v-if="results.length > 0">
-        <div class="main-title" style="margin-top: 20%">
-            <h1> @<span class="main">{{ results[0].follower_username }}</span>'s Followers</h1>
+    <BContainer class="main-container" v-if="results.length > 0">
+        <div class="main-title" style="margin-top: 5rem;">
+            <h1> @<span class="main">{{ results[0].follower_username }}</span>'s Following</h1>
         </div>
-    </b-container>
+    </BContainer>
 
 
-    <BContainer>
+    <BContainer style="margin-top: 2rem;">
         <BRow>
             <BCol>
                 <BListGroup>
-                    <BListGroupItem v-for="(result, index) in results" :key="index" style="width: 50vw">
-                        <BRow class="justify-content-end">
+                    <BListGroupItem v-for="(result, index) in results" :key="index" style="width: 35rem; height: 7rem;">
+                        <BRow class="justify-content-end align-items-center">
                             <BCol style="max-width: 10rem" class="my-2">
                                 <BImg v-if="result.followee_pic" :src="arrayBufferToBase64(result.followee_pic.data)"
                                     style="max-block-size: 5rem; border-radius: 0.5rem; width: 5rem; height: 5rem;" />
+
+                                <div v-else style="max-block-size: 5rem; width: 5rem; height: 5rem;"></div>
                             </BCol>
-                            <BCol class="my-3" style="width: 20vw; margin-left: -5%;">
-                                <h3>@{{ result.followee_username }}</h3>
+                            <BCol class="my-3" style="width: 20vw; margin-left: -6%; text-align: left;">
+                                <!-- <h3>@{{ result.followee_username }}</h3>
+                                {{ console.log(result) }} -->
+                                <RouterLink style="text-decoration: none;"
+                                    :to="{ name: '/users/[user]', params: { user: result.followeeid } }">
+                                    <h3>@{{ result.followee_username }}</h3>
+                                </RouterLink>
+                            </BCol>
+
+                            <BCol style="margin-top: 0.5rem;">
                                 <h6>
                                     {{ result.followee_name }}
-                                </h6>
-                            </BCol>
-                            <BCol style="margin-top: 4.5vh; margin-left: 10%;">
-                                <h6>
-                                    {{ result.followee_birthplace }}
                                 </h6>
                             </BCol>
                         </BRow>

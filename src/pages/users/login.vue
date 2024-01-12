@@ -36,7 +36,7 @@ async function login() {
 
 <template>
   <BRow gutter="4">
-    <h2>Login</h2>
+    <h2 style="margin-bottom: 5rem;">Login</h2>
     <BCol class="d-flex flex-column gap-2">
       <BFormInput v-model="user.username" placeholder="username" />
 

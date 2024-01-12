@@ -70,7 +70,7 @@ async function createNewUser() {
 
 <template>
     <BRow gutter="4">
-        <h2>Create a New User Profile</h2>
+        <h2 style="margin-bottom: 5rem;">Create a New Profile</h2>
         <BCol class="d-flex flex-column gap-2">
             <BFormInput v-model="user.name" placeholder="name" />
 

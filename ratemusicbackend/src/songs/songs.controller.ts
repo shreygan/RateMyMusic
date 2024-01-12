@@ -105,6 +105,14 @@ export class SongsController {
     return await this.songsService.getSongReviews(songName, releaseDate);
   }
 
+  @Get('getsongalbum')
+  async getSongAlbum(
+    @Query('q') songName?: string,
+    @Query('year') releaseDate?: string,
+  ) {
+    return await this.songsService.getSongAlbum(songName, releaseDate);
+  }
+
   @Get('albumreviews')
   async getAllAlbumReviews() {
     return await this.songsService.getAllAlbumReviews();

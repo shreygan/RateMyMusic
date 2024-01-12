@@ -90,22 +90,22 @@ export default {
 
 <template>
     <b-container class="main-container">
-        <div class="main-title" style="margin-top: 20%; margin-bottom: 15%">
+        <div class="main-title" style="margin-top: 5rem; margin-bottom: 3rem;">
             <h1>View Stats by Artist for @{{ currentUser.username }}</h1>
         </div>
     </b-container>
 
-    <BFormSelect v-model="selectedFilter" class="mr-2" style="margin-top: 10vh;">
+    <BFormSelect v-model="selectedFilter" class="mr-2">
         <option v-for="filter in filterOptions" :key="filter" :value="filter" style="width: 10vw;">
             {{ filter }}
         </option>
     </BFormSelect>
 
-    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width:100%;">
+    <BCol v-for="(artist, index) in avgRatings" :key="index" class="mb-3" lg="4" xl="4" style="width: 100%;">
         <BCard style="
-        width: 70%;
+        width: 20rem;
         margin-left: 20%;
-        margin-top: 15%;
+        margin-top: 1rem;
         max-height: 80vh;
         overflow-y: auto;
       ">

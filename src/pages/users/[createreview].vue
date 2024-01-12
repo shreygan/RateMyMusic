@@ -163,6 +163,12 @@ async function submitUserChartReview(ucid: any, uc_pid: any) {
 </script>
 
 <template>
+    <BContainer class="main-container">
+            <div class="main-title" style="margin-top: 3rem; margin-bottom: 3rem;">
+                <h1>Create a Review</h1>
+            </div>
+        </BContainer>
+
     <BContainer class="my-4">
         <BCol class="mb-4">
             <BFormInput class="my-4" placeholder="Search" v-model="searchTerm" />

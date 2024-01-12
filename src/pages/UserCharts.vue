@@ -67,20 +67,20 @@ function toggleArtistSelection(artistSelection: Artist) {
 
 <template>
     <b-container class="main-container">
-        <div class="main-title" style="margin-top: 20%; margin-bottom: 10%;">
-            <h1>All UserCharts</h1>
+        <div class="main-title" style="margin-top: 5rem;">
+            <h1>UserCharts</h1>
         </div>
     </b-container>
 
-    <BCard border-variant="success" style="margin-top: 5%;">
-        <BCardTitle style="margin-top: -5%;"> Filters </BCardTitle>
+    <BCard border-variant="success" style="margin-top: 2.5rem; width: 35rem;">
+        <BCardTitle style="margin-top: -1rem;"> Filters </BCardTitle>
 
         <div class="filters">
             <BFormCheckbox class="mr-2" v-model="useFilters">Use Filters</BFormCheckbox>
         </div>
 
 
-        <BCol v-if="useFilters" class="mb-4" style="margin-top: 2%;">
+        <BCol v-if="useFilters" class="mb-4" style="margin-top: 1rem;">
             <p>Find all UserCharts that contain all albums by:</p>
         </BCol>
         <BContainer v-if="useFilters" class="search-results">
@@ -108,8 +108,8 @@ function toggleArtistSelection(artistSelection: Artist) {
 
     <BFormInput v-model="searchTerm" style="margin-top: 3vh" placeholder="Search UserCharts" />
 
-    <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-        <BCard style="width: 40vw; margin-top: 5%">
+    <BCol v-for="(result, index) in results" :key="index" class="mb-3" style="width: 35rem;">
+        <BCard style="width: 100%; margin-top: 5%">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <RouterLink :to="{
                     name: '/users/[pid]/[ucid]',
@@ -117,12 +117,15 @@ function toggleArtistSelection(artistSelection: Artist) {
                 }">
                     <h2>{{ result.userchart_name }}</h2>
                 </RouterLink>
-                <span>@{{ result.username }}</span>
+                <RouterLink style="text-decoration: none;"
+                    :to="{ name: '/users/[user]', params: { user: result.pid } }">
+                    <span>@{{ result.username }}</span>
+                </RouterLink>
             </div>
 
             {{ console.log(result.image) }}
 
-            <BCardImg style="width: 32vw" v-if="result.image && result.image.data.length > 0" :src="arrayBufferToBase64(result.image.data)"
+            <BCardImg style="width: 100%;" v-if="result.image && result.image.data.length > 0" :src="arrayBufferToBase64(result.image.data)"
                 alt="UserChart Image"></BCardImg>
         </BCard>
     </BCol>

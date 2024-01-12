@@ -24,14 +24,14 @@ const getReleaseYear = (dateString: string) => {
 
 <template>
     <BContainer class="main-container">
-        <div class="main-title" style="margin-top: 20%; margin-bottom: 10%;">
-            <h1>All Albums</h1>
+        <div class="main-title" style="margin-top: 5rem; margin-bottom: -1rem;">
+            <h1>Albums</h1>
         </div>
     </BContainer>
 
 
-    <BContainer class="my-4 mb-4 content">
-        <BFormInput v-model="searchTerm" />
+    <BContainer class="my-4 mb-4 content" style="width: 35rem;">
+        <BFormInput v-model="searchTerm" placeholder="Search albums" style="margin-bottom: 2rem;"/>
         <router-link :to="{ path: '/MainPage' }">
             <BButton variant="primary" class="btn-top-right">Click Me</BButton>
         </router-link>

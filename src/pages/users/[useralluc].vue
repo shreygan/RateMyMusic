@@ -81,23 +81,30 @@ export default {
 
 
 <template>
-    <b-container class="main-container">
-        <div class="main-title" style="margin-top: 20%">
+    <BContainer class="main-container">
+        <div class="main-title" style="margin-top: 5rem;">
             <h1>View @<span class="main">{{ currentUser.username }}</span>'s UserCharts</h1>
         </div>
-    </b-container>
+    </BContainer>
 
-    <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-        <BCard style="width: 40vw; margin-top: 10%;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <RouterLink :to="{ name: '/users/[pid]/[ucid]', params: { pid: userpid, ucid: result.ucid } }">
-                    <h2>{{ result.userchart_name }}</h2>
-                </RouterLink>
-                <span>@{{ result.username }}</span>
-            </div>
+    
+    <BCol v-for="(result, index) in results" :key="index" class="mb-3" style="width: 35rem;">
+            <BCard style="width: 100%; margin-top: 5%">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <RouterLink :to="{
+                        name: '/users/[pid]/[ucid]',
+                        params: { pid: currentUser.pid, ucid: result.ucid },
+                    }">
+                        <h2>{{ result.userchart_name }}</h2>
+                    </RouterLink>
+                    <RouterLink style="text-decoration: none;"
+                        :to="{ name: '/users/[user]', params: { user: currentUser.pid } }">
+                        <span>@{{ currentUser.username }}</span>
+                    </RouterLink>
+                </div>
 
-            <b-card-img style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
-                alt="Album Cover"></b-card-img>
-        </BCard>
-    </BCol>
+                <BCardImg style="width: 100%;" v-if="result.image && result.image.data.length > 0" :src="arrayBufferToBase64(result.image.data)"
+                    alt="UserChart Image"></BCardImg>
+            </BCard>
+        </BCol>
 </template>

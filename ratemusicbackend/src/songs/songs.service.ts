@@ -39,7 +39,7 @@ export class SongsService {
   }
 
   async getAlbumSongs(albumName: string, releaseDate: string) {
-    return await this.query(
+    return this.query(
       `SELECT
             a.album_name,
             a.release_date AS album_release_date,
@@ -382,7 +382,8 @@ export class SongsService {
     als.album_name,
     als.album_release_date,
     a.cover,
-    u.username
+    u.username,
+    u.profile_pic
   FROM Review1 r1, Review2 r2, SongReview sr, Song s, AlbumSong als, Album a, User4 u
   WHERE r1.review_date = r2.review_date AND r1.likes = r2.likes
         AND r1.dislikes = r2.dislikes AND r2.rid = sr.rid
@@ -394,6 +395,25 @@ export class SongsService {
     `,
       [songName, releaseDate],
     );
+  }
+
+  async getSongAlbum(songName: string, releaseDate: string) {
+    return await this.query(
+       `SELECT
+           s.song_name,
+           s.release_date AS song_release_date,
+           a.album_name,
+           a.release_date AS album_release_date,
+           a.cover
+        FROM
+           Song s 
+               INNER JOIN AlbumSong als 
+                   ON (s.song_name = als.song_name AND s.release_date = als.song_release_date) 
+               INNER JOIN Album a 
+                   ON (als.album_name = a.album_name AND als.album_release_date = a.release_date)
+        WHERE
+           s.song_name = ? AND s.release_date = ?;`,
+        [songName, releaseDate]);
   }
 
   async findAllUsercharts(searchTerm?: string) {

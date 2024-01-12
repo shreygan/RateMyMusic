@@ -27,6 +27,18 @@ onMounted(() => {
     getProfile();
 });
 
+function renderStars(rating: number) {
+    const stars: string[] = [];
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars.push('★');
+        } else {
+            stars.push('☆');
+        }
+    }
+    return stars.join(' ');
+}
+
 async function getProfile() {
     let url = "http://localhost:3000/users/getuserbyid";
 
@@ -134,14 +146,14 @@ export default {
 
 <template>
     <BCol class="mb-3">
-        <BCard style="width: 35vw; margin-top: 15%">
+        <BCard style="width: 35rem; margin-top: 5rem;">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>{{ profile.name }}, {{ profile.age }}</h2>
                 <span>@{{ profile.username }}</span>
             </div>
 
             <b-card-img v-if="profile.profile_pic" :src="arrayBufferToBase64(profile.profile_pic.data)" alt="Album Cover"
-                style="width: 25vw; border-radius: 50%;"></b-card-img>
+                style="width: 100%; border-radius: 50%;"></b-card-img>
 
             <div class="p-3">
                 <BCardText class="d-flex mb-3">
@@ -198,7 +210,7 @@ export default {
     </BCol>
 
     <BCol class="mb-4">
-        <BFormSelect v-model="selectedFilter" class="mr-2">
+        <BFormSelect v-model="selectedFilter" class="mr-2" style="width: 35rem;">
             <option v-for="filter in filterOptions" :key="filter" :value="filter">
                 {{ filter }}
             </option>
@@ -206,10 +218,10 @@ export default {
     </BCol>
 
     <BContainer fluid class="my-4">
-        <BCol v-if="selectedFilter == 'Album Reviews'" lg="6" class="mb-3 column">
+        <!-- <BCol v-if="selectedFilter == 'Album Reviews'" lg="6" class="mb-3 column">
             <BContainer fluid>
                 <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
-                    <BCard style="width: 30vw;">
+                    <BCard style="width: 32rem;">
                         <RouterLink style="text-decoration: none; color: black;" :to="{
                             name: '/users/[pid]/[rid]/[type]',
                             params: {
@@ -234,19 +246,97 @@ export default {
                             </div>
                         </RouterLink>
 
-                        <BButton v-if="currentUser.pid && currentUser.pid == profile.pid"
+                        <BButton v-if="currentUser && currentUser.pid == profile.pid"
                             style="margin-top: 3%; margin-bottom: -3%" variant="danger" class="btn-bottom-left"
                             @click="deleteReview(review.rid, profile.pid)">Delete Review</BButton>
                     </BCard>
                 </BCol>
             </BContainer>
+        </BCol> -->
+
+        <BCol v-if="selectedFilter == 'Album Reviews'" lg="6" class="mb-3 column">
+            <BContainer>
+                <BCol v-for="(review, index) in albumReviews" :key="index" class="mb-3">
+                    <BCard style="width: 32.5rem; min-height: 20rem;">
+                        <small class="text-muted" style="position: absolute; top: 5%; left: 5%;">Album</small>
+                        <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                            {{ new Date(review.review_date).toLocaleString([], {
+                                year: 'numeric', month: 'numeric',
+                                day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                            })
+                            }}</small>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <RouterLink style="text-decoration: none; color: inherit;"
+                                :to="{ name: '/albums/[albumName]/[year]', params: { albumName: review.album_name, year: review.release_date } }">
+                                <h2>{{ review.album_name }}</h2>
+                            </RouterLink>
+                            <span>@{{ profile.username }}</span>
+                        </div>
+
+
+                        <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
+                            alt="Album Cover"></b-card-img>
+
+                        <div class="p-3">
+                            <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                                review.review_text }}</BCardText>
+
+                            <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+
+                            <BButton v-if="currentUser && currentUser.pid == profile.pid"
+                                style="margin-top: 2.25rem; margin-bottom: -2.25rem;" variant="danger"
+                                class="btn-bottom-left" @click="deleteReview(review.rid, profile.pid)">Delete Review
+                            </BButton>
+                        </div>
+                    </BCard>
+                </BCol>
+            </BContainer>
         </BCol>
 
+        <BCol v-if="selectedFilter == 'Song Reviews'" lg="6" class="mb-3 column">
+            <BContainer>
 
+                <BCol v-for="(review, index) in songReviews" :key="index" class="mb-3">
+                    <BCard style="width: 32.5rem; min-height: 20rem;">
+                        <small class="text-muted" style="position: absolute; top: 5%; left: 5%;">Song</small>
+                        <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                            {{ new Date(review.review_date).toLocaleString([], {
+                                year: 'numeric', month: 'numeric',
+                                day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                            })
+                            }}</small>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <RouterLink style="text-decoration: none; color: inherit;"
+                                :to="{ name: '/songs/[songName]/[year]', params: { songName: review.song_name, year: review.release_date } }">
+                                <h2>{{ review.song_name }}</h2>
+                            </RouterLink>
+                            <span>@{{ profile.username }}</span>
+                        </div>
 
+                        <b-card-img v-if="review.cover" style="max-width: 10rem"
+                            :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
+
+                        <div class="p-3">
+                            <BCardText class="d-flex justify-content-between align-items-center mb-3">
+                                {{ review.review_text }}
+                            </BCardText>
+
+                            <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+
+                            <BButton v-if="currentUser && currentUser.pid == profile.pid"
+                                style="margin-top: 2.25rem; margin-bottom: -2.25rem;" variant="danger"
+                                class="btn-bottom-left" @click="deleteReview(review.rid, profile.pid)">Delete Review
+                            </BButton>
+                        </div>
+                    </BCard>
+                </BCol>
+            </BContainer>
+        </BCol>
+
+        <!-- 
         <BCol v-if="selectedFilter == 'Song Reviews'" lg="6" class="mb-3 column">
             <BContainer fluid>
-                <BCol style="width: 30vw;" v-for="(review, index) in songReviews" :key="index" class="mb-3">
+                <BCol style="width: 32rem;" v-for="(review, index) in songReviews" :key="index" class="mb-3">
                     <BCard>
                         <RouterLink style="text-decoration: none; color: black;"
                             :to="{ name: '/users/[pid]/[rid]/[type]', params: { pid: userpid, rid: review.rid, type: selectedFilter.split(' ')[0] } }">
@@ -265,20 +355,69 @@ export default {
                             </div>
                         </RouterLink>
 
-                        <BButton v-if="currentUser.pid && currentUser.pid == profile.pid"
+                        <BButton v-if="currentUser && currentUser.pid == profile.pid"
                             style="margin-top: 3%; margin-bottom: -3%" variant="danger" class="btn-bottom-left"
                             @click="deleteReview(review.rid, profile.pid)">
                             Delete Review</BButton>
                     </BCard>
                 </BCol>
             </BContainer>
+        </BCol> -->
+
+        <BCol v-if="selectedFilter == 'UserChart Reviews'" lg="6" class="mb-3 column">
+            <BContainer>
+
+                <BCol v-for="(review, index) in userchartReviews" :key="index" class="mb-3">
+                    <BCard style="width: 32.5rem; min-height: 20rem;">
+                        <small class="text-muted" style="position: absolute; top: 5%; left: 5%;">UserChart</small>
+                        <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
+                            {{ new Date(review.review_date).toLocaleString([], {
+                                year: 'numeric', month: 'numeric',
+                                day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+                            })
+                            }}</small>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <!-- <RouterLink style="text-decoration: none; color: inherit;"
+                                :to="{ name: '/songs/[songName]/[year]', params: { songName: review.song_name, year: review.release_date } }">
+                                <h2>{{ review.song_name }}</h2>
+                            </RouterLink> -->
+                            <RouterLink style="text-decoration: none; color: black;" :to="{
+                                name: '/users/[pid]/[rid]/[type]',
+                                params: {
+                                    pid: userpid,
+                                    rid: review.rid,
+                                    type: 'Userchart'
+                                }}">
+                                <h2>{{ review.userchart_name }}</h2>
+                             </RouterLink>
+                            <span>@{{ profile.username }}</span>
+                        </div>
+
+                        <b-card-img v-if="review.image" style="max-width: 10rem"
+                            :src="arrayBufferToBase64(review.image.data)" alt="Album Cover"></b-card-img>
+
+                        <div class="p-3">
+                            <BCardText class="d-flex justify-content-between align-items-center mb-3">
+                                {{ review.review_text }}
+                            </BCardText>
+
+                            <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
+
+                            <BButton v-if="currentUser && currentUser.pid == profile.pid"
+                                style="margin-top: 2.25rem; margin-bottom: -2.25rem;" variant="danger"
+                                class="btn-bottom-left" @click="deleteReview(review.rid, profile.pid)">Delete Review
+                            </BButton>
+                        </div>
+                    </BCard>
+                </BCol>
+            </BContainer>
         </BCol>
 
-
+<!-- 
         <BCol v-if="selectedFilter == 'UserChart Reviews'" lg="6" class="mb-3 column">
             <BContainer fluid>
                 <BCol v-for="(review, index) in userchartReviews" :key="index" class="mb-3">
-                    <BCard style="width: 30vw;">
+                    <BCard style="width: 32rem;">
                         <RouterLink style="text-decoration: none; color: black;" :to="{
                             name: '/users/[pid]/[rid]/[type]',
                             params: {
@@ -292,8 +431,8 @@ export default {
                                 <span>@{{ profile.username }}</span>
                             </div>
 
-                            <b-card-img v-if="review.image" style="width: 30vh;" :src="arrayBufferToBase64(review.image.data)"
-                                alt="Album Cover"></b-card-img>
+                            <b-card-img v-if="review.image" style="width: 30vh;"
+                                :src="arrayBufferToBase64(review.image.data)" alt="Album Cover"></b-card-img>
 
                             <div class="p-3">
                                 <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
@@ -303,13 +442,13 @@ export default {
                             </div>
                         </RouterLink>
 
-                        <BButton v-if="currentUser.pid && currentUser.pid == profile.pid"
+                        <BButton v-if="currentUser && currentUser.pid == profile.pid"
                             style="margin-top: 3%; margin-bottom: -3%" variant="danger" class="btn-bottom-left"
                             @click="deleteReview(review.rid, profile.pid)">Delete Review</BButton>
                     </BCard>
                 </BCol>
             </BContainer>
-        </BCol>
+        </BCol> -->
 
     </BContainer>
 </template>

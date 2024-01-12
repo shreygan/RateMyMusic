@@ -85,7 +85,13 @@ onMounted(async () => {
 </script>
 
 <template>
-    <BContainer class="my-4 mb-4 content">
+    <BContainer class="main-container">
+            <div class="main-title" style="margin-top: 5rem; margin-bottom: -1rem;">
+                <h1>Songs</h1>
+            </div>
+        </BContainer>
+
+    <BContainer class="my-4 mb-4 content" style="width: 35rem;">
         <BCard border-variant="success">
             <BCardTitle> Filters </BCardTitle>
 
@@ -131,7 +137,7 @@ onMounted(async () => {
             </BCardBody>
         </BCard>
 
-        <BFormInput class="my-4" v-model="searchTerm" placeholder="Search for a song" />
+        <BFormInput class="my-4" v-model="searchTerm" placeholder="Search songs" />
         <BCol v-for="(result, index) in results" :key="index" class="mb-3">
             <BCard style="width: 100%" :img-src="arrayBufferToBase64(result.cover.data)">
                 <RouterLink
@@ -142,7 +148,8 @@ onMounted(async () => {
                         }})
                     </h2>
                 </RouterLink>
-                <router-link to="/AlbumPage">
+                <router-link 
+                :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.album_name, year: result.album_release_date } }">
                     <h4>{{ result.album_name }}</h4>
                 </router-link>
                 <p> {{ result.genre }} </p>

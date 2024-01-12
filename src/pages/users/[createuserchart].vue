@@ -145,7 +145,7 @@ function getGridAlbum(index: number) {
 </script>
 
 <template>
-    <BContainer style="margin-top: 10rem">
+    <BContainer style="margin-top: 5rem">
         <BRow>
             <BCol>
                 <h1>Create a Chart</h1>
@@ -204,7 +204,7 @@ function getGridAlbum(index: number) {
             </BCol>
         </BRow>
 
-        <BButton style="margin-top: 2%; margin-bottom: -3%" variant="primary" size="lg" class="btn-bottom-left"
+        <BButton style="margin-top: 2%; margin-bottom: 1rem;" variant="primary" size="lg" class="btn-bottom-left"
             @click="insertUserChart()">Create User Chart
         </BButton>
     </BContainer>

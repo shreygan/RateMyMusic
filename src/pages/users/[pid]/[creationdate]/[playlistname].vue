@@ -82,31 +82,57 @@ export default {
 
 
 <template>
-    <b-container class="main-container" v-if="results.length > 0">
-        <div class="main-title" style="margin-top: 20%">
-            <h1> @<span class="main">{{ results[0].username }}</span>'s Playlist: {{ results[0].playlist_name }}</h1>
+    <BContainer class="main-container" v-if="results.length > 0" style="width: 35rem;">
+        <div class="main-title" style="margin-top: 5rem;">
+            <h1 style="display: inline;"> {{ results[0].playlist_name }} </h1>
+            <h5 style="display: inline;"> by
+                <RouterLink style="text-decoration: none;"
+                    :to="{ name: '/users/[user]', params: { user: results[0].pid } }">
+                    <span>@{{ results[0].username }}</span>
+                </RouterLink>
+            </h5>
         </div>
-    </b-container>
+    </BContainer>
 
-    <BContainer>
+    {{ console.log(results[0].description.length) }}
+    {{ console.log(results[0].image) }}
+
+    <BCol
+        v-if="results.length > 0 && ((results[0].image && results[0.].image.data.length > 0) || results[0].description.length > 0)"
+        class="mb-3 main-container">
+        <BCard style="width: 35rem; margin-top: 2rem;">
+            <BCardImg v-if="results[0].image" style="width: 100%;" :src="arrayBufferToBase64(results[0].image.data)" alt="">
+            </BCardImg>
+
+            <div v-if="results[0].description.length > 0" class="p-3">
+                <BCardText>{{ results[0].description }}</BCardText>
+            </div>
+        </BCard>
+    </BCol>
+
+    <BContainer style="margin-top: 2rem;">
         <BRow>
             <BCol>
                 <BListGroup>
-                    <BListGroupItem v-for="(result, index) in results" :key="index" style="width: 40vw">
+                    <BListGroupItem v-for="(result, index) in results" :key="index" style="width: 33rem;">
                         <BRow class="justify-content-end">
                             <BCol style="max-width: 10rem" class="my-2">
                                 <BImg :src="arrayBufferToBase64(result.cover.data)"
                                     style="max-block-size: 5rem; border-radius: 0.5rem" />
                             </BCol>
-                            <BCol class="my-3" style="width: 20vw;">
-                                <h3>{{ result.song_name }}</h3>
+                            <BCol class="my-2">
+                                <RouterLink style="text-decoration: none; color: inherit;"
+                                    :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.song_name, year: result.release_date } }">
+                                    <h4>{{ result.song_name }}</h4>
+                                </RouterLink>
+                                <!-- <h4>{{ result.song_name }}</h4> -->
                                 <h6>
-                                    {{ result.artist_name }} 
+                                    {{ result.artist_name }}
                                 </h6>
                             </BCol>
-                            <BCol style="margin-top: 4vh;">
+                            <BCol class="d-flex align-items-center">
                                 <h6>
-                                    {{ result.album_name }} 
+                                    {{ result.album_name }}
                                 </h6>
                             </BCol>
                         </BRow>

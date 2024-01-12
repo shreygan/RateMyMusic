@@ -5,13 +5,13 @@ import { sanitizeInput, arrayBufferToBase64 } from "../utils/utils";
 const searchTerm = ref("");
 
 
-async function loadAllPlaylists(){
+async function loadAllPlaylists() {
     let url = "http://localhost:3000/users/getallplaylists";
 
     if (searchTerm.value) {
         url += `?q=${encodeURIComponent(sanitizeInput(searchTerm.value).trim().toLowerCase())}`;
-    } 
-    
+    }
+
     const response = await fetch(url);
     console.log(response);
     return response.json();
@@ -22,45 +22,54 @@ const results = computedAsync(loadAllPlaylists, [], isLoading);
 </script>
 
 <template>
-  <b-container class="main-container">
-            <div class="main-title" style="margin-top: 20%">
-                <h1>All Playlists</h1>
-            </div>
-        </b-container>
+    <b-container class="main-container">
+        <div class="main-title" style="margin-top: 5rem;">
+            <h1> Playlists</h1>
+        </div>
+    </b-container>
 
-        <BFormInput v-model="searchTerm" />
+    <BFormInput v-model="searchTerm" placeholder="Search playlists" style="margin-top: 2.5rem;" />
 
-        <BCol v-for="(result, index) in results" :key="index" class="mb-3">
-            <BCard style="width: 40vw; margin-top: 10%;">
+    <BCol v-for="(result, index) in results" :key="index" class="mb-3">
+        <BCard style="width: 35rem; margin-top: 2rem;">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <RouterLink :to="{ name: '/users/[pid]/[creationdate]/[playlistname]', params: { pid: result.pid,  creationdate: result.creation_date, playlistname: result.playlist_name } }">
-                        <h2>{{ result.playlist_name }}</h2>
-                    </RouterLink>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <RouterLink
+                    :to="{ name: '/users/[pid]/[creationdate]/[playlistname]', params: { pid: result.pid, creationdate: result.creation_date, playlistname: result.playlist_name } }">
+                    <h2>{{ result.playlist_name }}</h2>
+                </RouterLink>
+                <!-- <span>@{{ result.username }}</span> -->
+                <RouterLink style="text-decoration: none;" :to="{ name: '/users/[user]', params: { user: result.pid } }">
                     <span>@{{ result.username }}</span>
-                </div>
+                </RouterLink>
+            </div>
 
-                <BCardImg style="width: 32vw;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)"
-                    alt=""></BCardImg>
-            </BCard>
-        </BCol>
+            <BCardImg style="width: 100%;" v-if="result.image" :src="arrayBufferToBase64(result.image.data)" alt="">
+            </BCardImg>
+
+            <div class="p-3">
+                <BCardText class="">{{
+                    result.description }}</BCardText>
+            </div>
+        </BCard>
+    </BCol>
 </template>
 
 <style scoped>
 .btn-top-right {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
 
 .content {
-  width: 35rem;
-  padding-top: 2rem;
+    width: 35rem;
+    padding-top: 2rem;
 }
 
 .filters {
-  width: 10rem;
-  margin-left: auto;
-  margin-right: auto;
+    width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>

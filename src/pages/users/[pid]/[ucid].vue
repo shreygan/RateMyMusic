@@ -100,17 +100,23 @@ export default {
 </script>
 
 <template>
-    <b-container class="main-container" v-if="results.length > 0">
-        <div class="main-title" style="margin-top: 20%">
-            <h1> @<span class="main">{{ results[0].username }}</span>'s UserChart: {{ results[0].userchart_name }}</h1>
-        </div>
-    </b-container>
+    <BContainer class="main-container" v-if="results.length > 0" style="width: 35rem;">
+            <div class="main-title" style="margin-top: 2.5rem; margin-bottom: 2.75rem;">
+                <h1 style="display: inline;"> {{ results[0].userchart_name }} </h1>
+                <h5 style="display: inline;"> by
+                    <RouterLink style="text-decoration: none;"
+                        :to="{ name: '/users/[user]', params: { user: userpid } }">
+                        <span>@{{ results[0].username }}</span>
+                    </RouterLink>
+                </h5>
+            </div>
+        </BContainer>
 
     <BContainer>
         <BRow>
             <BCol>
                 <BListGroup>
-                    <BListGroupItem v-for="(result, index) in results" :key="index" style="max-width: 500px">
+                    <BListGroupItem v-for="(result, index) in results" :key="index" style="width: 35rem;">
                         <BRow class="justify-content-end">
                             <BCol style="max-width: 10rem" class="my-2">
                                 <strong style="margin-right: 1.5vw;">{{ result.ranking }}</strong>
@@ -118,12 +124,21 @@ export default {
                                     style="max-block-size: 5rem; border-radius: 0.5rem" />
                             </BCol>
                             <BCol class="my-3">
-                                <h3>{{ result.album_name }}</h3>
-                                <h6>
+                                <RouterLink style="text-decoration: none; color: inherit;"
+                                    :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.album_name, year: result.release_date } }">
+                                    <h3>{{ result.album_name }}</h3>
+                                </RouterLink>
+                                <h6 style="margin-top: -0.5rem;">
                                     {{ result.artist_name }} ({{
                                         getReleaseYear(result.release_date)
-                                    }}) &nbsp;&nbsp;&nbsp; AVG: {{ result.avg_rating }}/5
+                                    }})
                                 </h6>
+
+                                <!-- {{ const parts = result.avg_rating.split('.') }} -->
+
+                                <p style="margin-top: -0.25rem; margin-bottom: -5rem; font-size: 0.7rem;">
+                                    Average Rating: {{ result.avg_rating ? result.avg_rating.split('.')[0] + "." + result.avg_rating.split('.')[1].substring(0, 1) : "0.0" }}/5
+                                </p>
                             </BCol>
                         </BRow>
                     </BListGroupItem>
