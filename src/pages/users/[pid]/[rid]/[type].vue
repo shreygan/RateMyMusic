@@ -199,7 +199,7 @@ export default {
                     <div class="mb-2">
                         <small class="text-muted" style="position: absolute; top: 10%; left: 5%;">
                             <RouterLink style="text-decoration: none;"
-                                :to="{ name: '/users/[user]', params: { user: result.review_pid } }">
+                                :to="{ name: '/users/[user]', params: { user: result.comment_pid } }">
                                 <h6>@{{ result.username }}</h6>
                             </RouterLink>
                         </small>

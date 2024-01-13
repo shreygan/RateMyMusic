@@ -149,7 +149,7 @@ onMounted(async () => {
                     </h2>
                 </RouterLink>
                 <router-link 
-                :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.album_name, year: result.album_release_date } }">
+                :to="{ name: '/albums/[albumName]/[year]', params: { albumName: result.album_name, year: result.song_release_date } }">
                     <h4>{{ result.album_name }}</h4>
                 </router-link>
                 <p> {{ result.genre }} </p>

@@ -155,7 +155,7 @@ export class SongsService {
       ],
     );
 
-    return await this.query(
+    const test = await this.query(
       `SELECT
         r.song_name,
         r.release_date AS song_release_date,
@@ -185,6 +185,9 @@ export class SongsService {
       [topSongsNumber],
     );
     
+    console.log(test);
+
+    return test;
   }
 
   async createUserChartReview(CreateUserchartReviewDto) {

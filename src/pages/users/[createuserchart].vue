@@ -52,16 +52,17 @@ async function insertUserChart() {
     UCData.image = "";
     UCData.pid = userpid.value;
 
-    console.log(selectedAlbums.value);
-    console.log(UCData.albums);
-
     var failed = false;
     if (UCData.title === '') {
         toast.error("Please enter a title");
+        selectedIndices.value = [];
+        selectedAlbums.value = [];
         failed = true;
     }
     if (UCData.albums.length === 0) {
         toast.error("Please select at least 1 album");
+        selectedIndices.value = [];
+        selectedAlbums.value = [];
         failed = true;
     }
 

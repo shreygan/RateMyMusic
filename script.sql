@@ -315,18 +315,18 @@ CREATE TABLE IF NOT EXISTS RateMyMusic.UserChartReview (
 );
 
 insert into RateMyMusic.User4 (pid, birthdate, birthplace, username, password, profile_pic)
-values  (10727, '2013-11-11', 'Iran', 'mercurylover', 'x', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Nerd.jpeg')),
+values  (10727, '2013-11-11', 'Iran', 'mercurylover', 'x', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Nerd.jpeg')),
         (34049, '2003-05-05', 'Sydney, Australia', 'ardster', 'a', null),
         (44550, '1110-12-31', 'yash', 'yash', 'yash', null),
-        (58708, '2023-11-10', 'n', 'n', 'n', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Scenery.jpg')),
+        (58708, '2023-11-10', 'n', 'n', 'n', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Scenery.jpg')),
         (70527, '2003-05-05', '9', '9', '7', null),
         (76138, '2023-11-07', 'russia', 'Gangwar', 'greg', null),
-        (76981, '1110-12-31', 'a', 'a', 'a', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/ALL-AMERIKKKAN BADA$$.jpg')),
-        (29384756, '2000-06-27', 'Texas, USA', 'squaresalad', 'Egalitarianism', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Worker.jpg')),
-        (41902873, '1968-11-02', 'Indiana, USA', 'twocoffeeonemommy', 'ilovemygrandkids123', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Future.jpg')),
-        (62519038, '2014-09-19', 'Ontario, Canada', 'PORK_MAN', 'Fortnite@123', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Pigman.jpg')),
-        (80172634, '1945-12-12', 'New Jersey, USA', 'tillyfumpy', 'ChickenButt', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Farmer.jpg')),
-        (83726415, '2003-05-28', 'Manitoba, Canada', 'AngelPretty', 'makeup1', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Ice.jpg'));
+        (76981, '1110-12-31', 'a', 'a', 'a', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/ALL-AMERIKKKAN BADA$$.jpg')),
+        (29384756, '2000-06-27', 'Texas, USA', 'squaresalad', 'Egalitarianism', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Worker.jpg')),
+        (41902873, '1968-11-02', 'Indiana, USA', 'twocoffeeonemommy', 'ilovemygrandkids123', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Future.jpg')),
+        (62519038, '2014-09-19', 'Ontario, Canada', 'PORK_MAN', 'Fortnite@123', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Pigman.jpg')),
+        (80172634, '1945-12-12', 'New Jersey, USA', 'tillyfumpy', 'ChickenButt', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Farmer.jpg')),
+        (83726415, '2003-05-28', 'Manitoba, Canada', 'AngelPretty', 'makeup1', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Ice.jpg'));
 
 insert into RateMyMusic.User3 (username, birthdate, age)
 values  ('9', '2003-05-05', 20),
@@ -386,19 +386,19 @@ INSERT
 INTO Artist2(pid, name, birthdate, birthplace, genre, description, label, is_dead, artist_pic)
 VALUES (52033688, 'Ryo Fukui', '1948-06-01', 'Biratori, Hokkaido, Japan', 'Jazz',
         'Ryo Fukui was a Japanese jazz pianist, he regularly played at his own "Slowboat" jazz club in Sapporo. His work has seen a spike in popularity after his death, around the year 2010. ',
-        'Independent', 1, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/artists/Ryo Fukui.jpeg')),
+        'Independent', 1, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/artists/Ryo Fukui.jpeg')),
        (62043498, 'NAV', '1989-11-03', 'Toronto, Canada', 'Hip-Hop',
         'Navraj Singh Goraya, known professionally as Nav, is a Canadian rapper, singer, songwriter, and record producer.',
-        'XO', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/artists/NAV.jpg')),
+        'XO', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/artists/NAV.jpg')),
        (32512674, 'Drake', '1986-10-24', 'Toronto, Canada', 'Hip-Hop',
         'Aubrey Drake Graham, known professionally as Drake, is a Canadian rapper, singer, songwriter, and actor. He first gained major recognition as a rapper following the release of his mixtape "Room for Improvement" in 2006.',
-        'OVO Sound', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/artists/Drake.jpg')),
+        'OVO Sound', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/artists/Drake.jpg')),
        (89320472, 'Kanye West', '1977-06-08', 'Atlanta, Georgia, USA', 'Hip-Hop',
         'Kanye Omari West is an American rapper, singer, songwriter, record producer, and fashion designer. He is widely regarded as one of the most influential musicians of his generation.',
-        'GOOD Music', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/artists/Kanye.jpg')),
+        'GOOD Music', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/artists/Kanye.jpg')),
        (48297392, 'Kendrick Lamar', '1987-06-17', 'Compton, California, USA', 'Hip-Hop',
         'Kendrick Lamar Duckworth, known as Kendrick Lamar, is an American rapper, songwriter, and record producer. He is regarded as one of the most skillful and successful hip-hop artists of his generation.',
-        'Top Dawg Entertainment', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/artists/Kendrick.jpg'));
+        'Top Dawg Entertainment', 0, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/artists/Kendrick.jpg'));
 
 INSERT
 INTO Artist1(name, birthdate, is_dead, age)
@@ -542,17 +542,17 @@ values  ('2023-10-19 10:00:00', 45, 2, 1),
         ('2023-11-30 03:19:25', 0, 0, 0);
 
 insert into RateMyMusic.Album (album_name, release_date, isSingle, genre, duration, cover, number_of_songs)
-values ('Scenery', '1976-02-01', false, 'Jazz', 644, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/albums/Scenery.jpg'), 6),
-       ('Good Intentions', '2020-05-08', false, 'Rap', 179, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/albums/Good Intentions.jpg'), 12),
-       ('If You''re Reading This It''s Too Late', '2015-02-13', false, 'Rap', 299, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/albums/If You''re Reading This It''s Too Late.jpg'), 17),
-       ('The College Dropout', '2003-09-30', false, 'Hip hop/UK R&B', 226, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/albums/College Dropout.jpg'), 15),
-       ('To Pimp a Butterfly', '2015-03-15', false, 'Hip hop/Rap', 275, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/albums/To Pimp a Butterfly.jpg'), 16),
-       ('good kid, m.A.A.d city', '2012-10-22', 0, 'Hip-Hop', 5745, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/good kid, m.A.A.d city.jpg'), 17),
-       ('Late Registration', '2005-08-30', 0, 'Rap', 2443, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Late Registration.jpg'), 21),
-       ('Section 80', '2011-07-02', 0, 'Rap', 2333 ,LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Section.80.jpg'), 15),
-       ('Scorpion', '2018-06-29', 0, 'Rap', 2344, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Scorpion.jpg'), 25),
-       ('DAMN', '2017-04-17', 0, 'Rap', 4355, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/DAMN..jpg'),  14),
-       ('Mr. Morale & the Big Steppers', '2022-05-13', 0, 'Rap', 23424, LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/Mr. Morale & The Big Steppers.jpg'), 18);
+values ('Scenery', '1976-02-01', false, 'Jazz', 644, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/albums/Scenery.jpg'), 6),
+       ('Good Intentions', '2020-05-08', false, 'Rap', 179, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/albums/Good Intentions.jpg'), 12),
+       ('If You''re Reading This It''s Too Late', '2015-02-13', false, 'Rap', 299, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/albums/If You''re Reading This It''s Too Late.jpg'), 17),
+       ('The College Dropout', '2003-09-30', false, 'Hip hop/UK R&B', 226, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/albums/College Dropout.jpg'), 15),
+       ('To Pimp a Butterfly', '2015-03-15', false, 'Hip hop/Rap', 275, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/albums/To Pimp a Butterfly.jpg'), 16),
+       ('good kid, m.A.A.d city', '2012-10-22', 0, 'Hip-Hop', 5745, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/good kid, m.A.A.d city.jpg'), 17),
+       ('Late Registration', '2005-08-30', 0, 'Rap', 2443, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Late Registration.jpg'), 21),
+       ('Section 80', '2011-07-02', 0, 'Rap', 2333 ,LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Section.80.jpg'), 15),
+       ('Scorpion', '2018-06-29', 0, 'Rap', 2344, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Scorpion.jpg'), 25),
+       ('DAMN', '2017-04-17', 0, 'Rap', 4355, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/DAMN..jpg'),  14),
+       ('Mr. Morale & the Big Steppers', '2022-05-13', 0, 'Rap', 23424, LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/Mr. Morale & The Big Steppers.jpg'), 18);
 
 insert into RateMyMusic.Song (song_name, release_date, duration, genre)
 values  ('10 Bands', '2015-02-13', 178, 'Rap'),
@@ -788,12 +788,12 @@ values  (58708, 'Drake and Other Cool Rappers', '2023-11-28', null, 'my goats!')
         (58708, 'NAME', '2023-11-28', null, 'DESC'),
         (58708, 'Nice playlist', '2023-11-29', null, ''),
         (58708, 'super rap playlist', '2023-11-28', null, 'my rap songs i like a lot.'),
-        (58708, 'Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
-        (58708, 'Rap Essentials', '2023-09-21', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Rap.jpg'), 'The hottest rap tracks right now.'),
-        (58708, 'Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Hip Hop Classics.jpeg'),
+        (58708, 'Jazz Vibes', '2023-09-20', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/playlists/Jazz.jpg'), 'Relax with some smooth jazz tunes.'),
+        (58708, 'Rap Essentials', '2023-09-21', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/playlists/Rap.jpg'), 'The hottest rap tracks right now.'),
+        (58708, 'Hip Hop Classics', '2023-09-22', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/playlists/Hip Hop Classics.jpeg'),
          'Take a trip down memory lane with these hip hop classics.'),
-        (58708, 'R&B Soul', '2023-09-23', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/R&B.jpg'), 'Soothing R&B for the soul.'),
-        (58708, 'Top Hits', '2023-09-24', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/rym/src/assets/playlists/Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
+        (58708, 'R&B Soul', '2023-09-23', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/playlists/R&B.jpg'), 'Soothing R&B for the soul.'),
+        (58708, 'Top Hits', '2023-09-24', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/src/assets/playlists/Top Hits.jpg'), 'The chart-topping hits everyone is listening to.');
 
 insert into RateMyMusic.PlaylistSong (pid, playlist_name, creation_date, song_name, release_date)
 values  (58708, 'gbgbngbngbnbnbn', '2023-11-29', '10 Bands', '2015-02-13'),
@@ -828,9 +828,9 @@ insert into RateMyMusic.UserChart (ucid, userchart_name, image, pid)
 values  (11680, 'AllKendrick', null, 58708),
         (42359, 'AllDrakeAllKanye', null, 58708),
         (45211, '4Kendrick', null, 58708),
-        (55223, 'BFRH', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/4 Your Eyez Only.jpg'), 58708),
+        (55223, 'BFRH', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/4 Your Eyez Only.jpg'), 58708),
         (73355, 'AllKendrickAllDrake1Kanye', null, 58708),
-        (666666, 'N''s TOP 5 ALBUMS OAT', LOAD_FILE('/Users/shrey/Documents/Stuff/UBC/1 - CPSC304/assets/TESTING.jpg'), 58708),
+        (666666, 'N''s TOP 5 ALBUMS OAT', LOAD_FILE('/Users/shrey/Documents/Stuff/Code/RateMyMusic/assets/TESTING.jpg'), 58708),
         (10626411, 'Howard''s Top 5 Albums', null, 80172634),
         (10626412, 'James''s Top 5 Albums', null, 29384756),
         (10626413, 'Hunter''s Top 5 Albums', null, 62519038),
