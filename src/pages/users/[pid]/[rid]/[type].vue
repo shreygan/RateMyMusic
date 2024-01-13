@@ -11,7 +11,7 @@ const route = useRoute();
 const userpid = computed(() => route.params.pid as string);
 const rid = computed(() => route.params.rid as string);
 const type = computed(() => route.params.type as string);
-const commentText = ref("");
+var commentText = ref("");
 
 const reviewUser = reactive({
     pid: "",
@@ -155,12 +155,16 @@ export default {
 </script>
 
 <template>
-    <BCol style="margin-top: 20%;">
+    <BContainer class="main-container">
+        <div class="main-title" style="margin-top: 5rem; margin-bottom: 3rem;">
+            <h1>{{ review.album_name }} Review </h1>
+        </div>
+    </BContainer>
 
-        {{ console.log(type) }}
-
-        <BCard v-if="review && review.rid" style="max-width: 50rem; min-height: 20rem;">
-            <small v-if="type == 'Userchart'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Userchart</small>
+    <BCol>
+        <BCard v-if="review && review.rid" style="width: 35rem">
+            <small v-if="type == 'Userchart'" class="text-muted"
+                style="position: absolute; top: 5%; left: 5%;">Userchart</small>
             <small v-if="type == 'Song'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Song</small>
             <small v-if="type == 'Album'" class="text-muted" style="position: absolute; top: 5%; left: 5%;">Album</small>
             <small class="text-muted" style="position: absolute; top: 5%; right: 5%;">
@@ -177,7 +181,7 @@ export default {
                 </RouterLink>
             </div>
 
-            <b-card-img v-if="review.cover" style="width: 30rem" :src="arrayBufferToBase64(review.cover.data)"
+            <b-card-img v-if="review.cover" style="width: 100%" :src="arrayBufferToBase64(review.cover.data)"
                 alt="Album Cover"></b-card-img>
 
             <div class="p-3">
@@ -189,21 +193,30 @@ export default {
         </BCard>
 
 
-        <BCard title="Comments">
+        <BCard title="Comments" style="margin-top: 2rem; width: 35rem;">
             <BListGroup flush>
-                <BListGroupItem v-for="(result, index) in comments" :key="getCardKey(result)" style="max-width: 35vw;">
+                <BListGroupItem v-for="(result, index) in comments" :key="getCardKey(result)" style="max-width: 40rem; margin-top: 0.5rem;">
                     <div class="mb-2">
-                        <h6>@{{ result.username }}</h6>
-                        <small class="text-muted">{{ result.comment_date.substring(0, 10) + ' ' +
+                        <small class="text-muted" style="position: absolute; top: 10%; left: 5%;">
+                            <RouterLink style="text-decoration: none;"
+                                :to="{ name: '/users/[user]', params: { user: result.review_pid } }">
+                                <h6>@{{ result.username }}</h6>
+                            </RouterLink>
+                        </small>
+                        <small class="text-muted" style="position: absolute; top: 10%; right: 5%;"> {{
+                            result.comment_date.substring(0, 10) + ' ' +
                             result.comment_date.substring(11, 19) }}</small>
+
+                        <!-- <small class="text-muted">{{ result.comment_date.substring(0, 10) + ' ' +
+                            result.comment_date.substring(11, 19) }}</small> -->
                     </div>
-                    <p>{{ result.comment_text }}</p>
+                    <p style="margin-top: 2rem; margin-bottom: 1.5rem; text-align: left;">{{ result.comment_text }}</p>
                 </BListGroupItem>
             </BListGroup>
         </BCard>
 
         <div v-if="currentUser.pid">
-            <h4 style="padding-top: 2.5rem" class="my-4">Leave a new comment</h4>
+            <h4 style="padding-top: 0rem" class="my-4">Leave a new comment</h4>
             <BFormInput v-model="commentText"></BFormInput>
             <BButton @click="insertReviewComment()" class="my-4" size="lg" variant="primary">Submit</BButton>
         </div>

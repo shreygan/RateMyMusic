@@ -88,7 +88,7 @@ const albumRating = computed(() => {
         </div>
     </BContainer>
 
-    
+
     <BCard style="margin-bottom: 1rem; width: 35rem;">
         <BImg v-if="songs[0]" :src="arrayBufferToBase64(songs[0].cover.data)" style="width: 100%;" />
     </BCard>
@@ -107,7 +107,8 @@ const albumRating = computed(() => {
                 <BListGroup>
                     <BListGroupItem v-for="(song, index) in songs" :key="index" style="width: 33.4rem">
                         <BRow class="justify-content-end">
-                            <small class="text-muted" style="position: absolute; top: 42%; left: -45.5%;"> {{ index + 1 }} </small>
+                            <small class="text-muted" style="position: absolute; top: 42%; left: -45.5%;"> {{ index + 1 }}
+                            </small>
                             <!-- <BCol style="max-width: -2rem;" class="d-flex align-items-center">
                                 <p>{{ index + 1 }}</p>
                             </BCol> -->
@@ -117,7 +118,7 @@ const albumRating = computed(() => {
                             </BCol>
                             <BCol class="my-3" style="width: 20vw;">
                                 <RouterLink
-                                    :to="{ name: '/songs/[songName]/[year]', params: { songName: song.song_name, year: song.song_release_date } }">    
+                                    :to="{ name: '/songs/[songName]/[year]', params: { songName: song.song_name, year: song.song_release_date } }">
                                     <h5 class="align-self-start mb-0">{{ song.song_name }}</h5>
                                 </RouterLink>
                             </BCol>
@@ -133,7 +134,8 @@ const albumRating = computed(() => {
 
     <!-- <h2 style="margin-top: 3rem;">Album Reviews</h2> -->
 
-    <BCol style="margin-top: -.35rem;" v-if="selectedFilter == 'Reviews'" v-for="(review, index) in reviews" :key="index" class="mb-3">
+    <BCol style="margin-top: -.35rem;" v-if="selectedFilter == 'Reviews'" v-for="(review, index) in reviews" :key="index"
+        class="mb-3">
         <BCard style="width: 35rem;">
             <small class="text-muted" style="position: absolute; top: 7%; right: 5%;">
                 {{ new Date(review.review_date).toLocaleString([], {
@@ -153,12 +155,21 @@ const albumRating = computed(() => {
                 </h5>
             </div>
 
-            <div>
-                <BCardText class="d-flex justify-content-between align-items-center">{{
-                    review.review_text }}</BCardText>
+            <RouterLink style="text-decoration: none; color: black;" :to="{
+                name: '/users/[pid]/[rid]/[type]',
+                params: {
+                    pid: review.pid,
+                    rid: review.rid,
+                    type: 'Album'
+                }
+            }">
+                <div>
+                    <BCardText class="d-flex justify-content-between align-items-center">{{
+                        review.review_text }}</BCardText>
 
-                <BCardFooter> {{ renderStars(review.rating) }}</BCardFooter>
-            </div>
+                    <BCardFooter> {{ renderStars(review.rating) }}</BCardFooter>
+                </div>
+            </RouterLink>
         </BCard>
     </BCol>
 </template>

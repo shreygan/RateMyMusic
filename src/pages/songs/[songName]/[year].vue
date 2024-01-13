@@ -14,7 +14,7 @@ async function loadSongAlbum() {
     let url = "http://localhost:3000/songs/getsongalbum";
     url += `?q=${encodeURIComponent(computed(() => route.params.songName as string).value.trim().toLowerCase())}`;
     url += `&year=${encodeURIComponent(computed(() => route.params.year as string).value.trim().toLowerCase())}`;
-    
+
 
 
     const response = await fetch(url);
@@ -80,17 +80,16 @@ function renderStars(rating: number) {
             <h1> {{ songName }} </h1>
         </div>
     </BContainer>
-    
+
     <BCardText>{{ songRating.toFixed(1) }}/5 based on {{ results.length }} reviews</BCardText>
-    
+
     <!-- {{ console.log(songAlbum[0].song_name) }} -->
 
     <BCard style="margin-bottom: 2rem; width: 35rem;">
         <BImg v-if="songAlbum[0]" :src="arrayBufferToBase64(songAlbum[0].cover.data)" style="width: 100%;" />
     </BCard>
 
-    <BCol style="margin-top: -.35rem;" v-for="(review, index) in results" :key="index"
-        class="mb-3">
+    <BCol style="margin-top: -.35rem;" v-for="(review, index) in results" :key="index" class="mb-3">
         <BCard style="width: 35rem;">
             <small class="text-muted" style="position: absolute; top: 9%; right: 5%;">
                 {{ new Date(review.review_date).toLocaleString([], {
@@ -110,12 +109,21 @@ function renderStars(rating: number) {
                 </h5>
             </div>
 
-            <div>
-                <BCardText class="d-flex justify-content-between align-items-center">{{
-                    review.review_text }}</BCardText>
+            <RouterLink style="text-decoration: none; color: black;" :to="{
+                name: '/users/[pid]/[rid]/[type]',
+                params: {
+                    pid: review.pid,
+                    rid: review.rid,
+                    type: 'Song'
+                }
+            }">
+                <div>
+                    <BCardText class="d-flex justify-content-between align-items-center">{{
+                        review.review_text }}</BCardText>
 
-                <BCardFooter> {{ renderStars(review.rating) }}</BCardFooter>
-            </div>
+                    <BCardFooter> {{ renderStars(review.rating) }}</BCardFooter>
+                </div>
+            </RouterLink>
         </BCard>
     </BCol>
 

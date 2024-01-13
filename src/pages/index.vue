@@ -34,12 +34,12 @@ const songReviews = computedAsync(loadSongReviews, [], isLoading);
 
 <template>
     <div style="max-height: 95vh; overflow: hidden;">
-        <b-container class="main-container">
+        <BContainer class="main-container">
             <div class="main-title">
                 <h1>Welcome to <span class="main">RateMyMusic</span></h1>
                 <p>Your go-to place for music ratings and reviews</p>
             </div>
-        </b-container>
+        </BContainer>
 
         <div>
             <BRow no-gutters>
@@ -68,16 +68,26 @@ const songReviews = computedAsync(loadSongReviews, [], isLoading);
                                     </RouterLink>
                                 </div>
 
+                                <RouterLink style="text-decoration: none; color: black;" :to="{
+                                    name: '/users/[pid]/[rid]/[type]',
+                                    params: {
+                                        pid: review.pid,
+                                        rid: review.rid,
+                                        type: 'Album'
+                                    }
+                                }">
 
-                                <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
-                                    alt="Album Cover"></b-card-img>
+                                    <b-card-img style="max-width: 10rem" :src="arrayBufferToBase64(review.cover.data)"
+                                        alt="Album Cover"></b-card-img>
 
-                                <div class="p-3">
-                                    <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
-                                        review.review_text }}</BCardText>
+                                    <div class="p-3">
+                                        <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                                            review.review_text }}</BCardText>
 
-                                    <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
-                                </div>
+                                        <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}
+                                        </BCardFooter>
+                                    </div>
+                                </RouterLink>
                             </BCard>
                         </BCol>
                     </BContainer>
@@ -109,14 +119,25 @@ const songReviews = computedAsync(loadSongReviews, [], isLoading);
                                     </RouterLink>
                                 </div>
 
-                                <b-card-img v-if="review.cover" style="max-width: 10rem"
-                                    :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
+                                <RouterLink style="text-decoration: none; color: black;" :to="{
+                                    name: '/users/[pid]/[rid]/[type]',
+                                    params: {
+                                        pid: review.pid,
+                                        rid: review.rid,
+                                        type: 'Song'
+                                    }
+                                }">
 
-                                <div class="p-3">
-                                    <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
-                                        review.review_text }}</BCardText>
-                                    <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}</BCardFooter>
-                                </div>
+                                    <b-card-img v-if="review.cover" style="max-width: 10rem"
+                                        :src="arrayBufferToBase64(review.cover.data)" alt="Album Cover"></b-card-img>
+
+                                    <div class="p-3">
+                                        <BCardText class="d-flex justify-content-between align-items-center mb-3">{{
+                                            review.review_text }}</BCardText>
+                                        <BCardFooter style="margin-bottom: -5%;"> {{ renderStars(review.rating) }}
+                                        </BCardFooter>
+                                    </div>
+                                </RouterLink>
                             </BCard>
                         </BCol>
                     </BContainer>
