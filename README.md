@@ -12,6 +12,10 @@
     </div>
 </div>
 
+## Contributors
+- [Shrey Gangwar](https://github.com/shreygan)
+- [Aftahi Ardi](https://github.com/aftahiArdi)
+- [Greg Berezhnov](https://github.com/GregBerezhnov)
 
 ## Overview
 
